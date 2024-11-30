@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="{{ str_replace('_', '-', app()->getLocale()) }}" class="light-style layout-menu-fixed layout-compact"
+    dir="ltr" data-style="light">
+
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport"
+        content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
+    <title>{{ $title ?? config('app.name', 'Prabubima Tech') }}</title>
+
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}">
+
+    <!-- Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Public+Sans:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600;1,700&display=swap"
+        rel="stylesheet">
+
+    <link rel="stylesheet" href="{{ asset('assets/vendor/fonts/boxicons.css') }}" />
+
+    <!-- Core CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/core.css') }}" class="template-customizer-core-css">
+    <link rel="stylesheet" href="{{ asset('assets/vendor/css/theme-default.css') }}"
+        class="template-customizer-theme-css">
+    <link rel="stylesheet" href="{{ asset('assets/css/demo.css') }}">
+
+    <!-- Vendors CSS -->
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.css') }}">
+
+    @stack('css')
+
+    {{-- <style>
+        @media (min-width: 1200px) {
+            .layout-menu-collapsed .layout-menu {
+                width: 80px;
+                /* Sidebar menyempit */
+            }
+
+            .layout-menu-collapsed .layout-page {
+                margin-left: 80px;
+                /* Sesuaikan margin layout */
+            }
+
+            .layout-menu-expanded .layout-menu {
+                width: 260px;
+                /* Sidebar default */
+            }
+
+            .layout-menu-expanded .layout-page {
+                margin-left: 260px;
+                /* Margin default */
+            }
+        }
+    </style> --}}
+</head>
+
+<body>
+
+    <div class="layout-wrapper layout-content-navbar layout-without-menux">
+        <div class="layout-container">
+            <!-- Navbar -->
+            <x-navbar />
+            {{-- <x-nav /> --}}
+
+            <!-- Konten Utama -->
+            <div class="layout-page">
+                <x-topnav />
+
+                {{ $slot }}
+            </div>
+        </div>
+
+        {{-- <div class="layout-overlay layout-menu-toggle"></div> --}}
+    </div>
+
+    <!-- Core JS -->
+    <script src="{{ asset('assets/vendor/js/helpers.js') }}"></script>
+    <script src="{{ asset('assets/js/config.js') }}"></script>
+
+    <!-- Vendors JS -->
+    <script src="{{ asset('assets/vendor/libs/jquery/jquery.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
+    <script src="{{ asset('/assets/vendor/js/menu.js') }}"></script>
+
+    <!-- Main JS -->
+    <script src="{{ asset('assets/js/main.js') }}"></script>
+
+    <!-- END: Theme JS-->
+    @stack('js')
+
+    <script>
+        // document.addEventListener('DOMContentLoaded', function() {
+        //     // Toggle sidebar untuk tombol hamburger mobile
+        //     const mobileMenuToggle = document.querySelector('.layout-menu-toggle');
+        //     const desktopMenuToggle = document.querySelector('.layout-menu-toggle.hide-on-mobile');
+        //     const layoutMenu = document.querySelector('.layout-menu');
+
+        //     function toggleSidebar() {
+        //         document.body.classList.toggle('layout-menu-expanded');
+        //         document.body.classList.toggle('layout-menu-collapsed');
+        //     }
+
+        //     if (mobileMenuToggle) {
+        //         mobileMenuToggle.addEventListener('click', toggleSidebar);
+        //     }
+
+        //     if (desktopMenuToggle) {
+        //         desktopMenuToggle.addEventListener('click', toggleSidebar);
+        //     }
+        // });
+    </script>
+</body>
+
+</html>
