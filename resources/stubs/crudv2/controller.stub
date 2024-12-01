@@ -26,6 +26,7 @@ class {{modelName}}Controller extends Controller implements HasMiddleware
     public function index(): View
     {
         ${{modelVariable}} = {{modelName}}::paginate(10);
+        
         return view('{{modelRoute}}.index', compact('{{modelVariable}}'));
     }
 

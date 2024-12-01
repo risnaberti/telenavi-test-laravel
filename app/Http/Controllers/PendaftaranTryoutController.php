@@ -26,6 +26,7 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
     public function index(): View
     {
         $pendaftaranTryout = PendaftaranTryout::paginate(10);
+
         return view('pendaftaran-tryout.index', compact('pendaftaranTryout'));
     }
 
@@ -39,17 +40,17 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
     public function store(Request $request): RedirectResponse
     {
         $validatedData = $request->validate([
-            'no_peserta' => 'string|max:50',
-            'nama_lengkap' => 'string|max:50',
-            'jenis_kelamin' => 'string|in:L,P',
-            'nisn' => 'string|max:10',
-            'nama_asal_sekolah' => 'string|max:50',
-            'nama_ortu' => 'string|max:50',
-            'no_wa_ortu' => 'string|max:20',
-            'no_wa_peserta' => 'string|max:20',
-            'alamat_domisili' => 'string',
-            'tanggal_pembayaran' => 'date_format:Y-m-d H:i:s',
-            'nominal_tagihan' => 'numeric',
+            'no_peserta' => 'nullable|string|max:50',
+            'nama_lengkap' => 'required|string|max:50',
+            'jenis_kelamin' => 'required|string|in:L,P',
+            'nisn' => 'nullable|string|max:10',
+            'nama_asal_sekolah' => 'required|string|max:50',
+            'nama_ortu' => 'nullable|string|max:50',
+            'no_wa_ortu' => 'required|string|max:20',
+            'no_wa_peserta' => 'required|string|max:20',
+            'alamat_domisili' => 'nullable|string',
+            'tanggal_pembayaran' => 'nullable|date_format:Y-m-d H:i:s',
+            'nominal_tagihan' => 'nullable|numeric',
         ]);
 
         try {
@@ -76,17 +77,17 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
     public function update(Request $request, PendaftaranTryout $pendaftaranTryout): RedirectResponse
     {
         $validatedData = $request->validate([
-            'no_peserta' => 'string|max:50',
-            'nama_lengkap' => 'string|max:50',
-            'jenis_kelamin' => 'string|in:L,P',
-            'nisn' => 'string|max:10',
-            'nama_asal_sekolah' => 'string|max:50',
-            'nama_ortu' => 'string|max:50',
-            'no_wa_ortu' => 'string|max:20',
-            'no_wa_peserta' => 'string|max:20',
-            'alamat_domisili' => 'string',
-            'tanggal_pembayaran' => 'date_format:Y-m-d H:i:s',
-            'nominal_tagihan' => 'numeric',
+            'no_peserta' => 'nullable|string|max:50',
+            'nama_lengkap' => 'required|string|max:50',
+            'jenis_kelamin' => 'required|string|in:L,P',
+            'nisn' => 'nullable|string|max:10',
+            'nama_asal_sekolah' => 'required|string|max:50',
+            'nama_ortu' => 'nullable|string|max:50',
+            'no_wa_ortu' => 'required|string|max:20',
+            'no_wa_peserta' => 'required|string|max:20',
+            'alamat_domisili' => 'nullable|string',
+            'tanggal_pembayaran' => 'nullable|date_format:Y-m-d H:i:s',
+            'nominal_tagihan' => 'nullable|numeric',
         ]);
 
         try {

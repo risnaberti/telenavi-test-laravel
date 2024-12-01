@@ -113,6 +113,8 @@ class MakeModelVariabel
             if (!$columnInfo['nullable']) {
                 $columnFields['required'] = true;
                 $columnRules[] = 'required';
+            } else {
+                $columnRules[] = 'nullable';
             }
 
             $maxLength = $columnInfo['length'];

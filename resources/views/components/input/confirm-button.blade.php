@@ -21,19 +21,18 @@ contoh penggunaan:
 @endPushOnce
 
 @if ($url)
-    <a href="#" class="{{ $class }} confirm-button" data-url="{{ $url }}"
+    <a href="#" {{ $attributes->merge(['class' => $class . ' confirm-button']) }} data-url="{{ $url }}"
         data-title="{{ $title }}" data-text="{{ $text }}" data-icon="{{ $icon }}"
         data-positive="{{ $positive }}" data-negative="{{ $negative }}">
         {{ $slot }}
     </a>
 @else
-    <button type="button" class="{{ $class }} confirm-button" data-title="{{ $title }}"
-        data-text="{{ $text }}" data-icon="{{ $icon }}" data-positive="{{ $positive }}"
-        data-negative="{{ $negative }}">
+    <button type="submit" {{ $attributes->merge(['class' => $class . ' confirm-button']) }}
+        data-title="{{ $title }}" data-text="{{ $text }}" data-icon="{{ $icon }}"
+        data-positive="{{ $positive }}" data-negative="{{ $negative }}">
         {{ $slot }}
     </button>
 @endif
-
 @pushOnce('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {

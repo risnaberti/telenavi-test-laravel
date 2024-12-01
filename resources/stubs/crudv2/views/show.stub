@@ -1,7 +1,7 @@
 <x-layouts.app title="Detail {{modelTitle}}" :active-menu="'{{modelNamePluralLowerCase}}'">
     <div class="row">
         <div class="col-12">
-            <div class="d-flex justify-content-between align-items-center mb-4">
+            <div class="mb-4 d-flex justify-content-between align-items-center">
                 <h4 class="py-3 mb-0"><span class="text-muted fw-light">{{modelName}}/</span> Detail</h4>
                 <div>
                     <a href="{{ route('{{modelNamePluralLowerCase}}.index') }}" class="btn btn-sm btn-secondary">
@@ -16,7 +16,7 @@
                 </div>
                 <div class="card-body">
                     <form class="row g-3">
-                        {{viewRows}}
+                        {{{show.field.stub}}}
                     </form>
                 </div>
             </div>

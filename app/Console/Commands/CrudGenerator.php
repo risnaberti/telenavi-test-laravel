@@ -52,14 +52,14 @@ class CrudGenerator extends Command
                 $this->info("View untuk model {$modelName} berhasil dibuat!");
                 break;
 
-                // case 'all':
-                // default:
-                //     if ($this->generateController($modelVariables)) {
-                //         $this->info("Controller untuk model {$modelName} berhasil dibuat!");
-                //         $this->generateViews($modelVariables);
-                //         $this->info("View untuk model {$modelName} berhasil dibuat!");
-                //     }
-                //     break;
+            case 'all':
+            default:
+                if ($this->generateController($modelVariables)) {
+                    $this->info("Controller untuk model {$modelName} berhasil dibuat!");
+                    $this->generateViews($modelVariables);
+                    $this->info("View untuk model {$modelName} berhasil dibuat!");
+                }
+                break;
         }
     }
 
