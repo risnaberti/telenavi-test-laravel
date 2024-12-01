@@ -1,22 +1,10 @@
 <x-layouts.app title="Perbarui {{modelTitle}}">
     <div class="container my-5">
-        <div class="d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold">Perbarui {{modelTitle}}</h4>
-
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ url('/') }}">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('{{modelRoute}}.index') }}">{{modelTitle}}</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        Perbarui {{modelTitle}}
-                    </li>
-                </ol>
-            </nav>
-        </div>
+        <x-breadcrumb title="Perbarui {{modelTitle}}" :breadcrumbs="[
+            ['label' => 'Dashboard', 'url' => url('/')],
+            ['label' => '{{modelTitle}}', 'url' => route('{{modelRoute}}.index')],
+            ['label' => 'Perbarui {{modelTitle}}'],
+        ]" />
 
         <x-sweet-alert />
 

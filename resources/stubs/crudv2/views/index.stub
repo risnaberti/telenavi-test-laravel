@@ -1,19 +1,9 @@
 <x-layouts.app title="{{modelTitle}}" activeMenu="{{modelRoute}}">
     <div class="my-5 container-fluid">
-        <div class="d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold">Data {{modelTitle}}</h4>
-
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ url('/') }}">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        {{modelTitle}}
-                    </li>
-                </ol>
-            </nav>
-        </div>
+        <x-breadcrumb title="{{modelTitle}}" :breadcrumbs="[
+            ['label' => 'Dashboard', 'url' => url('/')],
+            ['label' => '{{modelTitle}}'],
+        ]" />
 
         <x-bs-toast />
         
@@ -22,7 +12,7 @@
                 <h5 class="mb-0 card-title">{{modelTitle}}</h5>
                 @can('{{modelRoute}} create')
                     <a href="{{ route('{{modelRoute}}.create') }}" class="btn btn-primary">
-                        <span class="tf-icons bx bx-plus"></span>Tambah Data
+                        <span class="bx bx-plus me-1"></span>Tambah Data
                     </a>
                 @endcan
             </div>
@@ -50,7 +40,7 @@
                                                         data-bs-toggle="tooltip"
                                                         data-bs-title="Detail"
                                                         data-bs-placement="top">
-                                                        <span class="tf-icons bx bx-show"></span>
+                                                        <span class="bx bx-show"></span>
                                                     </a>
                                                 </div>
                                             @endcan
@@ -60,7 +50,7 @@
                                                         class="btn btn-icon btn-outline-primary btn-sm"
                                                         data-bs-toggle="tooltip" data-bs-title="Edit"
                                                         data-bs-placement="top">
-                                                        <span class="tf-icons bx bx-pencil"></span>
+                                                        <span class="bx bx-pencil"></span>
                                                     </a>
                                                 </div>
                                             @endcan
@@ -75,7 +65,7 @@
                                                         data-bs-toggle="tooltip"
                                                         data-bs-title="Hapus"
                                                         data-bs-placement="top">
-                                                        <span class="tf-icons bx bx-trash"></span>
+                                                        <span class="bx bx-trash"></span>
                                                     </x-input.confirm-button>
                                                 </form>
                                             @endcan

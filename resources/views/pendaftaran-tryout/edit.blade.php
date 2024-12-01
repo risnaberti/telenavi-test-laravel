@@ -1,22 +1,10 @@
 <x-layouts.app title="Perbarui Pendaftaran Tryout">
     <div class="container my-5">
-        <div class="d-flex justify-content-between align-items-center">
-            <h4 class="fw-bold">Perbarui Pendaftaran Tryout</h4>
-
-            <nav aria-label="breadcrumb">
-                <ol class="breadcrumb">
-                    <li class="breadcrumb-item">
-                        <a href="{{ url('/') }}">Dashboard</a>
-                    </li>
-                    <li class="breadcrumb-item">
-                        <a href="{{ route('pendaftaran-tryout.index') }}">Pendaftaran Tryout</a>
-                    </li>
-                    <li class="breadcrumb-item active" aria-current="page">
-                        Perbarui Pendaftaran Tryout
-                    </li>
-                </ol>
-            </nav>
-        </div>
+        <x-breadcrumb title="Perbarui Pendaftaran Tryout" :breadcrumbs="[
+            ['label' => 'Dashboard', 'url' => url('/')],
+            ['label' => 'Pendaftaran Tryout', 'url' => route('pendaftaran-tryout.index')],
+            ['label' => 'Perbarui Pendaftaran Tryout'],
+        ]" />
 
         <x-sweet-alert />
 
