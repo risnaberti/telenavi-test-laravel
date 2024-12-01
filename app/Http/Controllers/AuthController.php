@@ -1,0 +1,191 @@
+<?php
+
+namespace App\Http\Controllers;
+
+use App\Models\User;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
+use Illuminate\Validation\ValidationException;
+
+class AuthController extends Controller
+{
+    public function login()
+    {
+        return view('auth.login');
+    }
+
+    public function doLogin(Request $request)
+    {
+        $credentials = $request->validate([
+            // 'email' => 'required|email',
+            'username' => 'required',
+            'password' => 'required'
+        ]);
+
+        if (Auth::attempt($credentials, $request->boolean('remember'))) {
+            $request->session()->regenerate();
+            return redirect()->intended('pendaftaran-tryout')->with('success', 'Login berhasil');;
+        }
+
+        return back()->withErrors([
+            'username' => 'Username atau password salah',
+        ])->withInput($request->only('username'));
+    }
+
+    public function register()
+    {
+        return view('auth.register');
+    }
+
+    // Proses Registrasi
+    public function doRegister(Request $request)
+    {
+
+        // echo '<pre>';
+        // print_r($request->all());
+        // echo '</pre>';
+        // die;
+        // 'email' => 'required|string|email|max:255|unique:users',
+        $validatedData = $request->validate([
+            'name' => 'required|string|max:255',
+            'username' => 'required|string|max:255|unique:users',
+            'password' => 'required|string|min:6|confirmed'
+        ]);
+
+
+        $user = User::create([
+            'name' => $validatedData['name'],
+            'username' => $validatedData['username'],
+            'password' => Hash::make($validatedData['password'])
+        ]);
+
+        if (!$user) {
+            return back()->withErrors([
+                'username' => 'Error hubungi admin.',
+            ])->withInput($request->only(['username', 'name']));
+        }
+
+        Auth::login($user);
+
+        return redirect()->route('pendaftaran-tryout')->with('success', 'Registrasi berhasil');
+    }
+
+    // Logout
+    public function logout(Request $request)
+    {
+        Auth::logout();
+        $request->session()->invalidate();
+        $request->session()->regenerateToken();
+        return redirect('/')->with('success', 'Anda telah logout');
+    }
+
+    // Halaman Ubah Password
+    public function changePassword()
+    {
+        return view('auth.change-password');
+    }
+
+    // Proses Ubah Password
+    public function doChangePassword(Request $request)
+    {
+        $request->validate([
+            'current_password' => 'required',
+            'password' => 'required|min:8|confirmed'
+        ]);
+
+        $user = Auth::user();
+
+        if (!Hash::check($request->current_password, $user->password)) {
+            throw ValidationException::withMessages([
+                'current_password' => ['Password saat ini salah']
+            ]);
+        }
+
+        $user->update([
+            'password' => Hash::make($request->password)
+        ]);
+
+        return back()->with('status', 'Password berhasil diubah');
+    }
+
+    public function profile(Request $request)
+    {
+        return view('profile', [
+            'user' => $request->user()
+        ]);
+    }
+
+    public function updateProfile(Request $request)
+    {
+        $user = $request->user();
+
+        $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|email|unique:users,email,' . $user->id
+        ]);
+
+        $user->update([
+            'name' => $request->name,
+            'email' => $request->email
+        ]);
+
+        return back()->with('status', 'Profil berhasil diperbarui');
+    }
+
+    /**
+     * Display a listing of the resource.
+     */
+    public function index()
+    {
+        //
+    }
+
+    /**
+     * Show the form for creating a new resource.
+     */
+    public function create()
+    {
+        //
+    }
+
+    /**
+     * Store a newly created resource in storage.
+     */
+    public function store(Request $request)
+    {
+        //
+    }
+
+    /**
+     * Display the specified resource.
+     */
+    public function show(User $user)
+    {
+        //
+    }
+
+    /**
+     * Show the form for editing the specified resource.
+     */
+    public function edit(User $user)
+    {
+        //
+    }
+
+    /**
+     * Update the specified resource in storage.
+     */
+    public function update(Request $request, User $user)
+    {
+        //
+    }
+
+    /**
+     * Remove the specified resource from storage.
+     */
+    public function destroy(User $user)
+    {
+        //
+    }
+}

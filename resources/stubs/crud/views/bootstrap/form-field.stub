@@ -1,0 +1,5 @@
+    <div class="mb-4">
+        <label for="{{column_snake}}" class="form-label">{{title}}</label>
+        <input type="text" name="{{column}}" class="form-control @error('{{column}}') is-invalid @enderror" id="{{column_snake}}" value="{{ old('{{column}}', ${{modelNameLowerCase}}?->{{column}}) }}" id="{{column_snake}}" placeholder="{{title}}">
+        @error('{{column}}')<small class="invalid-feedback">{{ $message }}</small>@enderror
+    </div>

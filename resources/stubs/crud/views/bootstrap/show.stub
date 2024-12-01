@@ -1,0 +1,25 @@
+<x-layouts.app title="Detail {{modelTitle}}" :active-menu="'{{modelNamePluralLowerCase}}'">
+    <div class="row">
+        <div class="col-12">
+            <div class="d-flex justify-content-between align-items-center mb-4">
+                <h4 class="py-3 mb-0"><span class="text-muted fw-light">{{modelName}}/</span> Detail</h4>
+                <div>
+                    <a href="{{ route('{{modelNamePluralLowerCase}}.index') }}" class="btn btn-sm btn-secondary">
+                        <i class="bx bx-arrow-back me-1"></i>Kembali
+                    </a>
+                </div>
+            </div>
+
+            <div class="card">
+                <div class="card-header">
+                    <h5 class="card-title">Detail {{modelTitle}}</h5>
+                </div>
+                <div class="card-body">
+                    <form class="row g-3">
+                        {{viewRows}}
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</x-layouts.app>

@@ -183,4 +183,37 @@ return [
 
         'store' => 'default',
     ],
+
+    'permissions' => [
+        [
+            'group' => 'users',
+            'pengguna' => ['admin'],
+            'access' => [
+                'user view',
+                'user create',
+                'user edit',
+                'user delete',
+            ]
+        ],
+        [
+            'group' => 'roles & permissions',
+            'pengguna' => ['admin'],
+            'access' => [
+                'role & permission view',
+                'role & permission create',
+                'role & permission edit',
+                'role & permission delete',
+            ]
+        ],
+        [
+            'group' => 'pendaftaran tryout',
+            'pengguna' => ['peserta', 'admin'],
+            'access' => [
+                'pendaftaran-tryout view',
+                'pendaftaran-tryout create',
+                'pendaftaran-tryout edit',
+                'pendaftaran-tryout delete',
+            ]
+        ],
+    ]
 ];
