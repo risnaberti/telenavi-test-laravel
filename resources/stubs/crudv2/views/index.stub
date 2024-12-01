@@ -9,7 +9,6 @@
         
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                <h5 class="mb-0 card-title">{{modelTitle}}</h5>
                 @can('{{modelRoute}} create')
                     <a href="{{ route('{{modelRoute}}.create') }}" class="btn btn-primary">
                         <span class="bx bx-plus me-1"></span>Tambah Data
