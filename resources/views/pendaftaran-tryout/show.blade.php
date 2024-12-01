@@ -1,4 +1,4 @@
-<x-layouts.app title="Detail Pendaftaran Tryout" :active-menu="'pendaftaran-tryout'">
+<x-layouts.app title="Detail Pendaftaran Tryout" :activeMenu="'pendaftaran-tryout'">
      <div class="container my-5">
         <x-breadcrumb title="Detail Pendaftaran Tryout" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],

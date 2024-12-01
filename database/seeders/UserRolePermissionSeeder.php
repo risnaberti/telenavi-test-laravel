@@ -24,7 +24,7 @@ class UserRolePermissionSeeder extends Seeder
             User::query()->delete();
 
             User::create([
-                'name' => 'Admin',
+                'name' => 'Pamungkas Admin',
                 'username' => 'admin',
                 'password' => Hash::make('b15millah')
             ]);

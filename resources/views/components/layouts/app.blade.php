@@ -35,30 +35,6 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
 
     @stack('css')
-
-    {{-- <style>
-        @media (min-width: 1200px) {
-            .layout-menu-collapsed .layout-menu {
-                width: 80px;
-                /* Sidebar menyempit */
-            }
-
-            .layout-menu-collapsed .layout-page {
-                margin-left: 80px;
-                /* Sesuaikan margin layout */
-            }
-
-            .layout-menu-expanded .layout-menu {
-                width: 260px;
-                /* Sidebar default */
-            }
-
-            .layout-menu-expanded .layout-page {
-                margin-left: 260px;
-                /* Margin default */
-            }
-        }
-    </style> --}}
 </head>
 
 <body>
@@ -67,7 +43,6 @@
         <div class="layout-container">
             <!-- Navbar -->
             <x-navbar />
-            {{-- <x-nav /> --}}
 
             <!-- Konten Utama -->
             <div class="layout-page">
@@ -76,8 +51,6 @@
                 {{ $slot }}
             </div>
         </div>
-
-        {{-- <div class="layout-overlay layout-menu-toggle"></div> --}}
     </div>
 
     <!-- Core JS -->
@@ -96,28 +69,6 @@
 
     <!-- END: Theme JS-->
     @stack('js')
-
-    <script>
-        // document.addEventListener('DOMContentLoaded', function() {
-        //     // Toggle sidebar untuk tombol hamburger mobile
-        //     const mobileMenuToggle = document.querySelector('.layout-menu-toggle');
-        //     const desktopMenuToggle = document.querySelector('.layout-menu-toggle.hide-on-mobile');
-        //     const layoutMenu = document.querySelector('.layout-menu');
-
-        //     function toggleSidebar() {
-        //         document.body.classList.toggle('layout-menu-expanded');
-        //         document.body.classList.toggle('layout-menu-collapsed');
-        //     }
-
-        //     if (mobileMenuToggle) {
-        //         mobileMenuToggle.addEventListener('click', toggleSidebar);
-        //     }
-
-        //     if (desktopMenuToggle) {
-        //         desktopMenuToggle.addEventListener('click', toggleSidebar);
-        //     }
-        // });
-    </script>
 </body>
 
 </html>

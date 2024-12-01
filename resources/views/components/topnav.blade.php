@@ -19,7 +19,7 @@
             <ul class="flex-row navbar-nav align-items-center ms-auto">
 
                 <!-- Style Switcher -->
-                <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
+                {{-- <li class="nav-item dropdown-style-switcher dropdown me-2 me-xl-0">
                     <a class="nav-link dropdown-toggle hide-arrow" href="javascript:void(0);" data-bs-toggle="dropdown">
                         <i class="bx bx-md bx-sun"></i>
                     </a>
@@ -40,7 +40,7 @@
                             </a>
                         </li>
                     </ul>
-                </li>
+                </li> --}}
                 <!--/ Style Switcher -->
 
                 <!-- User -->
@@ -53,17 +53,14 @@
                                     alt="" class="h-auto w-px-40 rounded-circle">
                             </div>
                             <div class="ms-3">
-                                <h6 class="mb-0">
-                                    John Doe
-                                </h6>
-                                <small class="text-muted">Admin</small>
+                                <h6 class="mb-0">{{ auth()->user()->name }}</h6>
+                                <small class="text-muted">{{ '@' . auth()->user()->username }}</small>
                             </div>
                         </div>
                     </a>
                     <ul class="dropdown-menu dropdown-menu-end">
                         <li>
-                            <a class="dropdown-item"
-                                href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-5/pages/profile-user">
+                            <div class="dropdown-item">
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
@@ -72,31 +69,36 @@
                                         </div>
                                     </div>
                                     <div class="flex-grow-1">
-                                        <h6 class="mb-0">
-                                            John Doe
-                                        </h6>
-                                        <small class="text-muted">Admin</small>
+                                        <h6 class="mb-0">{{ auth()->user()->name }}</h6>
+                                        <small class="text-muted">{{ '@' . auth()->user()->username }}</small>
                                     </div>
                                 </div>
-                            </a>
+                            </div>
+                        </li>
+                        {{-- tampilan role nya apa aja harusnay disini, pake badge --}}
+                        <li>
+                            @canany(['user profile', 'user change-password'])
+                                <div class="my-1 dropdown-divider"></div>
+                            @endcanany
                         </li>
                         <li>
-                            <div class="my-1 dropdown-divider"></div>
+                            @can('user profile')
+                                <a class="dropdown-item" href="{{ route('profile') }}">
+                                    <i class="bx bx-user bx-md me-3"></i><span>My Profile</span>
+                                </a>
+                            @endcan
                         </li>
                         <li>
-                            <a class="dropdown-item"
-                                href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-5/pages/profile-user">
-                                <i class="bx bx-user bx-md me-3"></i><span>My Profile</span>
-                            </a>
+                            @can('user change-password')
+                                <a class="dropdown-item" href="{{ route('change-password') }}">
+                                    <i class="bx bx-user bx-md me-3"></i><span>Change Password</span>
+                                </a>
+                            @endcan
                         </li>
                         <li>
-                            <a class="dropdown-item"
-                                href="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo-5/pages/profile-user">
-                                <i class="bx bx-user bx-md me-3"></i><span>Change Password</span>
-                            </a>
-                        </li>
-                        <li>
-                            <div class="my-1 dropdown-divider"></div>
+                            @canany(['user profile', 'user change-password'])
+                                <div class="my-1 dropdown-divider"></div>
+                            @endcanany
                         </li>
                         <li>
                             <form action="{{ route('logout') }}" method="POST">

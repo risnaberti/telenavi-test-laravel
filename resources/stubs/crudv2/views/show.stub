@@ -1,4 +1,4 @@
-<x-layouts.app title="Detail {{modelTitle}}" :active-menu="'{{modelRoute}}'">
+<x-layouts.app title="Detail {{modelTitle}}" activeMenu="{{modelRoute}}.show">
      <div class="container my-5">
         <x-breadcrumb title="Detail {{modelTitle}}" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],

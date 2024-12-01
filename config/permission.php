@@ -189,10 +189,13 @@ return [
             'group' => 'users',
             'pengguna' => ['admin'],
             'access' => [
+                'user change-password',
+                'user profile',
                 'user view',
                 'user create',
                 'user edit',
                 'user delete',
+                'user change-password-admin', // untuk ganti password spesifik user
             ]
         ],
         [

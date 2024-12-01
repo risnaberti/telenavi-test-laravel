@@ -9,7 +9,6 @@ Route::get('/', function () {
 });
 
 Route::middleware('guest')->group(function () {
-
     Route::get('/login', [AuthController::class, 'login'])->name('login');
     Route::post('/login', [AuthController::class, 'doLogin']);
 
@@ -19,6 +18,9 @@ Route::middleware('guest')->group(function () {
 
 Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
+    Route::post('/profile', [AuthController::class, 'updateProfile']);
 
     Route::get('/change-password', [AuthController::class, 'change-password'])->name('change-password');
     Route::post('/change-password', [AuthController::class, 'doChangePassword']);
