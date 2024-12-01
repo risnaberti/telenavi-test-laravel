@@ -15,24 +15,17 @@ contoh penggunaan:
     'negative' => 'Batal',
 ])
 
+<a href="#" {{ $attributes->merge(['class' => $class . ' confirm-button']) }} data-url="{{ $url }}"
+    data-title="{{ $title }}" data-text="{{ $text }}" data-icon="{{ $icon }}"
+    data-positive="{{ $positive }}" data-negative="{{ $negative }}">
+    {{ $slot }}
+</a>
+
 @pushOnce('css')
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endPushOnce
 
-@if ($url)
-    <a href="#" {{ $attributes->merge(['class' => $class . ' confirm-button']) }} data-url="{{ $url }}"
-        data-title="{{ $title }}" data-text="{{ $text }}" data-icon="{{ $icon }}"
-        data-positive="{{ $positive }}" data-negative="{{ $negative }}">
-        {{ $slot }}
-    </a>
-@else
-    <button type="submit" {{ $attributes->merge(['class' => $class . ' confirm-button']) }}
-        data-title="{{ $title }}" data-text="{{ $text }}" data-icon="{{ $icon }}"
-        data-positive="{{ $positive }}" data-negative="{{ $negative }}">
-        {{ $slot }}
-    </button>
-@endif
 @pushOnce('js')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
@@ -50,7 +43,7 @@ contoh penggunaan:
                         cancelButtonText: this.getAttribute('data-negative')
                     }).then((result) => {
                         if (result.isConfirmed) {
-                            if (this.tagName.toLowerCase() === 'a') {
+                            if (this.getAttribute('data-url')) {
                                 window.location.href = this.getAttribute('data-url');
                             } else {
                                 this.closest('form').submit();

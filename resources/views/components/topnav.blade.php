@@ -84,14 +84,14 @@
                         <li>
                             @can('user profile')
                                 <a class="dropdown-item" href="{{ route('profile') }}">
-                                    <i class="bx bx-user bx-md me-3"></i><span>My Profile</span>
+                                    <i class="menu-icon bx bx-user bx-md"></i><span>My Profile</span>
                                 </a>
                             @endcan
                         </li>
                         <li>
                             @can('user change-password')
                                 <a class="dropdown-item" href="{{ route('change-password') }}">
-                                    <i class="bx bx-user bx-md me-3"></i><span>Change Password</span>
+                                    <i class="menu-icon bx bx-user bx-md"></i><span>Change Password</span>
                                 </a>
                             @endcan
                         </li>
@@ -103,11 +103,11 @@
                         <li>
                             <form action="{{ route('logout') }}" method="POST">
                                 @csrf
-                                <button class="dropdown-item" type="submit">
-                                    <i class="bx bx-log-in bx-md me-3"></i><span>Logout</span>
-                                </button>
+                                <x-input.confirm-button text="Anda akan keluar dari akun ini!" positive="Ya, keluar!"
+                                    icon="info" class="dropdown-item">
+                                    <i class="menu-icon bx bx-exit"></i><span>Logout</span>
+                                </x-input.confirm-button>
                             </form>
-
                         </li>
                     </ul>
                 </li>
