@@ -216,6 +216,7 @@ return [
                 'pendaftaran-tryout create',
                 'pendaftaran-tryout edit',
                 'pendaftaran-tryout delete',
+                'pendaftaran-tryout daftar-by-admin'
             ]
         ],
     ]

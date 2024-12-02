@@ -1,11 +1,23 @@
-{{-- @source=[
+{{-- 
+@source=[
         https://wehelpcode.com/free-code-snippets/how-to-use-date-range-picker-in-laravel-php,
         https://www.daterangepicker.com
-] --}}
+] 
+Contoh penggunaan:
+Range Calendar:
+<x-input.daterangepicker name1="waktu_awal" name2="waktu_akhir" :value1="old('waktu_awal', $forms['waktu_awal'])"
+        :value2="old('waktu_akhir', $forms['waktu_akhir'])" placeholder="Pilih Rentang Tanggal" opens="right"
+        customRangeLabel="1 Thn Ajaran" />
+
+Single Calendar:
+<x-input.daterangepicker name1="tanggal_lahir" value1="{{ old('tanggal_lahir', $pendaftaranTryout?->tanggal_lahir) }}"
+        placeholder="Pilih Tanggal" opens="right"
+        singleDatePicker="true" :ranges="false" />
+--}}
 
 @props([
     'name1',
-    'name2',
+    'name2' => null,
     'id1' => null,
     'id2' => null,
     'value1' => null,
@@ -14,6 +26,7 @@
     'opens' => 'left',
     'format' => 'DD/MM/YYYY',
     'ranges' => true,
+    'singleDatePicker' => 'false',
     'customRangeLabel' => 'Custom',
     'class' => '',
 ])
@@ -21,8 +34,8 @@
 @php
     $id1 = $id1 ?? $name1;
     $id2 = $id2 ?? $name2;
-    $value1 = $value1 ?? date('Y-m-d');
-    $value2 = $value2 ?? date('Y-m-d');
+    $value1 = empty($value1) ? date('Y-m-d') : $value1;
+    $value2 = empty($value2) ? date('Y-m-d') : $value2;
 @endphp
 
 <div class="date-range-picker-wrapper" x-data="{
@@ -45,6 +58,7 @@
                 ],
                 firstDay: 1
             },
+            singleDatePicker: {{ $singleDatePicker }},
             alwaysShowCalendars: true,
             startDate: moment('{{ $value1 }}'),
             endDate: moment('{{ $value2 }}'),

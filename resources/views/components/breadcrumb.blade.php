@@ -8,7 +8,7 @@
         <h4 class="fw-bold">{{ $title }}</h4>
     @endif
 
-    <nav aria-label="breadcrumb">
+    <nav aria-label="breadcrumb" class="d-none d-md-flex d-xl-flex">
         <ol class="breadcrumb breadcrumb-style1">
             @foreach ($breadcrumbs as $breadcrumb)
                 <li class="breadcrumb-item {{ $loop->last ? 'active' : '' }}"

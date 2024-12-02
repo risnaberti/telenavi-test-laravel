@@ -33,23 +33,73 @@
     <!-- Page -->
     <link rel="stylesheet" href="{{ asset('assets/vendor/css/pages/page-auth.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
-
-    <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+    <link rel="stylesheet" href="{{ asset('assets/vendor/libs/aos/aos.css') }}" />
 
     @stack('css')
+
+    <style>
+        .main-container {
+            position: relative;
+            height: 100vh;
+        }
+
+        .main-bg {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            /* z-index: -1; */
+        }
+
+        h4.section-title {
+            font-size: 32px;
+            font-weight: 700;
+            margin-bottom: 20px;
+            padding-bottom: 20px;
+            text-transform: uppercase;
+            position: relative;
+        }
+
+        h4.section-title:before {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 160px;
+            height: 2px;
+            background: color-mix(in srgb, var(--bs-white), transparent 60%);
+            left: 0;
+            right: 0;
+            bottom: 1px;
+            margin: auto;
+        }
+
+        h4.section-title::after {
+            content: "";
+            position: absolute;
+            display: block;
+            width: 60px;
+            height: 3px;
+            background: var(--bs-primary);
+            left: 0;
+            right: 0;
+            bottom: 0;
+            margin: auto;
+        }
+    </style>
 </head>
 
 <body>
 
-    <div class="layout-wrapper layout-content-navbar layout-without-menux">
+    <div class="layout-wrapper layout-content-navbar layout-without-menu">
         <div class="layout-container">
             <!-- Navbar -->
-            <x-navbar />
+            {{-- <x-navbar-guest /> --}}
 
             <!-- Konten Utama -->
             <div class="layout-page">
-                <x-topnav />
-
                 {{ $slot }}
             </div>
         </div>
@@ -64,7 +114,8 @@
     <script src="{{ asset('assets/vendor/libs/popper/popper.js') }}"></script>
     <script src="{{ asset('assets/vendor/js/bootstrap.js') }}"></script>
     <script src="{{ asset('assets/vendor/libs/perfect-scrollbar/perfect-scrollbar.js') }}"></script>
-    <script src="{{ asset('/assets/vendor/js/menu.js') }}"></script>
+    <script src="{{ asset('assets/vendor/js/menu.js') }}"></script>
+    <script src="{{ asset('assets/vendor/libs/aos/aos.js') }}"></script>
 
     <!-- Main JS -->
     <script src="{{ asset('assets/js/main.js') }}"></script>

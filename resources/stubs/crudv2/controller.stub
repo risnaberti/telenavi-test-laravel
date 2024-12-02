@@ -5,7 +5,6 @@ namespace App\Http\Controllers;
 use {{modelNamespace}}\{{modelName}};
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use \Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
@@ -46,7 +45,7 @@ class {{modelName}}Controller extends Controller implements HasMiddleware
         try {
             {{modelName}}::create($validatedData);
         } catch (\Illuminate\Database\QueryException $e) {
-            return Redirect::route('{{modelRoute}}.index')
+            return redirect()->route('{{modelRoute}}.index')
                 ->with('error', 'Terjadi kesalahan saat membuat data.');
         }
 

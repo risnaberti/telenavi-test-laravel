@@ -1,5 +1,10 @@
-<nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar">
+<nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar"
+    style="z-index: 500;">
     <div class="container-xxl">
+
+        {{-- <div class="navbar-brand menu-text fw-bold">
+            <span>Sistem Pendaftaran Tryout </span>
+        </div> --}}
 
         <!--  Brand demo (display only for navbar-full and hide on below xl) -->
         <div class="py-0 navbar-brand app-brand demo d-none d-xl-flex me-4 d-xl-none">
@@ -49,7 +54,7 @@
                         data-bs-toggle="dropdown">
                         <div class="d-flex">
                             <div class="avatar avatar-online">
-                                <img src="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/1.png"
+                                <img src="https://ui-avatars.com/api/?background=random&name={{ auth()->user()->name }}"
                                     alt="" class="h-auto w-px-40 rounded-circle">
                             </div>
                             <div class="ms-3">
@@ -64,7 +69,7 @@
                                 <div class="d-flex">
                                     <div class="flex-shrink-0 me-3">
                                         <div class="avatar avatar-online">
-                                            <img src="https://demos.themeselection.com/sneat-bootstrap-html-laravel-admin-template/demo/assets/img/avatars/1.png"
+                                            <img src="https://ui-avatars.com/api/?background=random&name={{ auth()->user()->name }}"
                                                 alt="" class="h-auto w-px-40 rounded-circle">
                                         </div>
                                     </div>
