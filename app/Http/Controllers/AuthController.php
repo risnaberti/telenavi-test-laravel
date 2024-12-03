@@ -83,6 +83,8 @@ class AuthController extends Controller
     // Halaman Ubah Password
     public function changePassword()
     {
+        return redirect()->back()->with('error', 'Menu tidak bisa diakses');
+
         return view('auth.change-password');
     }
 
@@ -111,6 +113,8 @@ class AuthController extends Controller
 
     public function profile(Request $request)
     {
+        return redirect()->back()->with('error', 'Menu tidak bisa diakses');
+
         return view('profile', [
             'user' => $request->user()
         ]);

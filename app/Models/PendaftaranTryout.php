@@ -61,4 +61,11 @@ class PendaftaranTryout extends Model
 		'nominal_tagihan',
 		'password_login'
 	];
+
+	public function getNamaJenisKelaminAttribute()
+	{
+		$value = $this->jenis_kelamin;
+
+		return $value == 'P' ? 'Perempuan' : ($value == 'L' ? 'Laki-laki' : 'Tidak Diketahui');
+	}
 }

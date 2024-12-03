@@ -24,13 +24,15 @@
         <ul class="flex-row navbar-nav align-items-center ms-auto">
             <!-- Place this tag where you want the button to render. -->
             <li class="nav-item me-4 d-none d-md-flex d-lg-flex">
-                <a class="nav-link fw-medium" href="{{ url('/') }}#home">Home</a>
+                <a class="nav-link fw-medium collapsed" href="{{ url('/') }}">Home</a>
             </li>
             <li class="nav-item me-4 d-none d-md-flex d-lg-flex">
-                <a class="nav-link fw-medium" href="{{ url('/') }}#daftar">Daftar</a>
+                <a class="nav-link fw-medium collapsed" role="button" data-bs-toggle="collapse" aria-expanded="false"
+                    aria-controls="hubungi-admin" href="{{ url('/') }}#hubungi-admin">Bantuan</a>
             </li>
             <li class="nav-item me-4 d-none d-md-flex d-lg-flex">
-                <a class="nav-link fw-medium" href="{{ url('/') }}#alur-pendaftaran">Alur Pendaftaran</a>
+                <a class="nav-link fw-medium collapsed" role="button" data-bs-toggle="collapse" aria-expanded="false"
+                    aria-controls="alur-pendaftaran" href="{{ url('/') }}#alur-pendaftaran">Alur Pendaftaran</a>
             </li>
             <li>
                 <a href="{{ route('login') }}" class="btn btn-primary">

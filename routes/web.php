@@ -3,6 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PendaftaranTryoutController;
+use App\Http\Controllers\PesertaController;
+use App\Http\Controllers\RoleAndPermissionController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -28,11 +30,17 @@ Route::middleware('auth')->group(function () {
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
     Route::post('/profile', [AuthController::class, 'updateProfile']);
 
-    Route::get('/change-password', [AuthController::class, 'change-password'])->name('change-password');
+    Route::get('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
     Route::post('/change-password', [AuthController::class, 'doChangePassword']);
 
+    Route::resource('roles', RoleAndPermissionController::class);
+
     // proses bisnis
-    // Route::get('/tryout/daftar', [PendaftaranTryoutController::class, 'daftar']);
+    Route::get('/pendaftaran-tryout/rekap-pendaftar', [PendaftaranTryoutController::class, 'index'])->name('pendaftaran-tryout.rekap-pendaftar');
+    Route::get('/pendaftaran-tryout/laporan-pembayaran', [PendaftaranTryoutController::class, 'index'])->name('pendaftaran-tryout.laporan-pembayaran');
+
+    Route::get('/peserta/kartu-tryout', [PesertaController::class, 'kartuTryout'])->name('peserta.kartu-tryout');
+    Route::get('/peserta/cara-pembayaran', [PesertaController::class, 'caraPembayaran'])->name('peserta.cara-pembayaran');
 
     Route::resource('pendaftaran-tryout', PendaftaranTryoutController::class);
 });

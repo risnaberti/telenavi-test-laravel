@@ -216,7 +216,16 @@ return [
                 'pendaftaran-tryout create',
                 'pendaftaran-tryout edit',
                 'pendaftaran-tryout delete',
-                'pendaftaran-tryout daftar-by-admin'
+                'pendaftaran-tryout daftar-by-admin',
+                'pendaftaran-tryout rekap-pendaftar',
+                'pendaftaran-tryout laporan-pembayaran',
+            ]
+        ],
+        [
+            'group' => 'peserta tryout',
+            'access' => [
+                'peserta cara-pembayaran',
+                'peserta kartu-tryout',
             ]
         ],
     ]

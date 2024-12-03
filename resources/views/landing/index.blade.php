@@ -47,33 +47,129 @@
                                 <div class="card h-100">
                                     <div class="card-body">
                                         <div class="p-3">
-                                            <div class="mb-5 d-flex align-items-center aos-init aos-animate"
+                                            <div class="d-flex align-items-center aos-init aos-animate"
                                                 data-aos="fade-up" data-aos-delay="200">
                                                 <i class="flex-shrink-0 bx bxs-graduation me-3"
                                                     style="font-size: 36px !important;"></i>
                                                 <div>
                                                     <h5 class="mb-1 fw-semibold">Pendaftaran</h5>
-                                                    <a href="#" class="fw-normal">Alur mendaftar</a>
+                                                    <a href="#alur-pendaftaran" class="fw-normal collapsed"
+                                                        role="button" data-bs-toggle="collapse" aria-expanded="false"
+                                                        aria-controls="alur-pendaftaran">Alur mendaftar</a>
                                                 </div>
                                             </div>
 
-                                            <div class="mb-5 d-flex align-items-center aos-init aos-animate"
+                                            <div class="mt-3 collapse" id="alur-pendaftaran" style="">
+                                                <div class="p-4 border d-grid d-sm-flex">
+                                                    <ol class="mb-0">
+                                                        <li>
+                                                            <b>Isi Formulir</b>
+                                                            <br>
+                                                            Masukkan data pribadi di halaman pendaftaran.
+                                                        </li>
+                                                        <li>
+                                                            <b>Konfirmasi Data</b>
+                                                            <br>
+                                                            Periksa kembali data yang telah diisi sebelum melanjutkan.
+                                                            Kemudian klik daftar.
+                                                        </li>
+                                                        <li>
+                                                            <b>Informasi Login Akun</b>
+                                                            <br>
+                                                            Anda akan memperoleh informasi akun untuk login ke aplikasi.
+                                                            Harap disimpan dengan baik.
+                                                        </li>
+                                                        <li>
+                                                            <b>Login Ke Aplikasi</b>
+                                                            <br>
+                                                            Login dengan informasi akun untuk melihat status pembayaran
+                                                            dan mencetak/mengunduh kartu peserta.
+                                                        </li>
+                                                        <li>
+                                                            <b>Lakukan Pembayaran dan Cetak Kartu</b>
+                                                            <br>
+                                                            Setelah login dan masuk ke menu "Kartu Tryout", jika belum
+                                                            membayar maka tampil jumlah nominal yang perlu dibayarkan
+                                                            dan jika sudah membayar maka kartu akan tertampil dan bisa
+                                                            dicetak ataupun diunduh.
+                                                        </li>
+                                                        <li>
+                                                            <b>Ikuti Tryout</b>
+                                                            <br>
+                                                            Hadiri tryout sesuai jadwal dan dengan membawa kartu
+                                                            peserta.
+                                                        </li>
+                                                    </ol>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-5 d-flex align-items-center aos-init aos-animate"
                                                 data-aos="fade-up" data-aos-delay="200">
                                                 <i class="flex-shrink-0 bx bx-receipt me-3"
                                                     style="font-size: 36px !important;"></i>
                                                 <div>
                                                     <h5 class="mb-1 fw-semibold">Pembayaran</h5>
-                                                    <a href="#" class="fw-normal">Tata Cara Membayar</a>
+                                                    <a href="#cara-pembayaran" class="fw-normal collapsed"
+                                                        role="button" data-bs-toggle="collapse" aria-expanded="false"
+                                                        aria-controls="cara-pembayaran">Tata Cara Membayar</a>
                                                 </div>
                                             </div>
 
-                                            <div class="d-flex align-items-center aos-init aos-animate"
+                                            <div class="mt-3 collapse" id="cara-pembayaran" style="">
+                                                <div class="p-4 border d-grid d-sm-flex">
+                                                    <div>
+                                                        <ol>
+                                                            <li>Login akun Mobile Banking BSI</li>
+                                                            <li>Pilih Menu <b>Pembayaran </b></li>
+                                                            <li>Pilih <b>Akademik</b></li>
+                                                            <li>Pilih atau ketik angka <b>7925 - SMP MUH 3
+                                                                    YOGYAKARTA</b>
+                                                            </li>
+                                                            <li>Masukkan nomor pembayaran <b>
+                                                                    <font color="blue">[diperoleh setelah daftar]
+                                                                    </font>
+                                                                </b></li>
+                                                            <li>Nominal tagihan akan muncul secara otomatis, cek nama
+                                                                yang tertera sudah sesuai lalu masukkan PIN dan
+                                                                lanjutkan
+                                                                transaksi</li>
+                                                        </ol>
+                                                        <small>
+                                                            *NB: Untuk lebih jelasnya ada di menu "Tata cara
+                                                            pembayaran" setelah login.
+                                                        </small>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-5 d-flex align-items-center aos-init aos-animate"
                                                 data-aos="fade-up" data-aos-delay="200">
                                                 <i class="flex-shrink-0 bx bxl-whatsapp me-3"
                                                     style="font-size: 36px !important;"></i>
                                                 <div>
                                                     <h5 class="mb-1 fw-semibold">Punya Pertanyaan?</h5>
-                                                    <a href="#" class="fw-normal">Hubungi Admin</a>
+                                                    <a href="#hubungi-admin" class="fw-normal collapsed" role="button"
+                                                        data-bs-toggle="collapse" aria-expanded="false"
+                                                        aria-controls="hubungi-admin">Hubungi Admin</a>
+                                                </div>
+                                            </div>
+
+                                            <div class="mt-3 collapse" id="hubungi-admin" style="">
+                                                <div class="p-4 border d-grid d-sm-flex">
+                                                    <ol class="mb-0">
+                                                        <li>
+                                                            <b>Ust. Fulan</b>
+                                                            <br>
+                                                            <a href="https://wa.me/6285846837852" target="_blank"
+                                                                class="fw-normal">Kirim pesan Whatsapp</a>
+                                                        </li>
+                                                        <li>
+                                                            <b>Ust. Felix</b>
+                                                            <br>
+                                                            <a href="https://wa.me/6285846837852" target="_blank"
+                                                                class="fw-normal">Kirim pesan Whatsapp</a>
+                                                        </li>
+                                                    </ol>
                                                 </div>
                                             </div>
                                         </div>
@@ -191,7 +287,7 @@
                                                 <div class="text-center col-md-12">
                                                     <x-input.confirm-button title="Lanjutkan daftar?" text=""
                                                         positive="Ya, daftar!" icon="info">
-                                                        Lanjut
+                                                        Daftar
                                                     </x-input.confirm-button>
                                                 </div>
                                             </div>

@@ -35,6 +35,12 @@
     <link rel="stylesheet" href="{{ asset('assets/css/style.css') }}" />
     <link rel="stylesheet" href="{{ asset('assets/vendor/libs/aos/aos.css') }}" />
 
+    <style media="print">
+        .noprint {
+            display: none;
+        }
+    </style>
+
     @stack('css')
 
     <style>

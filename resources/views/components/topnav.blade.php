@@ -1,4 +1,4 @@
-<nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme" id="layout-navbar"
+<nav class="layout-navbar navbar navbar-expand-xl align-items-center bg-navbar-theme noprint" id="layout-navbar"
     style="z-index: 500;">
     <div class="container-xxl">
 

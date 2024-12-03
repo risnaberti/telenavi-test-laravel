@@ -60,7 +60,7 @@ class UserRolePermissionSeeder extends Seeder
             $userAdmin->assignRole('admin');
 
             // Role untuk admin unit
-            $roleAdminSekolah = Role::firstOrCreate(['name' => 'peserta tryout']);
+            $roleAdminSekolah = Role::firstOrCreate(['name' => 'Peserta Tryout']);
 
             $roleAdminSekolah->givePermissionTo(Permission::all());
             $userAdminSekolah = User::query()->where(['username' => 'pamungkas'])->first();

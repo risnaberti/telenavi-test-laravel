@@ -36,6 +36,12 @@
 
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 
+    <style media="print">
+        .noprint {
+            display: none;
+        }
+    </style>
+
     @stack('css')
 </head>
 

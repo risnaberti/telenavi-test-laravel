@@ -1,4 +1,4 @@
-<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme" style="z-index: 501;">
+<aside id="layout-menu" class="layout-menu menu-vertical menu bg-menu-theme noprint" style="z-index: 501;">
     <div class="app-brand demo">
         <a href="{{ route('dashboard') }}" class="app-brand-link">
             <span class="app-brand-logo demo">
@@ -18,7 +18,7 @@
     <div class="menu-inner-shadow"></div>
 
     <ul class="py-1 menu-inner">
-        <!-- Dashboards -->
+        {{-- Dashboard Selalu Tampil --}}
         <li class="menu-item {{ request()->route()->getName() == 'dashboard' ? 'active' : '' }}">
             <a href="{{ route('dashboard') }}" class="menu-link">
                 <i class="menu-icon tf-icons bx bx-home-smile"></i>
@@ -26,70 +26,65 @@
             </a>
         </li>
 
-        <li
-            class="menu-item {{ in_array(request()->route()->getName(), ['pendaftaran-tryout.index', '']) ? 'active open' : '' }}">
-            <a href="javascript:void(0);" class="menu-link menu-toggle">
-                <i class="menu-icon tf-icons bx bx-briefcase"></i>
-                <div class="text-truncate" data-i18n="Master">Master Data</div>
-                {{-- <span class="badge rounded-pill bg-danger ms-auto">5</span> --}}
-            </a>
-            <ul class="menu-sub">
-                <li
-                    class="menu-item {{ request()->route()->getName() == 'pendaftaran-tryout.daftar-by-admin' ? 'active' : '' }}">
-                    <a href="{{-- route('pendaftaran-tryout.daftar-by-admin') --}}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Daftar By Admin">Daftar By Admin</div>
-                    </a>
-                </li>
-                <li class="menu-item {{ request()->route()->getName() == 'pendaftaran-tryout.index' ? 'active' : '' }}">
-                    <a href="{{ route('pendaftaran-tryout.index') }}" class="menu-link">
-                        <div class="text-truncate" data-i18n="Pendaftaran Tryout">Pendaftaran Tryout</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+        @php
+            $navConfig = config('navigation.navbar', []);
+        @endphp
 
-        <li
-            class="menu-item {{ request()->route()->getName() == 'pendaftaran-tryout.rekap-pendaftar' ? 'active' : '' }}">
-            <a href="{{-- route('pendaftaran-tryout.rekap-pendaftar') --}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-list-check"></i>
-                <div class="text-truncate" data-i18n="Rekap Pendaftar">Rekap Pendaftar</div>
-            </a>
-        </li>
+        @foreach ($navConfig as $menu)
+            @if (isset($menu['submenus']))
+                @canany(collect($menu['submenus'])->pluck('permissions')->flatten()->toArray())
+                    <li
+                        class="menu-item {{ in_array(
+                            request()->route()->getName(),
+                            collect($menu['submenus'])->pluck('route')->toArray(),
+                        )
+                            ? 'active open'
+                            : '' }}">
+                        <a href="javascript:void(0);" class="menu-link menu-toggle">
+                            {!! $menu['icon'] !!}
+                            <div class="text-truncate" data-i18n="{{ $menu['title'] }}">{{ $menu['title'] }}</div>
+                        </a>
+                        <ul class="menu-sub">
+                            @foreach ($menu['submenus'] as $submenu)
+                                @can($submenu['permissions'][0])
+                                    <li
+                                        class="menu-item {{ request()->route()->getName() == $submenu['route'] ? 'active' : '' }}">
+                                        <a href="{{ !$submenu['route'] ? '' : route($submenu['route']) }}" class="menu-link">
+                                            <div class="text-truncate" data-i18n="{{ $submenu['title'] }}">
+                                                {{ $submenu['title'] }}
+                                            </div>
+                                        </a>
+                                    </li>
+                                @endcan
+                            @endforeach
+                        </ul>
+                    </li>
+                @endcanany
+            @else
+                @canany($menu['permissions'])
+                    <li class="menu-item {{ request()->route()->getName() == $menu['route'] ? 'active' : '' }}">
+                        <a href="{{ route($menu['route']) }}" class="menu-link">
+                            {!! $menu['icon'] !!}
+                            <div class="text-truncate" data-i18n="{{ $menu['title'] }}">{{ $menu['title'] }}</div>
+                        </a>
+                    </li>
+                @endcan
+            @endif
+        @endforeach
 
-        <li
-            class="menu-item {{ request()->route()->getName() == 'pendaftaran-tryout.laporan-pembayaran' ? 'active' : '' }}">
-            <a href="{{-- route('pendaftaran-tryout.laporan-pembayaran') --}}" class="menu-link">
-                <i class="menu-icon tf-icons bx bx-receipt"></i>
-                <div class="text-truncate" data-i18n="Laporan Pembayaran">Laporan Pembayaran</div>
-            </a>
-        </li>
+        {{-- Group Header --}}
+        @php
+            $groupMenus = collect($navConfig)->filter(fn($menu) => !empty($menu['group']));
+            $uniqueGroups = $groupMenus->pluck('group')->unique();
+        @endphp
 
-        <!-- Misc -->
-        <li class="menu-header small text-uppercase"><span class="menu-header-text">Misc</span></li>
-        <li class="menu-item">
-            <a href="#"
-                class="menu-link menu-toggle {{ request()->route()->getName() == 'pendaftaran-tryout.index' ? 'active' : '' }}">
-                <i class="menu-icon tf-icons bx bx-lock-open-alt"></i>
-                <div class="text-truncate" data-i18n="Authentications">Manajemen User</div>
-            </a>
-            <ul class="menu-sub">
-                <li class="menu-item">
-                    <a href="{{-- route('user') --}}" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Basic">Users</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{-- route('role') --}}" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Basic">Roles</div>
-                    </a>
-                </li>
-                <li class="menu-item">
-                    <a href="{{-- route('permission') --}}" class="menu-link" target="_blank">
-                        <div class="text-truncate" data-i18n="Basic">Permissions</div>
-                    </a>
-                </li>
-            </ul>
-        </li>
+        @foreach ($uniqueGroups as $group)
+            <li class="menu-header small text-uppercase">
+                <span class="menu-header-text">{{ $group }}</span>
+            </li>
+        @endforeach
+
+        {{-- Logout --}}
         <li class="menu-item">
             <form action="{{ route('logout') }}" method="POST">
                 @csrf
@@ -101,4 +96,5 @@
             </form>
         </li>
     </ul>
+
 </aside>
