@@ -16,7 +16,7 @@
                     <table class="text-dark" style="font-size: 20px">
                         <tr>
                             <td><span class="fw-medium">Username</span></td>
-                            <td><span class="fw-medium">&nbsp;: {{ $pendaftaranTryout->no_peserta }}</span></td>
+                            <td><span class="fw-medium">&nbsp;: {{ $pendaftaranTryout->id_pendaftar }}</span></td>
                         </tr>
                         <tr>
                             <td><span class="fw-medium">Password</span></td>

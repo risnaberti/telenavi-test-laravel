@@ -5,6 +5,7 @@ use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PendaftaranTryoutController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\RoleAndPermissionController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 
@@ -16,8 +17,8 @@ Route::middleware('guest')->group(function () {
     Route::post('/register', [AuthController::class, 'doRegister']);
 
     Route::get('/', [LandingController::class, 'index'])->name('landing');
-    Route::post('/tryout/daftar', [PendaftaranTryoutController::class, 'daftar'])->name('tryout.daftar');
-    Route::get('/tryout/info-login', [PendaftaranTryoutController::class, 'infoLogin'])->name('tryout.info-login');
+    Route::post('/tryout/daftar', [PesertaController::class, 'daftar'])->name('tryout.daftar');
+    Route::get('/tryout/info-login', [PesertaController::class, 'infoLogin'])->name('tryout.info-login');
 });
 
 Route::middleware('auth')->group(function () {
@@ -33,14 +34,19 @@ Route::middleware('auth')->group(function () {
     Route::get('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
     Route::post('/change-password', [AuthController::class, 'doChangePassword']);
 
+    // user manajemen
+    Route::get('/permissions/refresh', [RoleAndPermissionController::class, 'refreshPermission'])->name('permissions.refresh');
     Route::resource('roles', RoleAndPermissionController::class);
+    Route::resource('users', UserController::class);
 
     // proses bisnis
-    Route::get('/pendaftaran-tryout/rekap-pendaftar', [PendaftaranTryoutController::class, 'index'])->name('pendaftaran-tryout.rekap-pendaftar');
-    Route::get('/pendaftaran-tryout/laporan-pembayaran', [PendaftaranTryoutController::class, 'index'])->name('pendaftaran-tryout.laporan-pembayaran');
+    Route::get('/pendaftaran-tryout/rekap-pendaftar', [PendaftaranTryoutController::class, 'rekapPendaftar'])->name('pendaftaran-tryout.rekap-pendaftar');
+    Route::get('/pendaftaran-tryout/rekap-pendaftar-excel', [PendaftaranTryoutController::class, 'rekapPendaftarExcel'])->name('pendaftaran-tryout.rekap-pendaftar-excel');
+
+    Route::get('/pendaftaran-tryout/laporan-pembayaran', [PendaftaranTryoutController::class, 'laporanPembayaran'])->name('pendaftaran-tryout.laporan-pembayaran');
 
     Route::get('/peserta/kartu-tryout', [PesertaController::class, 'kartuTryout'])->name('peserta.kartu-tryout');
-    Route::get('/peserta/cara-pembayaran', [PesertaController::class, 'caraPembayaran'])->name('peserta.cara-pembayaran');
+    Route::get('/peserta/cara-pembayaran/{bank?}', [PesertaController::class, 'caraPembayaran'])->name('peserta.cara-pembayaran');
 
     Route::resource('pendaftaran-tryout', PendaftaranTryoutController::class);
 });

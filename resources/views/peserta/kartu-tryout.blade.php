@@ -28,50 +28,48 @@
                             </tr>
                         </table>
                     </div>
-                    <table style="width:100%;" class="m-4 kartu">
-                        <tr>
-                            <td>Nomor Peserta</td>
-                            <td>:</td>
-                            <td><b>{{ $peserta->no_peserta }}</b></td>
-                        </tr>
-                        <tr>
-                            <td>NISN</td>
-                            <td>:</td>
-                            <td><b>{{ $peserta->nisn }}</b></td>
-                        </tr>
-                        <tr>
-                            <td>Nama Peserta</td>
-                            <td>:</td>
-                            <td><b>{{ strtoupper($peserta->nama_lengkap) }}</b></td>
-                        </tr>
-                        <tr>
-                            <td>Jenis Kelamin</td>
-                            <td>:</td>
-                            <td><b>{{ strtoupper($peserta->nama_jenis_kelamin) }}</b></td>
-                        </tr>
-                        <tr>
-                            <td>TTL</td>
-                            <td>:</td>
-                            <td>{{ $peserta->tempat_lahir }}, {{ date('d-m-Y', strtotime($peserta->tanggal_lahir)) }}
-                            </td>
-                        </tr>
-                        <tr>
-                            <td>Asal Sekolah Dasar</td>
-                            <td>:</td>
-                            <td><b>{{ $peserta->nama_asal_sekolah }}</b></td>
-                        </tr>
-                        {{-- <tr>
-                        <td>Ruang Ujian</td>
-                        <td>:</td>
-                        <td><b>{{ $peserta->nama_asal_sekolah }}</b></td>
-                    </tr> --}}
+                    <div class="m-4">
+                        <table style="width:100%;" class="kartu">
+                            <tr>
+                                <td class="text-nowrap">Nomor Peserta</td>
+                                <td>:</td>
+                                <td><b>{{ $peserta->no_peserta }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Nama Peserta</td>
+                                <td>:</td>
+                                <td><b>{{ strtoupper($peserta->nama_lengkap) }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Jenis Kelamin</td>
+                                <td>:</td>
+                                <td><b>{{ strtoupper($peserta->nama_jenis_kelamin) }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>TTL</td>
+                                <td>:</td>
+                                <td>{{ $peserta->tempat_lahir }},
+                                    {{ date('d-m-Y', strtotime($peserta->tanggal_lahir)) }}
+                                </td>
+                            </tr>
+                            <tr>
+                                <td>Asal Sekolah</td>
+                                <td>:</td>
+                                <td><b>{{ $peserta->nama_asal_sekolah }}</b></td>
+                            </tr>
+                            <tr>
+                                <td>Alamat Domisili</td>
+                                <td>:</td>
+                                <td><b>{{ $peserta->alamat_domisili }}</b></td>
+                            </tr>
 
-                        <tr>
-                            <td style="text-align:center; font-size:18px" colspan="2">
-                            </td>
-                            <td><b>Tanda Tangan</b><br><br><br><br>_________________</td>
-                        </tr>
-                    </table>
+                            <tr>
+                                <td style="text-align:center; font-size:18px" colspan="2">
+                                </td>
+                                <td><b>Tanda Tangan</b><br><br><br><br>_________________</td>
+                            </tr>
+                        </table>
+                    </div>
                     <div style="text-align:center; border:1px solid black; margin-top:10px"><small></small></div>
 
                 </div>
@@ -100,8 +98,12 @@
                             @if ($tagihan != null)
                                 <table class="table table-bordered table-condensed table-striped">
                                     <tr>
-                                        <td class="text-nowrap">Nomor Formulir / Virtual Account </td>
-                                        <td>{{ $tagihan->nis }}</td>
+                                        <td class="text-nowrap">No Virtual Account Muamalat</td>
+                                        <td>7510 18 {{ $tagihan->siswa->no_va }}</td>
+                                    </tr>
+                                    <tr>
+                                        <td class="text-nowrap">No Pembayaran</td>
+                                        <td>{{ $peserta->id_pendaftar }}</td>
                                     </tr>
                                     <tr>
                                         <td class="text-nowrap">Nama </td>

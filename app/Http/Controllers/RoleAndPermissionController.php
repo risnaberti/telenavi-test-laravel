@@ -11,7 +11,10 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Route;
+use Illuminate\Support\Facades\Artisan;
+use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Redirect;
+use Spatie\Permission\Models\Permission;
 use Woo\GridView\DataProviders\EloquentDataProvider;
 
 class RoleAndPermissionController extends Controller implements HasMiddleware
@@ -40,6 +43,52 @@ class RoleAndPermissionController extends Controller implements HasMiddleware
 
         return view('roles.index', compact('dataProvider', 'perPage'))
             ->with('i', ($request->query('page', 1) - 1) * $perPage);
+    }
+
+    public function refreshPermission()
+    {
+        try {
+            DB::transaction(function () {
+                // Bersihkan cache di config
+                Artisan::call('config:clear');
+
+                // Forget cached roles and permissions
+                app()[\Spatie\Permission\PermissionRegistrar::class]->forgetCachedPermissions();
+
+                // Simpan permission yang sudah ada sebelumnya
+                $existingPermissions = Permission::pluck('name')->toArray();
+
+                // Cari konfigurasi permission baru
+                $newPermissions = collect(config('permission.permissions'))
+                    ->flatMap(fn($permission) => $permission['access'])
+                    ->toArray();
+
+                // Hapus permission yang tidak ada di konfigurasi baru
+                $permissionsToDelete = array_diff($existingPermissions, $newPermissions);
+
+                // Tambahkan permission baru yang belum ada
+                $permissionsToAdd = array_diff($newPermissions, $existingPermissions);
+
+                // echo '<pre>';
+                // print_r($existingPermissions);
+                // print_r($newPermissions);
+                // print_r($permissionsToDelete);
+                // print_r($permissionsToAdd);
+                // echo '</pre>';
+                // die;
+
+                // operasi update dan delete permission
+                Permission::whereIn('name', $permissionsToDelete)->delete();
+
+                foreach ($permissionsToAdd as $permission) {
+                    Permission::create(['name' => $permission]);
+                }
+            });
+
+            return redirect()->back()->with('success', 'Berhasil memperbarui permission.');
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', 'Terjadi kesalahan saat memperbarui permission.')->withErrors($e->getMessage());
+        }
     }
 
     /**

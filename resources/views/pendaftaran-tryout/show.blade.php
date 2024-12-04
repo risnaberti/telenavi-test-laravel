@@ -14,18 +14,24 @@
                     </a>
 
                     <div>
+                        @can('pendaftaran-tryout view')
                         <a href="{{ route('pendaftaran-tryout.create') }}"
                             class="btn btn-sm btn-info">
                             <i class="bx bx-plus me-1"></i>Baru
                         </a>
+                        @endcan
+                        @can('pendaftaran-tryout edit x')
                         <a href="{{ route('pendaftaran-tryout.edit', $pendaftaranTryout) }}"
                             class="btn btn-sm btn-primary">
                             <i class="bx bx-pencil me-1"></i>Edit
                         </a>
+                        @endcan
+                        @can('pendaftaran-tryout delete x')
                         <a href="{{ route('pendaftaran-tryout.destroy', $pendaftaranTryout) }}"
                             class="btn btn-sm btn-danger">
                             <i class="bx bx-trash me-1"></i>Hapus
                         </a>
+                        @endcan
                     </div>
 
                 </div>
@@ -33,6 +39,10 @@
             <div class="card-body">
                 <form class="row g-3">
                     
+                                <div class="col-md-4">
+                                    <label for="first-name-horizontal">No Pembayaran</label>
+                                </div>
+                                <div class="col-md-8 form-group">: {{ $pendaftaranTryout->id_pendaftar }}</div>
                                 <div class="col-md-4">
                                     <label for="first-name-horizontal">No Peserta</label>
                                 </div>
@@ -70,13 +80,17 @@
                                 </div>
                                 <div class="col-md-8 form-group">: {{ $pendaftaranTryout->alamat_domisili }}</div>
                                 <div class="col-md-4">
-                                    <label for="first-name-horizontal">Tanggal Pembayaran</label>
+                                    <label for="first-name-horizontal">Pin</label>
                                 </div>
-                                <div class="col-md-8 form-group">: {{ $pendaftaranTryout->tanggal_pembayaran }}</div>
-                                <div class="col-md-4">
-                                    <label for="first-name-horizontal">Nominal Tagihan</label>
-                                </div>
-                                <div class="col-md-8 form-group">: {{ $pendaftaranTryout->nominal_tagihan }}</div>
+                                <div class="col-md-8 form-group">: {{ $pendaftaranTryout->password_login }}</div>
+                                <!--<div class="col-md-4">-->
+                                <!--    <label for="first-name-horizontal">Tanggal Pembayaran</label>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-8 form-group">: {{ $pendaftaranTryout->tanggal_pembayaran }}</div>-->
+                                <!--<div class="col-md-4">-->
+                                <!--    <label for="first-name-horizontal">Nominal Tagihan</label>-->
+                                <!--</div>-->
+                                <!--<div class="col-md-8 form-group">: {{ $pendaftaranTryout->nominal_tagihan }}</div>-->
                 </form>
             </div>
         </div>

@@ -23,13 +23,13 @@ class UserRolePermissionSeeder extends Seeder
         DB::transaction(function () {
             User::query()->delete();
 
-            User::create([
-                'name' => 'Pamungkas Admin',
+            User::firstOrCreate([
+                'name' => 'Admin',
                 'username' => 'admin',
                 'password' => Hash::make('b15millah')
             ]);
 
-            User::create([
+            User::firstOrCreate([
                 'name' => 'Pamungkas',
                 'username' => 'pamungkas',
                 'password' => Hash::make('123456'),
@@ -63,8 +63,8 @@ class UserRolePermissionSeeder extends Seeder
             $roleAdminSekolah = Role::firstOrCreate(['name' => 'Peserta Tryout']);
 
             $roleAdminSekolah->givePermissionTo(Permission::all());
-            $userAdminSekolah = User::query()->where(['username' => 'pamungkas'])->first();
-            $userAdminSekolah->assignRole('peserta tryout');
+            // $userAdminSekolah = User::query()->where(['username' => 'pamungkas'])->first();
+            // $userAdminSekolah->assignRole('peserta tryout');
         });
     }
 }

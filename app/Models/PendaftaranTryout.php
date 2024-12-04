@@ -8,6 +8,7 @@ namespace App\Models;
 
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
+use Illuminate\Support\Facades\DB;
 
 /**
  * Class PendaftaranTryout
@@ -39,7 +40,6 @@ class PendaftaranTryout extends Model
 	public $incrementing = false;
 
 	protected $casts = [
-		'tanggal_lahir' => 'datetime',
 		'tanggal_pembayaran' => 'datetime',
 		'nominal_tagihan' => 'float'
 	];
@@ -67,5 +67,41 @@ class PendaftaranTryout extends Model
 		$value = $this->jenis_kelamin;
 
 		return $value == 'P' ? 'Perempuan' : ($value == 'L' ? 'Laki-laki' : 'Tidak Diketahui');
+	}
+
+	public static function generateIdPendaftar()
+	{
+		$prefix = "25";
+
+		$urutan_baru = collect(DB::select("
+            SELECT IFNULL(MAX(SUBSTR(id_pendaftar, 3)), CONCAT($prefix, '0000')) + 1 as urutan_baru
+            FROM `pendaftaran_tryout`
+            WHERE SUBSTR(id_pendaftar, 3, 2) = $prefix
+        "))->value('urutan_baru');
+
+		return '91' . $urutan_baru;
+	}
+
+	public static function generateNoPeserta()
+	{
+		$prefix = "25";
+
+		$urutan_baru = collect(DB::select("
+            SELECT IFNULL(MAX(SUBSTR(no_peserta, 8)), CONCAT($prefix, '0000')) + 1 as urutan_baru
+            FROM pendaftaran_tryout
+            WHERE SUBSTR(no_peserta, 8, 2) = $prefix
+        "))->value('urutan_baru');
+
+		return 'TO_Muga' . $urutan_baru;
+	}
+
+	public function getCreatedAtAttribute($value)
+	{
+		return Carbon::parse($value)->format('Y-m-d H:i:s');
+	}
+
+	public function siswa()
+	{
+		return $this->belongsTo(Siswa::class, 'id_pendaftar', 'nis');
 	}
 }

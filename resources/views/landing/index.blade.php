@@ -1,4 +1,4 @@
-<x-layouts.guest title="Landing" activeMenu="landing">
+<x-layouts.guest title="PENDAFTARAN TRY-OUT | SMP MUGA YOGYA" activeMenu="landing">
     <div class="main-container">
         <img src="{{ asset('assets/img/front-pages/hero-bg.png') }}" class="main-bg">
 
@@ -158,15 +158,9 @@
                                                 <div class="p-4 border d-grid d-sm-flex">
                                                     <ol class="mb-0">
                                                         <li>
-                                                            <b>Ust. Fulan</b>
+                                                            <b>Admin Muga</b>
                                                             <br>
-                                                            <a href="https://wa.me/6285846837852" target="_blank"
-                                                                class="fw-normal">Kirim pesan Whatsapp</a>
-                                                        </li>
-                                                        <li>
-                                                            <b>Ust. Felix</b>
-                                                            <br>
-                                                            <a href="https://wa.me/6285846837852" target="_blank"
+                                                            <a href="https://wa.me/6282322756805" target="_blank"
                                                                 class="fw-normal">Kirim pesan Whatsapp</a>
                                                         </li>
                                                     </ol>
@@ -212,14 +206,26 @@
                                                     @enderror
                                                 </div>
 
+                                                <!--<div class="col-md-12">-->
+                                                <!--    <label for="nisn" class="form-label">Nisn</label>-->
+                                                <!--    <input type="text" name="nisn"-->
+                                                <!--        class="form-control {{ $errors->has('nisn') ? 'is-invalid' : '' }}"-->
+                                                <!--        id="nisn"-->
+                                                <!--        value="{{ old('nisn', $pendaftaranTryout?->nisn) }}"-->
+                                                <!--        placeholder="Masukkan Nisn" />-->
+                                                <!--    @error('nisn')-->
+                                                <!--        <small class="invalid-feedback">{{ $message }}</small>-->
+                                                <!--    @enderror-->
+                                                <!--</div>-->
+                                                
                                                 <div class="col-md-12">
-                                                    <label for="nisn" class="form-label">Nisn</label>
-                                                    <input type="text" name="nisn"
-                                                        class="form-control {{ $errors->has('nisn') ? 'is-invalid' : '' }}"
-                                                        id="nisn"
-                                                        value="{{ old('nisn', $pendaftaranTryout?->nisn) }}"
-                                                        placeholder="Masukkan Nisn" />
-                                                    @error('nisn')
+                                                    <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
+                                                    <input type="text" name="tempat_lahir"
+                                                        class="form-control {{ $errors->has('tempat_lahir') ? 'is-invalid' : '' }}"
+                                                        id="tempat_lahir"
+                                                        value="{{ old('tempat_lahir', $pendaftaranTryout?->tempat_lahir) }}"
+                                                        placeholder="Masukkan Tempat Lahir" />
+                                                    @error('tempat_lahir')
                                                         <small class="invalid-feedback">{{ $message }}</small>
                                                     @enderror
                                                 </div>
@@ -233,6 +239,17 @@
                                                         placeholder="Pilih Tanggal" opens="right"
                                                         singleDatePicker="true" :ranges="false" />
                                                     @error('tanggal_lahir')
+                                                        <small class="invalid-feedback">{{ $message }}</small>
+                                                    @enderror
+                                                </div>
+                                                
+                                                <div class="col-md-12">
+                                                    <label for="alamat_domisili" class="form-label">Alamat Domisili</label>
+                                                    <textarea name="alamat_domisili"
+                                                        class="form-control {{ $errors->has('alamat_domisili') ? 'is-invalid' : '' }}"
+                                                        id="alamat_domisili"
+                                                        placeholder="Masukkan Alamat Domisili">{{ old('alamat_domisili', $pendaftaranTryout?->alamat_domisili) }}</textarea>
+                                                    @error('alamat_domisili')
                                                         <small class="invalid-feedback">{{ $message }}</small>
                                                     @enderror
                                                 </div>

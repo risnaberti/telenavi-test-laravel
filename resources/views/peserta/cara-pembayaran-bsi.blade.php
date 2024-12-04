@@ -1,4 +1,4 @@
-<x-layouts.app title="Tata Cara Pembayaran" activeMenu="cara-pembayaran">
+<x-layouts.app title="Tata Cara Pembayaran BSI" activeMenu="cara-pembayaran">
     <div class="container my-5">
         <div class="mb-5 card">
             <div class="card-body">
@@ -8,7 +8,7 @@
                     </div>
                     <div class="box-body">
                         <div style="width:100%;background-color:white; padding:10px">
-                            <h3 align="center">TATA CARA PEMBAYARAN<br>
+                            <h3 align="center">TATA CARA PEMBAYARAN BSI<br>
                                 SMP MUH 3 YOGYAKARTA<br>
                                 KODE 7925<br>
                             </h3>
@@ -74,7 +74,7 @@
                                     </font>
                                 </li>
                             </ol>
-                            Masukkan nominal SPP sesuai tagihan + fee adm 3.000 (Misal tagihan SPP Rp.500.000, maka
+                            Masukkan nominal sesuai tagihan + fee adm 3.000 (Misal tagihan Rp.500.000, maka
                             dimasukkan nominal Rp.503.000)
                             <hr>
                             <b>Melalui ATM Prima (BCA)</b>
@@ -90,7 +90,7 @@
                                     </font>
                                 </li>
                             </ol>
-                            Masukkan nominal SPP sesuai tagihan + fee adm 3.000 (Misal tagihan SPP Rp.500.000, maka
+                            Masukkan nominal sesuai tagihan + fee adm 3.000 (Misal tagihan Rp.500.000, maka
                             dimasukkan nominal Rp.503.000)
                             <hr>
                             <b>Melalui Channel Bank selain ATM yaitu: Mobile Banking/Internet Banking </b>
@@ -105,7 +105,7 @@
                                     </font>
                                 </li>
                             </ol>
-                            Masukkan nominal SPP sesuai tagihan + fee adm 3.000 (Misal tagihan SPP Rp.500.000, maka
+                            Masukkan nominal sesuai tagihan + fee adm 3.000 (Misal tagihan Rp.500.000, maka
                             dimasukkan nominal Rp.503.000)
                             <small>
                                 <u>Keterangan </u><br>

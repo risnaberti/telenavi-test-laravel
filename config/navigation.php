@@ -7,11 +7,11 @@ $nav = [
             "icon" => '<i class="menu-icon tf-icons bx bx-briefcase"></i>',
             "group" => "",
             "submenus" => [
-                [
-                    'title' => 'Daftar By Admin',
-                    'route' => null,
-                    'permissions' => ['pendaftaran-tryout daftar-by-admin']
-                ],
+                // [
+                //     'title' => 'Daftar By Admin',
+                //     'route' => null,
+                //     'permissions' => ['pendaftaran-tryout daftar-by-admin']
+                // ],
                 [
                     'title' => 'Pendaftaran Tryout',
                     'route' => 'pendaftaran-tryout.index',
@@ -54,8 +54,8 @@ $nav = [
             "submenus" => [
                 [
                     'title' => 'Users',
-                    // 'route' => 'users.index',
-                    'route' => null,
+                    'route' => 'users.index',
+                    // 'route' => null,
                     'permissions' => ['user view']
                 ],
                 [

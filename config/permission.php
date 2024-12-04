@@ -190,6 +190,7 @@ return [
             'pengguna' => ['admin'],
             'access' => [
                 'user change-password',
+                // 'user forgot-password',
                 'user profile',
                 'user view',
                 'user create',
@@ -216,7 +217,7 @@ return [
                 'pendaftaran-tryout create',
                 'pendaftaran-tryout edit',
                 'pendaftaran-tryout delete',
-                'pendaftaran-tryout daftar-by-admin',
+                // 'pendaftaran-tryout daftar-by-admin',
                 'pendaftaran-tryout rekap-pendaftar',
                 'pendaftaran-tryout laporan-pembayaran',
             ]

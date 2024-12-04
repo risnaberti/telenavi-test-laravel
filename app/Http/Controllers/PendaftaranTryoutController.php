@@ -9,15 +9,19 @@ use App\Models\Siswa;
 use App\Models\Tagihan;
 use App\Models\Tahunajaran;
 use App\Models\User;
-use Carbon\Carbon;
+use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use \Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
+use Illuminate\Support\Collection;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Facades\Hash;
+use Maatwebsite\Excel\Concerns\FromCollection;
+use Maatwebsite\Excel\Concerns\WithHeadings;
+use Maatwebsite\Excel\Facades\Excel;
 use Woo\GridView\DataProviders\EloquentDataProvider;
 
 class PendaftaranTryoutController extends Controller implements HasMiddleware
@@ -31,145 +35,6 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
             new Middleware('permission:pendaftaran-tryout delete', only: ['destroy']),
             new Middleware('permission:pendaftaran-tryout daftar-by-admin', only: ['daftarByAdmin', 'storeDaftarByAdmin']),
         ];
-    }
-
-    public function daftar(Request $request)
-    {
-        $validatedData = $request->validate([
-            'nama_lengkap' => 'required|string|max:50',
-            'jenis_kelamin' => 'required|string|in:L,P',
-            'nisn' => 'nullable|string|max:10',
-            'tanggal_lahir' => 'required|date',
-            'nama_asal_sekolah' => 'required|string|max:50',
-            'nama_ortu' => 'nullable|string|max:50',
-            'no_wa_ortu' => 'required|string|max:20',
-            'no_wa_peserta' => 'required|string|max:20',
-            'alamat_domisili' => 'nullable|string',
-        ]);
-
-        try {
-            $urutan_baru = collect(DB::select("
-                SELECT MAX(SUBSTR(id_pendaftar, 3)) + 1 as urutan_baru
-                FROM `pendaftaran_tryout`
-                WHERE SUBSTR(id_pendaftar, 3, 2) = SUBSTR(YEAR(NOW()), 3)
-            "))->value('urutan_baru');
-
-            $validatedData['id_pendaftar'] = '91' . $urutan_baru;
-            $validatedData['no_peserta'] = 'TO_Muga' . $urutan_baru;
-            $validatedData['nominal_tagihan'] = 100000;
-            $validatedData['password_login'] = rand(100000, 999999);
-
-            DB::transaction(function () use ($validatedData) {
-                // insert ke tabel pendaftaran
-                PendaftaranTryout::create($validatedData);
-
-                // insert ke tabel user
-                $user = User::create([
-                    'name' => $validatedData['nama_lengkap'],
-                    'username' => $validatedData['no_peserta'],
-                    'password' => Hash::make($validatedData['password_login']),
-                ]);
-
-                $user->assignRole('peserta tryout');
-
-                // insert ke tabel siswa
-                $siswa = Siswa::create([
-                    'nis' => $validatedData['id_pendaftar'],
-                    'nama' => $validatedData['nama_lengkap'],
-                    'kodejk' => $validatedData['jenis_kelamin'] == 'L' ? 1 : 2,
-                    'notelpon' => $validatedData['no_wa_peserta']
-                ]);
-
-                $kodeta = Tahunajaran::query()->where('isaktif', "1")->first()?->kodeta;
-
-                if (!$kodeta) {
-                    return redirect()->back()
-                        ->withInput()
-                        ->with('error', 'Tidak ada tahun ajaran aktif, hubungi admin sekolah');
-                }
-
-                // insert ke tabel historykelas
-                Historykelas::create([
-                    'nis' => $validatedData['id_pendaftar'],
-                    'kodekelas' => "PENDAFTAR TRYOUT",
-                    'kodeta' => $kodeta,
-                    'kodestatus' => "1",
-                    'isaktif' => "1"
-                ]);
-
-                // insert ke tabel tagihan
-                $tagihan = Tagihan::create([
-                    'idtagihan' => $validatedData['id_pendaftar'],
-                    'nis' => $validatedData['id_pendaftar'],
-                    'kodebulan' => now()->monthOfYear(),
-                    'kodeta' => $kodeta,
-                    'kodekelompok' => '91',
-                    'tglgenerate' => now(),
-                    'waktuawal' => now(),
-                    'waktuakhir' => now()->addDays(14),
-                    'aktif' => '1',
-                    'statuspembayaran' => '0',
-                    'urutanantrian' => '1',
-                    'totaltagihan' => $validatedData['nominal_tagihan'],
-                ]);
-
-                // insert ke tabel detailtagihan
-                Detailtagihan::create([
-                    'idtagihan' => $validatedData['id_pendaftar'],
-                    'idjenistagihan' => "FO",
-                    'nominal' => $validatedData['nominal_tagihan'],
-                ]);
-
-                // kirim wa
-
-                $numberformat = number_format($tagihan->totaltagihan, 0, ',', '.');
-
-                $message = <<<EOD
-                _Bismillahirrohmanirrohim._
-                Terimakasih sudah mendaftar melalui sistem Pendaftaran Tryout SMP Muhammadiyah 3 Yogyakarta.
-
-                Silakan melanjutkan pendaftaran melalui login :
-                Username / No Peserta: *{$validatedData['no_peserta']}*
-                Password: *{$validatedData['password_login']}*
-                Nama: {$validatedData['nama_lengkap']}
-
-                Batas Akhir Pembayaran: {$tagihan->waktuakhir->format('d-m-Y H:i')}
-                Biaya Pendaftaran: *Rp. $numberformat*
-
-                Terimakasih.
-                EOD;
-
-                $this->kirimWa($siswa->notelpon, $message, "PENDAFTARAN TRYOUT", $siswa->nis);
-            });
-
-            return redirect()->route('tryout.info-login', ['_id' => encrypt(['id' => $validatedData['id_pendaftar'], 'timestamp' => now()->timestamp])])
-                ->with('noBack', true)
-                ->with('success', 'Anda berhasil mendaftar, silahkan login untuk lanjut ke proses pembayaran.');
-        } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('landing')
-                ->withInput()
-                ->with('error', 'Terjadi kesalahan saat membuat data. ' . $e->getMessage());
-        }
-
-        return redirect()->route('landing')
-            ->withInput()
-            ->with('error', 'Terjadi kesalahan saat membuat data. Error tidak diketahui.');
-    }
-
-    public function infoLogin(Request $request)
-    {
-        $dekrip = decrypt($request->_id);
-
-        if (now()->timestamp - $dekrip['timestamp'] > 300) { // 5 menit
-            return redirect()->to('/')->with('warning', 'Halaman sudah expired.');
-        }
-
-        $pendaftaranTryout = PendaftaranTryout::query()->where('id_pendaftar', $dekrip['id'])->first();
-
-        return view('pendaftaran-tryout.info-login', compact('pendaftaranTryout'))
-            ->with('timestamp', Carbon::createFromTimestamp($dekrip['timestamp'])
-                ->setTimezone('Asia/Jakarta')
-                ->format('Y-m-d H:i:s'));
     }
 
     public function index(): View
@@ -257,17 +122,154 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
     public function destroy(PendaftaranTryout $pendaftaranTryout): RedirectResponse
     {
         try {
-            $pendaftaranTryout->delete();
+            DB::transaction(function () use ($pendaftaranTryout) {
+                // hapus data di tabel tagihan
+                $tagihan = Tagihan::find($pendaftaranTryout->id_pendaftar);
+
+                if ($tagihan->statuspembayaran == 1 && $tagihan->aktif == 0) {
+                    throw new \Exception("Tagihan sudah dibayar tidak bisa menghapus pendaftar ini.", 1);
+                }
+
+                $tagihan->delete();
+
+                // hapus data di tabel siswa
+                Siswa::find($pendaftaranTryout->id_pendaftar)->delete();
+
+                // hapus data di tabel pendaftaran
+                $pendaftaranTryout->delete();
+
+                // hapus data di tabel user
+                User::where("username", $pendaftaranTryout->id_pendaftar)->delete();
+            });
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == '23000') {
                 return redirect()->route('pendaftaran-tryout.index')
                     ->with('error', 'Data pendaftaran tryout ini sudah digunakan dan tidak dapat dihapus.');
             }
             return redirect()->route('pendaftaran-tryout.index')
-                ->with('error', 'Terjadi kesalahan saat menghapus data.');
+                ->with('error', 'Terjadi kesalahan saat menghapus data. ' . $e->getMessage());
+        } catch (Exception $e) {
+            return redirect()->route('pendaftaran-tryout.index')
+                ->with('error', 'Terjadi kesalahan saat menghapus data. ' . $e->getMessage());
         }
 
         return redirect()->route('pendaftaran-tryout.index')
             ->with('success', 'Pendaftaran Tryout berhasil dihapus');
+    }
+
+    public function rekapPendaftar()
+    {
+        $query = "
+        SELECT 
+            MONTH(created_at) AS bulan,
+            YEAR(created_at) AS tahun,
+            COUNT(*) AS `total_pendaftar`,
+            SUM(CASE WHEN jenis_kelamin = 'L' THEN 1 ELSE 0 END) AS `L`,
+            SUM(CASE WHEN jenis_kelamin = 'P' THEN 1 ELSE 0 END) AS `P`,
+            SUM(CASE WHEN (tagihan.statuspembayaran = 1 AND tagihan.aktif = 0) THEN 1 ELSE 0 END) AS `sudah_bayar`,
+            SUM(CASE WHEN (tagihan.statuspembayaran = 0 AND tagihan.aktif = 1) THEN 1 ELSE 0 END) AS `belum_bayar`
+        FROM 
+            pendaftaran_tryout
+        LEFT JOIN tagihan ON pendaftaran_tryout.id_pendaftar = tagihan.idtagihan
+        GROUP BY 
+            YEAR(created_at), MONTH(created_at)
+        ORDER BY 
+            MIN(created_at) DESC;
+        ";
+
+        $data =  collect(DB::select($query));
+
+        $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
+
+        return view('pendaftaran-tryout.rekap-pendaftar', compact('data', 'bulan'));
+    }
+
+    public function rekapPendaftarExcel(Request $request)
+    {
+        $data = PendaftaranTryout::query()
+            ->join('tagihan', 'pendaftaran_tryout.id_pendaftar', '=', 'tagihan.idtagihan')
+            ->leftjoin('pembayaran', 'tagihan.idtagihan', '=', 'pembayaran.idtagihan')
+            ->whereMonth('created_at', $request->bulan)
+            ->whereYear('created_at', $request->tahun)
+            ->select('pendaftaran_tryout.*', 'created_at as tgl_daftar', 'tagihan.statuspembayaran', 'tagihan.totaltagihan', 'pembayaran.waktutransaksi as tgl_bayar')
+            ->get()
+            ->makeHidden(['password_login', 'tanggal_pembayaran', 'nominal_tagihan', 'updated_at', 'created_at'])
+            ->map(function ($item) {
+                // Modifikasi statuspembayaran
+                if ($item->statuspembayaran == 1) {
+                    $item->statuspembayaran = 'LUNAS';
+                } else {
+                    $item->statuspembayaran = 'BELUM BAYAR';
+                }
+
+                // Tambahkan keterangan jika statuspembayaran adalah LUNAS dan no_peserta null
+                if ($item->statuspembayaran == 'LUNAS' && is_null($item->no_peserta)) {
+                    $item->keterangan = 'SUDAH BAYAR BELUM CETAK KARTU';
+                } else {
+                    $item->keterangan = null;
+                }
+
+                return $item;
+            })
+            ->toArray();
+
+        if (count($data) == 0) {
+            return redirect()->back()->withErrors("Data pada periode yang dipilih kosong.");
+        }
+
+        return Excel::download(new class($data) implements FromCollection, WithHeadings {
+            protected $data;
+
+            public function __construct($data)
+            {
+                $this->data = $data;
+            }
+
+            public function collection(): Collection
+            {
+                return collect($this->data);
+            }
+
+            public function headings(): array
+            {
+                return array_keys($this->data[0]);
+            }
+        }, "export_pendaftar_tryout" . $request->bulan . "-" . $request->tahun . "_" . now()->format('d-m-Y') . ".xlsx");
+    }
+
+    public function laporanPembayaran(Request $request)
+    {
+        $laporan = PendaftaranTryout::query()
+            ->join('tagihan', 'pendaftaran_tryout.id_pendaftar', '=', 'tagihan.idtagihan')
+            ->join('pembayaran', 'tagihan.idtagihan', '=', 'pembayaran.idtagihan')
+            ->select('pendaftaran_tryout.*', 'created_at as tgl_daftar', 'tagihan.statuspembayaran', 'tagihan.totaltagihan', 'pembayaran.waktutransaksi as tgl_bayar')
+            ->orderBy('pembayaran.waktutransaksi', 'desc')
+            ->paginate(15); // Gunakan paginate untuk mendapatkan objek pagination
+
+        // echo '<pre>';
+        // print_r($laporan);
+        // echo '</pre>';
+        // die;
+
+        // Modifikasi statuspembayaran dan tambahkan keterangan
+        $laporan->getCollection()->transform(function ($item) {
+            // Modifikasi statuspembayaran
+            if ($item->statuspembayaran == 1) {
+                $item->statuspembayaran = 'LUNAS';
+            } else {
+                $item->statuspembayaran = 'BELUM BAYAR';
+            }
+
+            // Tambahkan keterangan jika statuspembayaran adalah LUNAS dan no_peserta null
+            if ($item->statuspembayaran == 'LUNAS' && is_null($item->no_peserta)) {
+                $item->keterangan = 'SUDAH BAYAR BELUM CETAK KARTU';
+            } else {
+                $item->keterangan = null;
+            }
+
+            return $item;
+        });
+
+        return view('pendaftaran-tryout.laporan-pembayaran', compact('laporan'));
     }
 }
