@@ -120,12 +120,16 @@ class PesertaController extends Controller implements HasMiddleware
                 Terimakasih sudah mendaftar melalui sistem Pendaftaran Tryout SMP Muhammadiyah 3 Yogyakarta.
 
                 Silakan melanjutkan pendaftaran melalui login :
+                Link: https://tryout.smpmugayogya.my.id
                 Username / No Peserta: *{$validatedData['id_pendaftar']}*
                 Password: *{$validatedData['password_login']}*
                 Nama: {$validatedData['nama_lengkap']}
 
                 Batas Akhir Pembayaran: {$tagihan->waktuakhir->format('d-m-Y H:i')}
                 Biaya Pendaftaran: *Rp. $numberformat*
+
+                Join grup WA untuk informasi tryout:
+                https://chat.whatsapp.com/HhjxYnyUxT0H3Cd30R3atw
 
                 Terimakasih.
                 EOD;
