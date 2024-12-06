@@ -125,15 +125,21 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
             DB::transaction(function () use ($pendaftaranTryout) {
                 // hapus data di tabel tagihan
                 $tagihan = Tagihan::find($pendaftaranTryout->id_pendaftar);
-
-                if ($tagihan->statuspembayaran == 1 && $tagihan->aktif == 0) {
-                    throw new \Exception("Tagihan sudah dibayar tidak bisa menghapus pendaftar ini.", 1);
+                
+                if ($tagihan) { // harus dicek karena tagihan bisa jadi udah dihapus oleh bendahara
+                    if ($tagihan->statuspembayaran == 1 && $tagihan->aktif == 0) {
+                        throw new \Exception("Tagihan sudah dibayar tidak bisa menghapus pendaftar ini.", 1);
+                    }
+    
+                    $tagihan->delete();
                 }
 
-                $tagihan->delete();
-
                 // hapus data di tabel siswa
-                Siswa::find($pendaftaranTryout->id_pendaftar)->delete();
+                $siswa = Siswa::find($pendaftaranTryout->id_pendaftar);
+                
+                if ($siswa) {
+                    $siswa->delete();
+                }
 
                 // hapus data di tabel pendaftaran
                 $pendaftaranTryout->delete();

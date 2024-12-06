@@ -118,21 +118,18 @@
                                             <div class="mt-3 collapse" id="cara-pembayaran" style="">
                                                 <div class="p-4 border d-grid d-sm-flex">
                                                     <div>
+                                                        <b>Cara bayar melalui Muamalat Bank Banking (Muamalat DIN)</b>
                                                         <ol>
-                                                            <li>Login akun Mobile Banking BSI</li>
-                                                            <li>Pilih Menu <b>Pembayaran </b></li>
-                                                            <li>Pilih <b>Akademik</b></li>
-                                                            <li>Pilih atau ketik angka <b>7925 - SMP MUH 3
-                                                                    YOGYAKARTA</b>
-                                                            </li>
-                                                            <li>Masukkan nomor pembayaran <b>
-                                                                    <font color="blue">[diperoleh setelah daftar]
-                                                                    </font>
-                                                                </b></li>
-                                                            <li>Nominal tagihan akan muncul secara otomatis, cek nama
-                                                                yang tertera sudah sesuai lalu masukkan PIN dan
-                                                                lanjutkan
-                                                                transaksi</li>
+                                                            <li>Login ke Mobile Banking Muamalat (Muamalat DIN)</li>
+                                                            <li>Pilih menu "BELI atau BAYAR"</li>
+                                                            <li>Pilih menu <b>VIRTUAL ACCOUNT</b></li>
+                                                            <li>Pilih rekening sumber</li>
+                                                            <li>Masukkan nomor "Virtual Account" <b>751018 [diperoleh setelah daftar]</b></li>
+                                                            <li>Periksa informasi pembayaran pastikan VA sudah sesuai dengan informasi (cek info nama dan nama tagihan), kesalahan transfer ke Virtual Account lain bukan tanggung jawab bagian keuangan</li>
+                                                            <li>Masukkan nominal bayar sesuai dengan total bayar yang tertera (biaya admin Rp. 3000 tertera)</li>
+                                                            <li>Masukkan PIN mobile banking Anda</li>
+                                                            <li>Konfirmasi pembayaran</li>
+                                                            <li>Simpan bukti transaksi sebagai bukti pembayaran</li>
                                                         </ol>
                                                         <small>
                                                             *NB: Untuk lebih jelasnya ada di menu "Tata cara
@@ -409,9 +406,6 @@
         <!-- / Layout page -->
 
         <!-- Overlay -->
-
-        <!-- / Layout wrapper -->
-        {{--
 
     </div>
 </x-layouts.guest>
