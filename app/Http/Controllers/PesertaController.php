@@ -121,7 +121,7 @@ class PesertaController extends Controller implements HasMiddleware
 
                 Silakan melanjutkan pendaftaran melalui login :
                 Link: https://tryout.smpmugayogya.my.id
-                Username / No Peserta: *{$validatedData['id_pendaftar']}*
+                Username: *{$validatedData['id_pendaftar']}*
                 Password: *{$validatedData['password_login']}*
                 Nama: {$validatedData['nama_lengkap']}
 
