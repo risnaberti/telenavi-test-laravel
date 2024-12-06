@@ -217,7 +217,7 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
                 }
 
                 $item->tgl_daftar = $item->created_at->format('d-m-Y H:i:s');
-                $item->tgl_bayar = $item->waktutransaksi ? Carbon::parse($item->waktutransaksi)->format('d-m-Y H:i:s') : null;
+                $item->tgl_bayar = $item->tgl_bayar ? Carbon::parse($item->tgl_bayar)->format('d-m-Y H:i:s') : null;
 
                 return $item;
             })
