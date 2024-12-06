@@ -68,6 +68,7 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
             'nominal_tagihan' => 'nullable|numeric',
         ]);
 
+
         try {
             PendaftaranTryout::create($validatedData);
         } catch (\Illuminate\Database\QueryException $e) {
