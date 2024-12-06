@@ -41,7 +41,8 @@ class PendaftaranTryout extends Model
 
 	protected $casts = [
 		'tanggal_pembayaran' => 'datetime',
-		'nominal_tagihan' => 'float'
+		'nominal_tagihan' => 'float',
+		'created_at' => 'datetime'
 	];
 
 	protected $fillable = [
@@ -95,10 +96,10 @@ class PendaftaranTryout extends Model
 		return 'TO_Muga' . $urutan_baru;
 	}
 
-	public function getCreatedAtAttribute($value)
-	{
-		return Carbon::parse($value)->format('Y-m-d H:i:s');
-	}
+	// public function getCreatedAtAttribute($value)
+	// {
+	// 	return Carbon::parse($value)->format('Y-m-d H:i:s');
+	// }
 
 	public function siswa()
 	{

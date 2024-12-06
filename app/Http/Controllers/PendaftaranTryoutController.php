@@ -9,6 +9,7 @@ use App\Models\Siswa;
 use App\Models\Tagihan;
 use App\Models\Tahunajaran;
 use App\Models\User;
+use Carbon\Carbon;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -39,7 +40,7 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
 
     public function index(): View
     {
-        $pendaftaranTryout = PendaftaranTryout::paginate(10);
+        $pendaftaranTryout = PendaftaranTryout::orderBy('created_at', 'desc')->paginate(15);
 
         return view('pendaftaran-tryout.index', compact('pendaftaranTryout'));
     }
@@ -125,18 +126,18 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
             DB::transaction(function () use ($pendaftaranTryout) {
                 // hapus data di tabel tagihan
                 $tagihan = Tagihan::find($pendaftaranTryout->id_pendaftar);
-                
+
                 if ($tagihan) { // harus dicek karena tagihan bisa jadi udah dihapus oleh bendahara
                     if ($tagihan->statuspembayaran == 1 && $tagihan->aktif == 0) {
                         throw new \Exception("Tagihan sudah dibayar tidak bisa menghapus pendaftar ini.", 1);
                     }
-    
+
                     $tagihan->delete();
                 }
 
                 // hapus data di tabel siswa
                 $siswa = Siswa::find($pendaftaranTryout->id_pendaftar);
-                
+
                 if ($siswa) {
                     $siswa->delete();
                 }
@@ -193,14 +194,14 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
     public function rekapPendaftarExcel(Request $request)
     {
         $data = PendaftaranTryout::query()
-            ->join('tagihan', 'pendaftaran_tryout.id_pendaftar', '=', 'tagihan.idtagihan')
+            ->leftjoin('tagihan', 'pendaftaran_tryout.id_pendaftar', '=', 'tagihan.idtagihan')
             ->leftjoin('pembayaran', 'tagihan.idtagihan', '=', 'pembayaran.idtagihan')
             ->whereMonth('created_at', $request->bulan)
             ->whereYear('created_at', $request->tahun)
             ->select('pendaftaran_tryout.*', 'created_at as tgl_daftar', 'tagihan.statuspembayaran', 'tagihan.totaltagihan', 'pembayaran.waktutransaksi as tgl_bayar')
             ->get()
             ->makeHidden(['password_login', 'tanggal_pembayaran', 'nominal_tagihan', 'updated_at', 'created_at'])
-            ->map(function ($item) {
+            ->map(function (PendaftaranTryout $item) {
                 // Modifikasi statuspembayaran
                 if ($item->statuspembayaran == 1) {
                     $item->statuspembayaran = 'LUNAS';
@@ -214,6 +215,9 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
                 } else {
                     $item->keterangan = null;
                 }
+
+                $item->tgl_daftar = $item->created_at->format('d-m-Y H:i:s');
+                $item->tgl_bayar = $item->waktutransaksi ? Carbon::parse($item->waktutransaksi)->format('d-m-Y H:i:s') : null;
 
                 return $item;
             })
@@ -238,7 +242,9 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
 
             public function headings(): array
             {
-                return array_keys($this->data[0]);
+                return collect(array_keys($this->data[0]))->map(function ($item) {
+                    return str()->title(str_replace('_', ' ', $item));
+                })->toArray();
             }
         }, "export_pendaftar_tryout" . $request->bulan . "-" . $request->tahun . "_" . now()->format('d-m-Y') . ".xlsx");
     }
