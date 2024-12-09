@@ -1,7 +1,15 @@
 {{-- 
 contoh penggunaan:
-<x-input.confirm-button text="Data ini akan diupdate!" positive="Ya, simpan!" icon="info">
-    Simpan
+Submit Button:
+<x-input.confirm-button text="Anda akan keluar dari akun ini!" positive="Ya, keluar!" icon="info" class="text-white menu-link bg-dark">
+    <i class="menu-icon tf-icons bx bx-exit"></i>
+    <div class="text-truncate" data-i18n="Logout">Logout</div>
+</x-input.confirm-button>
+
+Link Button:
+<x-input.confirm-button url="{{ route('permissions.refresh') }}" class="mb-2 form-control btn btn-danger" title="Refresh Permission?"
+    text="Proses ini akan menghapus dan menambah permission dari file konfigurasi!" positive="Ya, lanjut!" icon="warning">
+    Refresh Permission
 </x-input.confirm-button>
 --}}
 
