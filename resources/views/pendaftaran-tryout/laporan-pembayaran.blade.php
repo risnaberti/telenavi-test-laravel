@@ -6,6 +6,10 @@
 
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
+                <a class="btn btn-warning" href="{{ route('pendaftaran-tryout.regenerate-tagihan') }}">
+                    <i class='bx bx-info-circle me-1' style="rotate: 180deg;"></i>Generate Ulang Tagihan
+                    ({{ $totaltagihanhilang }})
+                </a>
             </div>
             <div class="card-body">
                 <div class="table-responsive">

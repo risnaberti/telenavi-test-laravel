@@ -44,6 +44,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/pendaftaran-tryout/rekap-pendaftar-excel', [PendaftaranTryoutController::class, 'rekapPendaftarExcel'])->name('pendaftaran-tryout.rekap-pendaftar-excel');
 
     Route::get('/pendaftaran-tryout/laporan-pembayaran', [PendaftaranTryoutController::class, 'laporanPembayaran'])->name('pendaftaran-tryout.laporan-pembayaran');
+    Route::get('/pendaftaran-tryout/regenerate-tagihan', [PendaftaranTryoutController::class, 'regenerateTagihan'])->name('pendaftaran-tryout.regenerate-tagihan');
 
     Route::get('/peserta/kartu-tryout', [PesertaController::class, 'kartuTryout'])->name('peserta.kartu-tryout');
     Route::get('/peserta/cara-pembayaran/{bank?}', [PesertaController::class, 'caraPembayaran'])->name('peserta.cara-pembayaran');

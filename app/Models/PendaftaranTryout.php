@@ -38,6 +38,7 @@ class PendaftaranTryout extends Model
 	protected $table = 'pendaftaran_tryout';
 	protected $primaryKey = 'id_pendaftar';
 	public $incrementing = false;
+	public static $prefix = '25';
 
 	protected $casts = [
 		'tanggal_pembayaran' => 'datetime',
@@ -72,7 +73,7 @@ class PendaftaranTryout extends Model
 
 	public static function generateIdPendaftar()
 	{
-		$prefix = "25";
+		$prefix = self::$prefix;
 
 		$urutan_baru = collect(DB::select("
             SELECT IFNULL(MAX(SUBSTR(id_pendaftar, 3)), CONCAT($prefix, '0000')) + 1 as urutan_baru
@@ -85,7 +86,7 @@ class PendaftaranTryout extends Model
 
 	public static function generateNoPeserta()
 	{
-		$prefix = "25";
+		$prefix = self::$prefix;
 
 		$urutan_baru = collect(DB::select("
             SELECT IFNULL(MAX(SUBSTR(no_peserta, 8)), CONCAT($prefix, '0000')) + 1 as urutan_baru
@@ -95,11 +96,6 @@ class PendaftaranTryout extends Model
 
 		return 'TO_Muga' . $urutan_baru;
 	}
-
-	// public function getCreatedAtAttribute($value)
-	// {
-	// 	return Carbon::parse($value)->format('Y-m-d H:i:s');
-	// }
 
 	public function siswa()
 	{

@@ -282,6 +282,67 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
             return $item;
         });
 
-        return view('pendaftaran-tryout.laporan-pembayaran', compact('laporan'));
+        $totaltagihanhilang = PendaftaranTryout::leftJoin('tagihan', 'tagihan.idtagihan', '=', 'pendaftaran_tryout.id_pendaftar')
+            ->where(DB::raw('SUBSTR(pendaftaran_tryout.id_pendaftar, 3, 2)'), PendaftaranTryout::$prefix)
+            ->whereNull('nis')
+            ->pluck('id_pendaftar')
+            ->count();
+
+        return view('pendaftaran-tryout.laporan-pembayaran', compact('laporan', 'totaltagihanhilang'));
+    }
+
+    public function regenerateTagihan()
+    {
+        $kodeta = Tahunajaran::query()->where('isaktif', "1")->first()?->kodeta;
+
+        if (!$kodeta) {
+            return redirect()->back()
+                ->with('error', 'Tidak ada tahun ajaran aktif, hubungi admin sekolah');
+        }
+
+        return DB::transaction(function () use ($kodeta) {
+            $pendaftar_tanpa_tagihan = PendaftaranTryout::leftJoin('tagihan', 'tagihan.idtagihan', '=', 'pendaftaran_tryout.id_pendaftar')
+                ->where(DB::raw('SUBSTR(pendaftaran_tryout.id_pendaftar, 3, 2)'), PendaftaranTryout::$prefix)
+                ->whereNull('nis')
+                ->pluck('id_pendaftar')
+                ->toArray();
+
+            $count = 0;
+
+            foreach ($pendaftar_tanpa_tagihan as $id_pendaftar) {
+                // insert ke tabel tagihan
+                $tagihan = Tagihan::create([
+                    'idtagihan' => $id_pendaftar,
+                    'nis' => $id_pendaftar,
+                    'kodebulan' => now()->monthOfYear(),
+                    'kodeta' => $kodeta,
+                    'kodekelompok' => '91',
+                    'tglgenerate' => now(),
+                    'waktuawal' => now(),
+                    'waktuakhir' => now()->addDays(14),
+                    'aktif' => '1',
+                    'statuspembayaran' => '0',
+                    'urutanantrian' => '1',
+                    'totaltagihan' => 15_000,
+                ]);
+
+                if ($tagihan?->idtagihan) {
+                    $count++;
+                }
+
+                // insert ke tabel detailtagihan
+                Detailtagihan::create([
+                    'idtagihan' => $id_pendaftar,
+                    'idjenistagihan' => "FO",
+                    'nominal' => 15_000,
+                ]);
+            }
+
+            return redirect()->back()
+                ->with('success', 'Total tagihan dibuat ulang ' . $count);
+        });
+
+        // return redirect()->back()
+        //     ->with('error', 'Ada error...');
     }
 }
