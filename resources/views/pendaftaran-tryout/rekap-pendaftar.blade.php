@@ -56,6 +56,7 @@
                                 <td class="fw-bold">{{ $data->sum('P') }}</td>
                                 <td class="fw-bold">{{ $data->sum('sudah_bayar') }}</td>
                                 <td class="fw-bold">{{ $data->sum('belum_bayar') }}</td>
+                                <td class="fw-bold">{{ $data->sum('belum_cetak') }}</td>
                                 <td></td>
                             </tr>
                         </tfoot>
