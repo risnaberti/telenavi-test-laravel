@@ -39,7 +39,9 @@
                                     <td>{{ $row?->nama_lengkap }}</td>
                                     <td>{{ $row?->jenis_kelamin }}</td>
                                     <td>{{ $row?->alamat_domisili }}</td>
-                                    <td>{{ \Carbon\Carbon::parse($row?->tgl_bayar)->format('d-m-Y H:i:s') }}</td>
+                                    <td>
+                                        {{ $row?->tgl_bayar? now()->parse($row?->tgl_bayar)->format('d-m-Y H:i:s'): '-' }}
+                                    </td>
                                     <td class="text-end">{{ number_format($row?->totaltagihan, 0, ',', '.') }}</td>
                                 </tr>
                             @endforeach

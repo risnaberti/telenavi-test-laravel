@@ -232,7 +232,9 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
                 break;
         }
 
-        $data = $query->get()
+        $data = $query
+            ->orderBy('pembayaran.waktutransaksi', 'asc')
+            ->get()
             ->makeHidden(['password_login', 'tanggal_pembayaran', 'nominal_tagihan', 'updated_at', 'created_at'])
             ->map(function (PendaftaranTryout $item) {
                 // Modifikasi statuspembayaran
