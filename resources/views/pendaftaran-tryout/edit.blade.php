@@ -1,6 +1,6 @@
-<x-layouts.app title="Perbarui Pendaftaran Tryout">
+<x-layouts.app title="Perbarui Pendaftaran Tryout {{ $pendaftaranTryout->id_pendaftar }}">
     <div class="container my-5">
-        <x-breadcrumb title="Perbarui Pendaftaran Tryout" :breadcrumbs="[
+        <x-breadcrumb title="Perbarui Pendaftaran Tryout - {{ $pendaftaranTryout->id_pendaftar }}" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],
             ['label' => 'Pendaftaran Tryout', 'url' => route('pendaftaran-tryout.index')],
             ['label' => 'Perbarui Pendaftaran Tryout'],
@@ -10,7 +10,8 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('pendaftaran-tryout.update', $pendaftaranTryout) }}" method="POST" role="form" enctype="multipart/form-data">
+                <form action="{{ route('pendaftaran-tryout.update', $pendaftaranTryout) }}" method="POST" role="form"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('PUT')
 

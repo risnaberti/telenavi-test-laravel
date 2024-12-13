@@ -1,15 +1,5 @@
 <div class="row">
     <div class="col-md-12">
-
-        <div class="mb-4">
-            <label for="no_peserta" class="form-label">No Peserta</label>
-            <input type="text" name="no_peserta"
-                class="form-control {{ $errors->has('no_peserta') ? 'is-invalid' : '' }}" id="no_peserta"
-                value="{{ old('no_peserta', $pendaftaranTryout?->no_peserta) }}" placeholder="Masukkan No Peserta" />
-            @error('no_peserta')
-                <small class="invalid-feedback">{{ $message }}</small>
-            @enderror
-        </div>
         <div class="mb-4">
             <label for="nama_lengkap" class="form-label">Nama Lengkap</label>
             <input type="text" name="nama_lengkap"
@@ -89,16 +79,6 @@
                 value="{{ old('no_wa_peserta', $pendaftaranTryout?->no_wa_peserta) }}"
                 placeholder="Masukkan No Wa Peserta" />
             @error('no_wa_peserta')
-                <small class="invalid-feedback">{{ $message }}</small>
-            @enderror
-        </div>
-        <div class="mb-4">
-            <label for="nominal_tagihan" class="form-label">Nominal Tagihan</label>
-            <x-input.currency name="nominal_tagihan" id="nominal_tagihan"
-                value="{{ old('nominal_tagihan', $pendaftaranTryout?->nominal_tagihan) }}"
-                placeholder="Masukkan Nominal Tagihan"
-                class="form-control text-end {{ $errors->has('nominal_tagihan') ? 'is-invalid' : '' }}" />
-            @error('nominal_tagihan')
                 <small class="invalid-feedback">{{ $message }}</small>
             @enderror
         </div>

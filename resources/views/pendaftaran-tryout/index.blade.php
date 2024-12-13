@@ -31,6 +31,7 @@
                                 <th>Alamat Domisili</th>
                                 <!--<th>Tanggal Pembayaran</th>-->
                                 <!--<th>Nominal Tagihan</th>-->
+                                <th>Pin/Password</th>
                                 <th>Tgl Daftar</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
@@ -50,6 +51,7 @@
                                     <td>{{ $row?->no_wa_ortu }}</td>
                                     <td>{{ $row?->no_wa_peserta }}</td>
                                     <td>{{ $row?->alamat_domisili }}</td>
+                                    <td>{{ $row?->password_login }}</td>
                                     {{-- <td>{{ $row?->tanggal_pembayaran }}</td> --}}
                                     <td>{{ $row?->created_at->format('d-m-Y H:i:s') }}</td>
                                     <td class="text-center">
@@ -64,7 +66,7 @@
                                                     </a>
                                                 </div>
                                             @endcan
-                                            @can('pendaftaran-tryout edit x')
+                                            @can('pendaftaran-tryout edit')
                                                 <div class="me-1">
                                                     <a href="{{ route('pendaftaran-tryout.edit', $row) }}"
                                                         class="btn btn-icon btn-outline-primary btn-sm"

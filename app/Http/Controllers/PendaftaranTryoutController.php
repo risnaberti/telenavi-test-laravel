@@ -107,13 +107,25 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
 
         try {
             $pendaftaranTryout->update($validatedData);
+
+            $siswa = Siswa::find($pendaftaranTryout->id_pendaftar);
+            $siswa->update([
+                'nama' => $validatedData['nama_lengkap'],
+                'kodejk' => $validatedData['jenis_kelamin'] == 'L' ? 1 : 2,
+                'notelpon' => $validatedData['no_wa_peserta']
+            ]);
+
+            $user = User::where("username", $pendaftaranTryout->id_pendaftar);
+            $user->update([
+                'name' => $validatedData['nama_lengkap'],
+            ]);
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == '23000') {
                 return redirect()->route('pendaftaran-tryout.index')
                     ->with('error', 'Data pendaftaran tryout ini sudah digunakan dan tidak dapat diperbarui.');
             }
             return redirect()->route('pendaftaran-tryout.index')
-                ->with('error', 'Terjadi kesalahan saat memperbarui data.');
+                ->with('error', 'Terjadi kesalahan saat memperbarui data. ' . $e->getMessage());
         }
 
         return redirect()->route('pendaftaran-tryout.index')
