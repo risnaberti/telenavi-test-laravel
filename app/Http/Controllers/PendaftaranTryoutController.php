@@ -229,6 +229,7 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
                 $query->whereRaw('tagihan.statuspembayaran = 1 AND no_peserta is null');
                 break;
             default:
+                return redirect()->back()->withErrors("Data tidak ditemukan.");
                 break;
         }
 
