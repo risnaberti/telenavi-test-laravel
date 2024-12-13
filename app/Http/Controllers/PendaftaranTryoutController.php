@@ -35,6 +35,7 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
             new Middleware('permission:pendaftaran-tryout edit', only: ['edit', 'update']),
             new Middleware('permission:pendaftaran-tryout delete', only: ['destroy']),
             new Middleware('permission:pendaftaran-tryout daftar-by-admin', only: ['daftarByAdmin', 'storeDaftarByAdmin']),
+            new Middleware('permission:pendaftaran-tryout rekap-pendaftar', only: ['rekapPendaftar', 'rekapPendaftarDetail']),
         ];
     }
 
@@ -202,6 +203,58 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
         $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"];
 
         return view('pendaftaran-tryout.rekap-pendaftar', compact('data', 'bulan'));
+    }
+
+    public function rekapPendaftarDetail(Request $request)
+    {
+        $bulan = $request->bulan;
+        $tahun = $request->tahun;
+        $status = $request->status;
+
+        $query = PendaftaranTryout::query()
+            ->leftjoin('tagihan', 'pendaftaran_tryout.id_pendaftar', '=', 'tagihan.idtagihan')
+            ->leftjoin('pembayaran', 'tagihan.idtagihan', '=', 'pembayaran.idtagihan')
+            ->whereMonth('created_at', $request->bulan)
+            ->whereYear('created_at', $request->tahun)
+            ->select('pendaftaran_tryout.*', 'created_at as tgl_daftar', 'tagihan.statuspembayaran', 'tagihan.totaltagihan', 'pembayaran.waktutransaksi as tgl_bayar');
+
+        switch ($status) {
+            case 'sudah_bayar':
+                $query->whereRaw('tagihan.statuspembayaran = 1 AND tagihan.aktif = 0');
+                break;
+            case 'belum_bayar':
+                $query->whereRaw('tagihan.statuspembayaran = 0 AND tagihan.aktif = 1');
+                break;
+            case 'belum_cetak':
+                $query->whereRaw('tagihan.statuspembayaran = 1 AND no_peserta is null');
+                break;
+            default:
+                break;
+        }
+
+        $data = $query->get()
+            ->makeHidden(['password_login', 'tanggal_pembayaran', 'nominal_tagihan', 'updated_at', 'created_at'])
+            ->map(function (PendaftaranTryout $item) {
+                // Modifikasi statuspembayaran
+                if ($item->statuspembayaran == 1) {
+                    $item->statuspembayaran = 'LUNAS';
+                } else {
+                    $item->statuspembayaran = 'BELUM BAYAR';
+                }
+
+                $item->tgl_daftar = $item->created_at->format('d-m-Y H:i:s');
+                $item->tgl_bayar = $item->tgl_bayar ? Carbon::parse($item->tgl_bayar)->format('d-m-Y H:i:s') : null;
+
+                return $item;
+            });
+
+        if (!isset($data)) {
+            return redirect()->back()->withErrors("Data tidak ditemukan.");
+        }
+
+        $bulan = ["Januari", "Februari", "Maret", "April", "Mei", "Juni", "Juli", "Agustus", "September", "Oktober", "November", "Desember"][$bulan - 1];
+
+        return view('pendaftaran-tryout.rekap-pendaftar-detail', compact('data', 'status', 'bulan', 'tahun'));
     }
 
     public function rekapPendaftarExcel(Request $request)

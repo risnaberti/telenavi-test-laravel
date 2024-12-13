@@ -31,9 +31,24 @@
                                     <td>{{ $row?->total_pendaftar }}</td>
                                     <td>{{ $row?->L }}</td>
                                     <td>{{ $row?->P }}</td>
-                                    <td>{{ $row?->sudah_bayar }}</td>
-                                    <td>{{ $row?->belum_bayar }}</td>
-                                    <td>{{ $row?->belum_cetak }}</td>
+                                    <td>
+                                        <a
+                                            href="{{ route('pendaftaran-tryout.rekap-pendaftar-detail', ['bulan' => $row?->bulan, 'tahun' => $row?->tahun, 'status' => 'sudah_bayar']) }}">
+                                            {{ $row?->sudah_bayar }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="{{ route('pendaftaran-tryout.rekap-pendaftar-detail', ['bulan' => $row?->bulan, 'tahun' => $row?->tahun, 'status' => 'belum_bayar']) }}">
+                                            {{ $row?->belum_bayar }}
+                                        </a>
+                                    </td>
+                                    <td>
+                                        <a
+                                            href="{{ route('pendaftaran-tryout.rekap-pendaftar-detail', ['bulan' => $row?->bulan, 'tahun' => $row?->tahun, 'status' => 'belum_cetak']) }}">
+                                            {{ $row?->belum_cetak }}
+                                        </a>
+                                    </td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
                                             <div class="me-1">
