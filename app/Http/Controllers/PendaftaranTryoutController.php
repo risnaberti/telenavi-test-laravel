@@ -186,7 +186,8 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
             SUM(CASE WHEN jenis_kelamin = 'L' THEN 1 ELSE 0 END) AS `L`,
             SUM(CASE WHEN jenis_kelamin = 'P' THEN 1 ELSE 0 END) AS `P`,
             SUM(CASE WHEN (tagihan.statuspembayaran = 1 AND tagihan.aktif = 0) THEN 1 ELSE 0 END) AS `sudah_bayar`,
-            SUM(CASE WHEN (tagihan.statuspembayaran = 0 AND tagihan.aktif = 1) THEN 1 ELSE 0 END) AS `belum_bayar`
+            SUM(CASE WHEN (tagihan.statuspembayaran = 0 AND tagihan.aktif = 1) THEN 1 ELSE 0 END) AS `belum_bayar`,
+            SUM(CASE WHEN (tagihan.statuspembayaran = 1 AND no_peserta is null) THEN 1 ELSE 0 END) AS `belum_cetak`
         FROM 
             pendaftaran_tryout
         LEFT JOIN tagihan ON pendaftaran_tryout.id_pendaftar = tagihan.idtagihan

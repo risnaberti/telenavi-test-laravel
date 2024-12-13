@@ -19,6 +19,7 @@
                                 <th>Perempuan</th>
                                 <th>Sudah Bayar</th>
                                 <th>Belum Bayar</th>
+                                <th>Belum Cetak</th>
                                 <th class="text-center">Export</th>
                             </tr>
                         </thead>
@@ -32,6 +33,7 @@
                                     <td>{{ $row?->P }}</td>
                                     <td>{{ $row?->sudah_bayar }}</td>
                                     <td>{{ $row?->belum_bayar }}</td>
+                                    <td>{{ $row?->belum_cetak }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
                                             <div class="me-1">
