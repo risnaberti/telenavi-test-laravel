@@ -18,7 +18,7 @@ contoh penggunaan:
 
 @php
     $id = $id ?? 'input-currency-' . uniqid();
-    $value = number_format(is_numeric($value) ? (float) $value : 0, 2);
+    $value = is_numeric($value) ? (float) $value : 0;
 @endphp
 
 <div>

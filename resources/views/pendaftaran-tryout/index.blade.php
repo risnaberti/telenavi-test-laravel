@@ -57,7 +57,7 @@
                                                     </a>
                                                 </div>
                                             @endcan
-                                            @can('pendaftaran-tryout edit x')
+                                            @can('pendaftaran-tryout edit')
                                                 <div class="me-1">
                                                     <a href="{{ route('pendaftaran-tryout.edit', $row) }}"
                                                         class="btn btn-icon btn-outline-primary btn-sm"

@@ -1,6 +1,6 @@
 <nav class="layout-navbar container-xxl navbar navbar-expand-xl navbar-detached align-items-center bg-navbar-theme"
     id="layout-navbar"
-    style="height: 5rem;border-color: rgba(255,255,255,.68); background: rgba(255,255,255,.38); z-index: 500;">
+    style="height: 5.5rem;border-color: rgba(255,255,255,.68); background: rgba(255,255,255,.38); z-index: 500;">
     {{-- <div class="layout-menu-toggle navbar-nav align-items-xl-center me-4 me-xl-0 d-xl-none">
         <a class="px-0 nav-item nav-link me-xl-6" href="javascript:void(0)">
             <i class="bx bx-menu bx-md"></i>
@@ -26,18 +26,18 @@
             <li class="nav-item me-4 d-none d-md-flex d-lg-flex">
                 <a class="nav-link fw-medium collapsed" href="{{ url('/') }}">Home</a>
             </li>
-            <li class="nav-item me-4 d-none d-md-flex d-lg-flex">
+            {{-- <li class="nav-item me-4 d-none d-md-flex d-lg-flex"
                 <a class="nav-link fw-medium collapsed" role="button" data-bs-toggle="collapse" aria-expanded="false"
                     aria-controls="hubungi-admin" href="{{ url('/') }}#hubungi-admin">Bantuan</a>
             </li>
-            <li class="nav-item me-4 d-none d-md-flex d-lg-flex">
+            <li class="nav-item me-4 d-none d-md-flex d-lg-flex"
                 <a class="nav-link fw-medium collapsed" role="button" data-bs-toggle="collapse" aria-expanded="false"
                     aria-controls="alur-pendaftaran" href="{{ url('/') }}#alur-pendaftaran">Alur Pendaftaran</a>
-            </li>
+            </li> --}}
             <li>
-                <a href="{{ route('login') }}" class="btn btn-primary">
+                <a href="{{ route('login') }}" class="btn btn-primary" style="border-radius: 50px;">
                     <span class="tf-icons bx bx-log-in-circle scaleX-n1-rtl me-md-1"></span>
-                    <span class="d-none d-md-block">Login</span></a>
+                    <span class="d-nonex d-md-block">Login</span></a>
             </li>
         </ul>
     </div>
