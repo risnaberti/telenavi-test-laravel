@@ -22,11 +22,34 @@ class {{modelName}}Controller extends Controller implements HasMiddleware
         ];
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        ${{modelVariable}} = {{modelName}}::paginate(10);
+        $query = {{modelName}}::query();
+
+        // tambahkan kolom yang mau dikecualikan di pencarian
+        $except = [];
+
+        $columns = collect($query->getModel()->getFillable())->filter(function ($item) use ($except) {
+            return !in_array($item, $except);
+        })->toArray();
+
+        $selectedColumns = $request->get('col', $columns);
+
+        if ($search = $request->get('search')) {
+            $query->where(function ($query) use ($search, $selectedColumns) {
+                foreach ($selectedColumns as $column) {
+                    $query->orWhere($column, 'like', '%' . $search . '%');
+                }
+            });
+        }
         
-        return view('{{modelRoute}}.index', compact('{{modelVariable}}'));
+        ${{modelVariable}} = $query->paginate(10);
+
+        if ($request->header('HX-Request')) {
+            return view('{{modelRoute}}.includes.index-table', compact('{{modelVariable}}'));
+        }
+
+        return view('{{modelRoute}}.index', compact('{{modelVariable}}', 'columns', 'selectedColumns'));
     }
 
     public function create(): View

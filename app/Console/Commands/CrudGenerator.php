@@ -56,7 +56,7 @@ class CrudGenerator extends Command
             default:
                 if ($this->generateController($modelVariables)) {
                     $this->info("Controller untuk model {$modelName} berhasil dibuat!");
-                    $this->generateViews($modelVariables);
+                    (new GenerateView($this->stubPath))->generateViews($modelVariables);
                     $this->info("View untuk model {$modelName} berhasil dibuat!");
                 }
                 break;

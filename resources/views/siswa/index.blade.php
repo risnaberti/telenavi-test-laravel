@@ -1,35 +1,25 @@
-<x-layouts.app title="{{modelTitle}}" activeMenu="{{modelRoute}}">
+<x-layouts.app title="Siswa" activeMenu="siswa">
     <div class="my-5 container-fluid">
-        <x-breadcrumb title="{{modelTitle}}" :breadcrumbs="[
-            ['label' => 'Dashboard', 'url' => url('/')],
-            ['label' => '{{modelTitle}}'],
-        ]" />
+        <x-breadcrumb title="Siswa" :breadcrumbs="[['label' => 'Dashboard', 'url' => url('/')], ['label' => 'Siswa']]" />
 
         <x-bs-toast />
-        
+
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">
-                @can('{{modelRoute}} create')
-                    <a href="{{ route('{{modelRoute}}.create') }}" class="btn btn-primary">
+                @can('siswa create')
+                    <a href="{{ route('siswa.create') }}" class="btn btn-primary">
                         <span class="bx bx-plus me-1"></span>Tambah Data
                     </a>
                 @endcan
-                
+
                 <div class="d-flex ms-auto">
+
                     <div class="mb-3 input-group">
-                        <input 
-                            type="text" 
-                            name="search" 
-                            class="form-control"
-                            placeholder="Cari {{modelTitleLower}}..."
-                            value="{{ old('search', request('search')) }}"
-                            hx-get="{{ route('{{modelRoute}}.index') }}"
-                            hx-trigger="keyup[keyCode==13], keyup changed delay:500ms"
-                            hx-target="#{{modelRoute}}-table"
-                            hx-push-url="true"
-                            hx-indicator="#search-loading"
-                            hx-include="#filter-checkboxes input:checked"
-                        >
+                        <input type="text" name="search" class="form-control" placeholder="Cari siswa..."
+                            value="{{ old('search', request('search')) }}" hx-get="{{ route('siswa.index') }}"
+                            hx-trigger="keyup[keyCode==13], keyup changed delay:500ms" hx-target="#siswa-table"
+                            hx-push-url="true" hx-indicator="#search-loading"
+                            hx-include="#filter-checkboxes input:checked">
 
                         <button class="btn btn-outline-secondary dropdown-toggle" type="button"
                             data-bs-toggle="dropdown" aria-expanded="false">Filter</button>
@@ -47,7 +37,7 @@
                                     <div class="mx-2 form-check">
                                         <x-input.checkbox class="form-check-input" id="checkbox-{{ $column }}"
                                             name="col[]" value="{{ $column }}" :checked="in_array($column, $selectedColumns)"
-                                            parentId="checkbox-all" />                                        
+                                            parentId="checkbox-all" />
                                         <label class="form-check-label" for="checkbox-{{ $column }}">
                                             {{ str()->title(str()->replace('_', ' ', $column)) }}
                                         </label>
@@ -63,12 +53,12 @@
                     <div class="flex-row px-4 py-3 mx-auto mt-5 text-center card d-flex justify-content-center justify-items-center"
                         style="width: 200px;">
                         <div class="loading-spinner"></div>
-                        <span>Sedang mencari {{modelTitleLower}}...</span>
+                        <span>Sedang mencari siswa...</span>
                     </div>
                 </div>
 
-                <div id="{{modelRoute}}-table">
-                    @include('{{modelRoute}}.includes.index-table', compact('{{modelVariable}}'))
+                <div id="siswa-table">
+                    @include('siswa.includes.index-table', compact('siswa'))
                 </div>
             </div>
         </div>
