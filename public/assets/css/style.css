@@ -35,7 +35,6 @@
     width: 20px;
     height: 20px;
     animation: loading-spin 1s linear infinite;
-    margin-right: 15px;
 }
 
 @keyframes loading-spin {

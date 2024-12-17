@@ -13,8 +13,7 @@
                 @endcan
 
                 <div class="d-flex ms-auto">
-
-                    <div class="mb-3 input-group">
+                    <div class="input-group">
                         <input type="text" name="search" class="form-control" placeholder="Cari siswa..."
                             value="{{ old('search', request('search')) }}" hx-get="{{ route('siswa.index') }}"
                             hx-trigger="keyup[keyCode==13], keyup changed delay:500ms" hx-target="#siswa-table"
@@ -52,7 +51,9 @@
                 <div id="search-loading" class="htmx-indicator">
                     <div class="flex-row px-4 py-3 mx-auto mt-5 text-center card d-flex justify-content-center justify-items-center"
                         style="width: 200px;">
-                        <div class="loading-spinner"></div>
+                        <div class="px-2 d-flex align-items-center">
+                            <div class="loading-spinner"></div>
+                        </div>
                         <span>Sedang mencari siswa...</span>
                     </div>
                 </div>
