@@ -69,6 +69,15 @@ class GenerateView
                 return $file->getFilename() === $mainStubFileName;
             });
 
+            // if (in_array($mainStubFileName, ['create.stub', 'edit.stub', 'form.stub', 'form.field.stub', 'form.field.dropdown.stub', 'form.field.number.stub', 'show.stub', 'show.field.stub'])) {
+            //     continue;
+            // }
+
+            // echo '<pre>';
+            // print_r($mainStubFile);
+            // echo '</pre>';
+            // die;
+
             // pembuatan folder jika dibutuhkan
             $relativePath = Str::after($mainStubFile->getPathname(), $stubViewsPath . DIRECTORY_SEPARATOR);
             $viewRelativePath = Str::replaceLast('.stub', '.blade.php', $relativePath);

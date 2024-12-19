@@ -23,11 +23,16 @@
                                 <th>No Peserta</th>
                                 <th>Nama Lengkap</th>
                                 <th>Jenis Kelamin</th>
+                                <!--<th>Nisn</th>-->
                                 <th>Nama Asal Sekolah</th>
                                 <th>Nama Ortu</th>
                                 <th>No Wa Ortu</th>
                                 <th>No Wa Peserta</th>
                                 <th>Alamat Domisili</th>
+                                <!--<th>Tanggal Pembayaran</th>-->
+                                <!--<th>Nominal Tagihan</th>-->
+                                <th>Pin/Password</th>
+                                <th>Tgl Daftar</th>
                                 <th class="text-center">Aksi</th>
                             </tr>
                         </thead>
@@ -40,11 +45,15 @@
                                     <td>{{ $row?->no_peserta }}</td>
                                     <td>{{ $row?->nama_lengkap }}</td>
                                     <td>{{ $row?->jenis_kelamin }}</td>
+                                    {{-- <td>{{ $row?->nisn }}</td> --}}
                                     <td>{{ $row?->nama_asal_sekolah }}</td>
                                     <td>{{ $row?->nama_ortu }}</td>
                                     <td>{{ $row?->no_wa_ortu }}</td>
                                     <td>{{ $row?->no_wa_peserta }}</td>
                                     <td>{{ $row?->alamat_domisili }}</td>
+                                    <td>{{ $row?->password_login }}</td>
+                                    {{-- <td>{{ $row?->tanggal_pembayaran }}</td> --}}
+                                    <td>{{ $row?->created_at->format('d-m-Y H:i:s') }}</td>
                                     <td class="text-center">
                                         <div class="btn-group" role="group">
                                             @can('pendaftaran-tryout view')

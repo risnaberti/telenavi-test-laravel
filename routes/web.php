@@ -3,10 +3,8 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\LandingController;
 use App\Http\Controllers\PendaftaranTryoutController;
-use App\Http\Controllers\PesanwaController;
 use App\Http\Controllers\PesertaController;
 use App\Http\Controllers\RoleAndPermissionController;
-use App\Http\Controllers\SiswaController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -40,8 +38,6 @@ Route::middleware('auth')->group(function () {
     Route::get('/permissions/refresh', [RoleAndPermissionController::class, 'refreshPermission'])->name('permissions.refresh');
     Route::resource('roles', RoleAndPermissionController::class);
     Route::resource('users', UserController::class);
-    Route::resource('pesanwa', PesanwaController::class);
-    Route::resource('siswa', SiswaController::class);
 
     // proses bisnis
     Route::get('/pendaftaran-tryout/rekap-pendaftar', [PendaftaranTryoutController::class, 'rekapPendaftar'])->name('pendaftaran-tryout.rekap-pendaftar');

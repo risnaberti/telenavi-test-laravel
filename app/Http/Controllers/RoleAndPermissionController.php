@@ -96,8 +96,7 @@ class RoleAndPermissionController extends Controller implements HasMiddleware
      */
     public function create(): View
     {
-        return view('roles.create')
-            ->with('existingPermissions',  Permission::where('guard_name', 'web')->pluck('name')->toArray());
+        return view('roles.create');
     }
 
     /**
@@ -133,8 +132,7 @@ class RoleAndPermissionController extends Controller implements HasMiddleware
     {
         $role = Role::with('permissions')->findOrFail($id);
 
-        return view('roles.edit', compact('role'))
-            ->with('existingPermissions',  Permission::where('guard_name', 'web')->pluck('name')->toArray());
+        return view('roles.edit', compact('role'));
     }
 
     /**
