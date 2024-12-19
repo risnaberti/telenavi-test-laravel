@@ -229,5 +229,23 @@ return [
                 'peserta kartu-tryout',
             ]
         ],
+        [
+            'group' => 'pesan wa',
+            'access' => [
+                'pesanwa view',
+                'pesanwa create',
+                'pesanwa edit',
+                'pesanwa delete',
+            ]
+        ],
+        [
+            'group' => 'siswa',
+            'access' => [
+                'siswa view',
+                'siswa create',
+                'siswa edit',
+                'siswa delete',
+            ]
+        ],
     ]
 ];
