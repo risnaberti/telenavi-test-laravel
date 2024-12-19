@@ -68,7 +68,7 @@ class PesertaController extends Controller implements HasMiddleware
                     'no_va' => str_pad($validatedData['id_pendaftar'], 10, '0', STR_PAD_LEFT),
                     'nama' => $validatedData['nama_lengkap'],
                     'kodejk' => $validatedData['jenis_kelamin'] == 'L' ? 1 : 2,
-                    'notelpon' => $validatedData['no_wa_peserta']
+                    'notelpon' => $validatedData['no_wa_ortu']
                 ]);
 
                 $kodeta = Tahunajaran::query()->where('isaktif', "1")->first()?->kodeta;
