@@ -92,7 +92,7 @@ class PesertaController extends Controller implements HasMiddleware
                 $tagihan = Tagihan::create([
                     'idtagihan' => $validatedData['id_pendaftar'],
                     'nis' => $validatedData['id_pendaftar'],
-                    'kodebulan' => now()->monthOfYear(),
+                    'kodebulan' => str_pad(now()->monthOfYear(), 2, '0', STR_PAD_LEFT),
                     'kodeta' => $kodeta,
                     'kodekelompok' => '91',
                     'tglgenerate' => now(),
