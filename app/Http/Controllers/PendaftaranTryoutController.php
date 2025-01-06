@@ -39,11 +39,13 @@ class PendaftaranTryoutController extends Controller implements HasMiddleware
         ];
     }
 
-    public function index(): View
+    public function index(Request $request): View
     {
-        $pendaftaranTryout = PendaftaranTryout::orderBy('created_at', 'desc')->paginate(15);
+        $pendaftaranTryout = new EloquentDataProvider(PendaftaranTryout::orderBy('created_at', 'desc'));
+        $perPage = 15;
 
-        return view('pendaftaran-tryout.index', compact('pendaftaranTryout'));
+        return view('pendaftaran-tryout.index', compact('pendaftaranTryout', 'perPage'))
+            ->with('i', ($request->query('page', 1) - 1) * $perPage);
     }
 
     public function create(): View
