@@ -30,7 +30,7 @@ class AuthController extends Controller
 
         return back()->withErrors([
             'username' => 'Username atau password salah',
-        ])->withInput($request->only('username'));
+        ])->withInput($request->only('username', 'password'));
     }
 
     public function register()
