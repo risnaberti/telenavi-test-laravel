@@ -1,11 +1,11 @@
 @props(['toast' => false])
 
-@pushOnce('css')
+@pushOnce('style')
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endPushOnce
 
-@push('js')
+@push('script')
     @if (session('success'))
         @if (!$toast)
             <script>

@@ -93,13 +93,13 @@ contoh multiple select:
     </select>
 </div>
 
-@pushOnce('css')
+@pushOnce('style')
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/css/select2.min.css" />
     <link rel="stylesheet" href="{{ asset('assets/css') }}/select2-bootstrap-5-theme.min.css" />
 @endPushOnce
 
 {{-- ini akan dipush 1x karena content didalamnya tidak berubah --}}
-@pushOnce('js')
+@pushOnce('script')
     <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.full.min.js"></script>
     <script>
         function initSelect2(elementId, options = {}) {
@@ -125,7 +125,7 @@ contoh multiple select:
 @endPushOnce
 
 {{-- kode ini akan di render berkali2 --}}
-@push('js')
+@push('script')
     <script>
         document.addEventListener('DOMContentLoaded', () => {
             initSelect2("{{ $id }}");

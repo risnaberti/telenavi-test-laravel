@@ -1,4 +1,4 @@
-<x-layouts.guest title="Info Login">
+<x-layout.guest title="Info Login">
     <x-guest-navbar />
 
     <div class="container my-5">
@@ -37,4 +37,4 @@
             </div>
         </div>
     </div>
-</x-layouts.guest>
+</x-layout.guest>

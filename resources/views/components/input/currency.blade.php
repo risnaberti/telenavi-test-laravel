@@ -28,7 +28,7 @@ contoh penggunaan:
     <input type="hidden" name="{{ $name }}" value="{{ $value }}" class="{{ $hiddenClass }}">
 </div>
 
-@pushOnce('js')
+@pushOnce('script')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             // Currency formatting

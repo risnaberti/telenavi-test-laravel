@@ -1,4 +1,4 @@
-<x-layouts.app title="Dashboard" activeMenu="dashboard">
+<x-layout.app title="Dashboard" activeMenu="dashboard">
 
     <!-- Layout wrapper -->
 
@@ -99,7 +99,7 @@
         </div>
     </nav> --}}
 
-  
+
     <!-- / Navbar -->
 
     <!-- Content wrapper -->
@@ -688,4 +688,4 @@
     </div> --}}
 
 
-</x-layouts.app>
+</x-layout.app>

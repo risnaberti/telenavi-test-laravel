@@ -64,7 +64,7 @@
         @endif
     </div>
 
-    @pushOnce('js')
+    @pushOnce('script')
         <script>
             document.addEventListener("DOMContentLoaded", function() {
                 function timeAgo(date) {

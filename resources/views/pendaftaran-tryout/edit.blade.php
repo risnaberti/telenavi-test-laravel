@@ -1,4 +1,4 @@
-<x-layouts.app title="Perbarui Pendaftaran Tryout {{ $pendaftaranTryout->id_pendaftar }}">
+<x-layout.app title="Perbarui Pendaftaran Tryout {{ $pendaftaranTryout->id_pendaftar }}">
     <div class="container my-5">
         <x-breadcrumb title="Perbarui Pendaftaran Tryout - {{ $pendaftaranTryout->id_pendaftar }}" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],
@@ -25,4 +25,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+</x-layout.app>

@@ -1,4 +1,4 @@
-<x-layouts.app title="Detail {{ str_replace('_', ' ', str()->title($status)) }} {{ $bulan }} {{ $tahun }}"
+<x-layout.app title="Detail {{ str_replace('_', ' ', str()->title($status)) }} {{ $bulan }} {{ $tahun }}"
     activeMenu="pendaftaran-tryout.rekap-pendaftar">
     <div class="my-5 container-fluid">
         <x-breadcrumb
@@ -56,4 +56,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+</x-layout.app>

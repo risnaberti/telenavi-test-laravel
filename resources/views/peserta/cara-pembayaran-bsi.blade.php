@@ -1,4 +1,4 @@
-<x-layouts.app title="Tata Cara Pembayaran BSI" activeMenu="cara-pembayaran">
+<x-layout.app title="Tata Cara Pembayaran BSI" activeMenu="cara-pembayaran">
     <div class="container my-5">
         <div class="mb-5 card">
             <div class="card-body">
@@ -121,4 +121,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+</x-layout.app>

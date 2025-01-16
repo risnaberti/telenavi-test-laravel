@@ -1,4 +1,4 @@
-<x-layouts.app title="Perbarui user" activeMenu="users.edit">
+<x-layout.app title="Perbarui user" activeMenu="users.edit">
     <div class="container my-5">
         <x-sweet-alert toast="true" />
 
@@ -49,4 +49,4 @@
             </section>
         </div>
     </div>
-</x-layouts.app>
+</x-layout.app>

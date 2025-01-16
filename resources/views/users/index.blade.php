@@ -1,4 +1,4 @@
-<x-layouts.app title="Users" activeMenu="users">
+<x-layout.app title="Users" activeMenu="users">
     <div class="container my-5">
         <div class="page-heading">
             <div class="page-title">
@@ -106,4 +106,4 @@
             </section>
         </div>
     </div>
-</x-layouts.app>
+</x-layout.app>

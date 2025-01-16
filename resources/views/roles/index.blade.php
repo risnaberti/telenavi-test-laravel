@@ -1,4 +1,4 @@
-<x-layouts.app title="Roles" activeMenu="roles">
+<x-layout.app title="Roles" activeMenu="roles">
     <div class="container my-5">
         <div class="page-heading">
             <div class="page-title">
@@ -75,4 +75,4 @@
             </section>
         </div>
     </div>
-</x-layouts.app>
+</x-layout.app>

@@ -6,10 +6,10 @@
     <meta charset="utf-8">
     <meta name="viewport"
         content="width=device-width, initial-scale=1.0, user-scalable=no, minimum-scale=1.0, maximum-scale=1.0" />
-    <title>Login - {{ $title ?? config('app.name', 'Prabubima Tech') }}</title>
+    <title>Login - {{ !empty($title) ? $title : config('app.name', 'Prabubima Tech') }}</title>
 
     <!-- Favicon -->
-    <link rel="icon" type="image/x-icon" href="{{ asset('assets/img/favicon/favicon.ico') }}">
+    <link rel="icon" type="image/x-icon" href="{{ asset('favicon.ico') }}">
 
     <!-- Fonts -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,26 +51,25 @@
                         <div class="app-brand justify-content-center">
                             <a href="{{ url('/') }}" class="gap-2 app-brand-link">
                                 <span class="app-brand-logo demo">
-                                    <img src="{{ asset('assets/img/logo/logosmpmugaygy.png') }}" alt=""
-                                        height="50px">
+                                    <img src="{{ asset('assets/img/logo/pb.png') }}" alt="" height="50px">
                                 </span>
-                                <span class="app-brand-text demo text-heading fw-bold">Login pendaftar Tryout</span>
+                                <span class="app-brand-text demo text-heading fw-bold">Login
+                                    {{ config('app.name') }}</span>
                             </a>
                         </div>
 
                         <!-- /Logo -->
                         <h4 class="mb-1">Selamat datang!</h4>
-                        <p class="mb-6">Silahkan Login untuk melihat status pembayaran dan mengunduh/mencetak kartu
-                            peserta.</p>
+                        <p class="mb-6">Silahkan Login untuk melihat informasi lebih lanjut.</p>
 
                         <x-error-list />
 
                         <form id="formAuthentication" class="mb-6" action="{{ route('login') }}" method="post">
                             @csrf
                             <div class="mb-6">
-                                <label for="username" class="form-label">Username / No Peserta</label>
+                                <label for="username" class="form-label">Username</label>
                                 <input type="text" class="form-control" id="username" name="username"
-                                    value="{{ old('username') }}" placeholder="Masukkan username anda" autofocus />
+                                    value="{{ old('username') }}" placeholder="Masukkan username" autofocus />
                             </div>
                             <div class="mb-6 form-password-toggle">
                                 <label class="form-label" for="password">Password</label>
@@ -98,12 +97,12 @@
                             </div>
                         </form>
 
-                        <p class="text-center">
-                            <span>Peserta Baru?</span>
+                        {{-- <p class="text-center">
+                            <span>User Baru?</span>
                             <a href="{{ url('/') }}">
                                 <span>Daftar</span>
                             </a>
-                        </p>
+                        </p> --}}
                     </div>
                 </div>
                 <!-- /Register -->

@@ -11,11 +11,11 @@
         <!-- Search -->
         <div class="navbar-nav align-items-center">
             <div class="nav-item d-flex align-items-center">
-                <img src="{{ asset('assets/img/logo/logosmpmugaygy.png') }}" alt="" height="50px">
+                <img src="{{ asset('assets/img/logo/pb.png') }}" alt="" height="50px">
                 <span class="mb-0 border-0 shadow-none form-control ps-1 ps-sm-2 fw-medium">
-                    <span style="font-size: 1.3rem;" class="fw-bold">Pendaftaran TryOut</span>
+                    <span style="font-size: 1.3rem;" class="fw-bold">{{ config('app.name') }}</span>
                     <br>
-                    <small class="text-primary">SMP MUGA YOGYA</small>
+                    <small class="text-primary d-none d-sm-block">{{ config('app.subname') }}</small>
                 </span>
             </div>
         </div>

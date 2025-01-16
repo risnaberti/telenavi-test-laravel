@@ -4,9 +4,9 @@
             <span class="app-brand-logo demo">
             </span>
             <div class="app-brand-text demo menu-text ms-2" style="font-size: 20px;">
-                <span class="fw-bold">SMP MUGA YOGYA</span>
+                <span class="fw-bold">{{ config('app.name') }}</span>
                 <br>
-                <small class="fw-semibold">Sistem Pendaftaran Tryout </small>
+                <small class="fw-semibold d-none d-sm-block">{{ config('app.subname') }}</small>
             </div>
         </a>
 

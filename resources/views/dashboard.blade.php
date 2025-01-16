@@ -1,9 +1,9 @@
-<x-layouts.app title="Dashboard" activeMenu="dashboard">
+<x-layout.app title="Dashboard" activeMenu="dashboard">
     <div class="container my-5">
         <div class="card">
             <div class="card-header">{{ __('Dashboard') }}</div>
 
-            @role('admin')
+            @role('Admin')
                 <div class="card-body">
                     @if (session('status'))
                         <div class="alert alert-success" role="alert">
@@ -22,4 +22,4 @@
             @endrole
         </div>
     </div>
-</x-layouts.app>
+</x-layout.app>

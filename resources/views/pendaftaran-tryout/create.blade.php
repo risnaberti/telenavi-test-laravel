@@ -1,4 +1,4 @@
-<x-layouts.app title="Tambah Pendaftaran Tryout">
+<x-layout.app title="Tambah Pendaftaran Tryout">
     <div class="container my-5">
         <x-breadcrumb title="Tambah Pendaftaran Tryout" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],
@@ -10,7 +10,8 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('pendaftaran-tryout.store') }}" method="POST" role="form" enctype="multipart/form-data">
+                <form action="{{ route('pendaftaran-tryout.store') }}" method="POST" role="form"
+                    enctype="multipart/form-data">
                     @csrf
                     @method('POST')
 
@@ -24,4 +25,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+</x-layout.app>

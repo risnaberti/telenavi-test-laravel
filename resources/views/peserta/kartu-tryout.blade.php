@@ -1,4 +1,4 @@
-<x-layouts.app title="Cetak Kartu Tryout" activeMenu="cetak-kartu">
+<x-layout.app title="Cetak Kartu Tryout" activeMenu="cetak-kartu">
     <div class="container my-5">
         @if ($tagihan->statuspembayaran == 1 and $tagihan->aktif == 0)
             <style>
@@ -141,4 +141,4 @@
             </div>
         @endif
     </div>
-</x-layouts.app>
+</x-layout.app>

@@ -1,4 +1,4 @@
-@pushOnce('js')
+@pushOnce('script')
     <script src="{{ asset('assets/js/jquery.checkboxall-1.0.min.js') }}"></script>
 @endPushOnce
 
@@ -52,7 +52,7 @@
                                 {{ ucwords($permission['group']) }}
                             </h4>
                             <input class="ms-2 form-check-input allcheck" type="checkbox" />
-                            @push('js')
+                            @push('script')
                                 <script>
                                     $(document).ready(function() {
                                         $("#{{ $containerId }}").checkboxall('allcheck');

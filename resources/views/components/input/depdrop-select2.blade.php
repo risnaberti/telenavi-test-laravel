@@ -47,7 +47,7 @@ public function getProvinsi(Request $request) {
     :clearable="$clearable" :attributes="$attributes->merge(['data-depends' => $depends, 'data-url' => $url, 'data-selected' => $selected])" />
 
 {{-- ini akan dipush 1x karena content didalamnya tidak berubah --}}
-@pushOnce('js')
+@pushOnce('script')
     <script>
         $(document).ready(function() {
             $('[data-depends]').each(function() {

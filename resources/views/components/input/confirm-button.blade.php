@@ -21,12 +21,12 @@ contoh penggunaan:
     {{ $slot }}
 </a>
 
-@pushOnce('css')
+@pushOnce('style')
     <!-- SweetAlert2 -->
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
 @endPushOnce
 
-@pushOnce('js')
+@pushOnce('script')
     <script>
         document.addEventListener('DOMContentLoaded', function() {
             document.querySelectorAll('.confirm-button').forEach(button => {

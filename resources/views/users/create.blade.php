@@ -1,4 +1,4 @@
-<x-layouts.app title="Tambah user" activeMenu="users.create">
+<x-layout.app title="Tambah user" activeMenu="users.create">
     <div class="container my-5">
         <div class="page-heading">
             <div class="page-title">
@@ -46,4 +46,4 @@
             </section>
         </div>
     </div>
-</x-layouts.app>
+</x-layout.app>

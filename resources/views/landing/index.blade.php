@@ -1,8 +1,8 @@
-<x-layouts.guest title="PENDAFTARAN TRY-OUT | SMP MUGA YOGYA" activeMenu="landing">
+<x-layout.guest.app title="" activeMenu="landing">
     <div class="main-container">
         <img src="{{ asset('assets/img/front-pages/hero-bg.png') }}" class="main-bg">
 
-        <x-guest-navbar />
+        <x-layout.guest.navbar />
 
         <!-- Content wrapper -->
         <div class="content-wrapper">
@@ -124,9 +124,14 @@
                                                             <li>Pilih menu "BELI atau BAYAR"</li>
                                                             <li>Pilih menu <b>VIRTUAL ACCOUNT</b></li>
                                                             <li>Pilih rekening sumber</li>
-                                                            <li>Masukkan nomor "Virtual Account" <b>751018 [diperoleh setelah daftar]</b></li>
-                                                            <li>Periksa informasi pembayaran pastikan VA sudah sesuai dengan informasi (cek info nama dan nama tagihan), kesalahan transfer ke Virtual Account lain bukan tanggung jawab bagian keuangan</li>
-                                                            <li>Masukkan nominal bayar sesuai dengan total bayar yang tertera (biaya admin Rp. 3000 tertera)</li>
+                                                            <li>Masukkan nomor "Virtual Account" <b>751018 [diperoleh
+                                                                    setelah daftar]</b></li>
+                                                            <li>Periksa informasi pembayaran pastikan VA sudah sesuai
+                                                                dengan informasi (cek info nama dan nama tagihan),
+                                                                kesalahan transfer ke Virtual Account lain bukan
+                                                                tanggung jawab bagian keuangan</li>
+                                                            <li>Masukkan nominal bayar sesuai dengan total bayar yang
+                                                                tertera (biaya admin Rp. 3000 tertera)</li>
                                                             <li>Masukkan PIN mobile banking Anda</li>
                                                             <li>Konfirmasi pembayaran</li>
                                                             <li>Simpan bukti transaksi sebagai bukti pembayaran</li>
@@ -174,7 +179,7 @@
                                         <x-error-list />
 
                                         <form class="aos-init aos-animate" data-aos="fade-up" data-aos-delay="200"
-                                            method="POST" action="{{ route('tryout.daftar') }}">
+                                            method="POST" action="">
                                             @csrf
                                             <div class="row gy-4">
                                                 <div class="col-md-12">
@@ -210,11 +215,13 @@
                                                 <!--        id="nisn"-->
                                                 <!--        value="{{ old('nisn', $pendaftaranTryout?->nisn) }}"-->
                                                 <!--        placeholder="Masukkan Nisn" />-->
-                                                <!--    @error('nisn')-->
-                                                <!--        <small class="invalid-feedback">{{ $message }}</small>-->
-                                                <!--    @enderror-->
+                                                <!--    @error('nisn')
+    -->
+                                                    <!--        <small class="invalid-feedback">{{ $message }}</small>-->
+                                                    <!--
+@enderror-->
                                                 <!--</div>-->
-                                                
+
                                                 <div class="col-md-12">
                                                     <label for="tempat_lahir" class="form-label">Tempat Lahir</label>
                                                     <input type="text" name="tempat_lahir"
@@ -239,13 +246,12 @@
                                                         <small class="invalid-feedback">{{ $message }}</small>
                                                     @enderror
                                                 </div>
-                                                
+
                                                 <div class="col-md-12">
-                                                    <label for="alamat_domisili" class="form-label">Alamat Domisili</label>
-                                                    <textarea name="alamat_domisili"
-                                                        class="form-control {{ $errors->has('alamat_domisili') ? 'is-invalid' : '' }}"
-                                                        id="alamat_domisili"
-                                                        placeholder="Masukkan Alamat Domisili">{{ old('alamat_domisili', $pendaftaranTryout?->alamat_domisili) }}</textarea>
+                                                    <label for="alamat_domisili" class="form-label">Alamat
+                                                        Domisili</label>
+                                                    <textarea name="alamat_domisili" class="form-control {{ $errors->has('alamat_domisili') ? 'is-invalid' : '' }}"
+                                                        id="alamat_domisili" placeholder="Masukkan Alamat Domisili">{{ old('alamat_domisili', $pendaftaranTryout?->alamat_domisili) }}</textarea>
                                                     @error('alamat_domisili')
                                                         <small class="invalid-feedback">{{ $message }}</small>
                                                     @enderror
@@ -408,4 +414,4 @@
         <!-- Overlay -->
 
     </div>
-</x-layouts.guest>
+</x-layout.guest.app>
