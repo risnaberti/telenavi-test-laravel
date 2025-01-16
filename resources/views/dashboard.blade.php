@@ -16,7 +16,7 @@
             @else
                 <div class="card-body">
                     <p>
-                        Selamat datang peserta Tryout.
+                        Selamat datang User.
                     </p>
                 </div>
             @endrole

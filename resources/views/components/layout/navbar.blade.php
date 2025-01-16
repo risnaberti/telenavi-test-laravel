@@ -4,7 +4,7 @@
             <span class="app-brand-logo demo">
             </span>
             <div class="app-brand-text demo menu-text ms-2" style="font-size: 20px;">
-                <span class="fw-bold">{{ config('app.name') }}</span>
+                <span class="fw-bold" style="line-height: 110%;">{{ config('app.name') }}</span>
                 <br>
                 <small class="fw-semibold d-none d-sm-block">{{ config('app.subname') }}</small>
             </div>
@@ -27,61 +27,67 @@
         </li>
 
         @php
-            $navConfig = config('navigation.navbar', []);
+            $navConfig = config('navigation', []);
+            $currentGroup = '';
         @endphp
 
-        @foreach ($navConfig as $menu)
-            @if (isset($menu['submenus']))
-                @canany(collect($menu['submenus'])->pluck('permissions')->flatten()->toArray())
-                    <li
-                        class="menu-item {{ in_array(
-                            request()->route()->getName(),
-                            collect($menu['submenus'])->pluck('route')->toArray(),
-                        )
-                            ? 'active open'
-                            : '' }}">
-                        <a href="javascript:void(0);" class="menu-link menu-toggle">
-                            {!! $menu['icon'] !!}
-                            <div class="text-truncate" data-i18n="{{ $menu['title'] }}">{{ $menu['title'] }}</div>
-                        </a>
-                        <ul class="menu-sub">
-                            @foreach ($menu['submenus'] as $submenu)
-                                @can($submenu['permissions'][0])
-                                    <li
-                                        class="menu-item {{ request()->route()->getName() == $submenu['route'] ? 'active' : '' }}">
-                                        <a href="{{ !$submenu['route'] ? '' : route($submenu['route']) }}" class="menu-link">
-                                            <div class="text-truncate" data-i18n="{{ $submenu['title'] }}">
-                                                {{ $submenu['title'] }}
-                                            </div>
-                                        </a>
-                                    </li>
-                                @endcan
-                            @endforeach
-                        </ul>
-                    </li>
-                @endcanany
-            @else
-                @canany($menu['permissions'])
-                    <li class="menu-item {{ request()->route()->getName() == $menu['route'] ? 'active' : '' }}">
-                        <a href="{{ route($menu['route']) }}" class="menu-link">
-                            {!! $menu['icon'] !!}
-                            <div class="text-truncate" data-i18n="{{ $menu['title'] }}">{{ $menu['title'] }}</div>
-                        </a>
-                    </li>
-                @endcan
+        @foreach ($navConfig as $group => $menus)
+            @if ($group != $currentGroup)
+                <li class="menu-header small text-uppercase">
+                    <span class="menu-header-text">{{ $group }}</span>
+                </li>
             @endif
-        @endforeach
 
-        {{-- Group Header --}}
-        @php
-            $groupMenus = collect($navConfig)->filter(fn($menu) => !empty($menu['group']));
-            $uniqueGroups = $groupMenus->pluck('group')->unique();
-        @endphp
-
-        @foreach ($uniqueGroups as $group)
-            <li class="menu-header small text-uppercase">
-                <span class="menu-header-text">{{ $group }}</span>
-            </li>
+            @foreach ($menus as $menu)
+                @if (isset($menu['submenus']))
+                    @php
+                        $submenuPermission = collect($menu['submenus'])
+                            ->pluck('permissions')
+                            ->flatten()
+                            ->toArray();
+                    @endphp
+                    @if ($submenuPermission || is_null($submenuPermission))
+                        <li
+                            class="menu-item {{ in_array(
+                                request()->route()->getName(),
+                                collect($menu['submenus'])->pluck('route')->toArray(),
+                            )
+                                ? 'active open'
+                                : '' }}">
+                            <a href="javascript:void(0);" class="menu-link menu-toggle">
+                                {!! $menu['icon'] !!}
+                                <div class="text-truncate" data-i18n="{{ $menu['title'] }}">{{ $menu['title'] }}</div>
+                            </a>
+                            <ul class="menu-sub">
+                                @foreach ($menu['submenus'] as $submenu)
+                                    {{-- @can($submenu['permissions'][0]) --}}
+                                    {{-- @endcan --}}
+                                    @if (auth()->user()->canAny($submenu['permissions']) || is_null($submenu['permissions']))
+                                        <li
+                                            class="menu-item {{ request()->route()->getName() == $submenu['route'] ? 'active' : '' }}">
+                                            <a href="{{ !$submenu['route'] ? '#' : route($submenu['route']) }}"
+                                                class="menu-link">
+                                                <div class="text-truncate" data-i18n="{{ $submenu['title'] }}">
+                                                    {{ $submenu['title'] }}
+                                                </div>
+                                            </a>
+                                        </li>
+                                    @endif
+                                @endforeach
+                            </ul>
+                        </li>
+                    @endif
+                @else
+                    @if (auth()->user()->canAny($menu['permissions']) || is_null($menu['permissions']))
+                        <li class="menu-item {{ request()->route()->getName() == $menu['route'] ? 'active' : '' }}">
+                            <a href="{{ !$menu['route'] ? '#' : route($menu['route']) }}" class="menu-link">
+                                {!! $menu['icon'] !!}
+                                <div class="text-truncate" data-i18n="{{ $menu['title'] }}">{{ $menu['title'] }}</div>
+                            </a>
+                        </li>
+                    @endif
+                @endif
+            @endforeach
         @endforeach
 
         {{-- Logout --}}

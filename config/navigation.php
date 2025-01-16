@@ -1,11 +1,10 @@
 <?php
 
 $nav = [
-    "navbar" => [
+    "General" => [
         [
             "title" => "Master Data",
             "icon" => '<i class="menu-icon tf-icons bx bx-briefcase"></i>',
-            "group" => "",
             "submenus" => [
                 [
                     'title' => 'Pendaftaran Tryout',
@@ -15,31 +14,36 @@ $nav = [
             ],
         ],
         [
+            "title" => "Laporan Contoh",
+            "icon" => '<i class="menu-icon tf-icons bx bx-briefcase"></i>',
+            'route' => null,
+            'permissions' => null
+        ],
+    ],
+    "Misc" => [
+        [
             "title" => "Manajemen Users",
             "icon" => '<i class="menu-icon tf-icons bx bx-lock-open-alt"></i>',
-            "group" => "Misc",
             "submenus" => [
                 [
                     'title' => 'Users',
                     'route' => 'users.index',
-                    // 'route' => null,
                     'permissions' => ['user view']
                 ],
                 [
                     'title' => 'Roles',
                     'route' => 'roles.index',
-                    // 'route' => null,
                     'permissions' => ['role & permission view']
                 ],
-                // [
-                //     'title' => 'Permissions',
-                //     // 'route' => 'permissions.index',
-                //     'route' => null,
-                //     'permissions' => ['role & permission view']
-                // ]
             ],
-        ]
-    ],
+        ],
+        [
+            "title" => "Rekap User",
+            "icon" => '<i class="menu-icon tf-icons bx bx-list-check"></i>',
+            "route" => null,
+            "permissions" => null,
+        ],
+    ]
 ];
 
 return $nav;
