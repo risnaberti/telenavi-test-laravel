@@ -1,4 +1,0 @@
-                                <div class="col-md-4">
-                                    <label for="first-name-horizontal">{{title}}</label>
-                                </div>
-                                <div class="col-md-8 form-group">: {{ ${{modelNameLowerCase}}->{{column}} }}</div>

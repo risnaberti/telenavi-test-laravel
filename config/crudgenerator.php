@@ -28,7 +28,7 @@ return [
     |               view-field.stub
     */
 
-    'stub_path' => resource_path('stubs/crudv2'),
+    'stub_path' => resource_path('stubs/crud'),
 
     /*
     |--------------------------------------------------------------------------

@@ -6,9 +6,6 @@ use App\Console\Commands\CrudHelper\GenerateView;
 use App\Console\Commands\CrudHelper\MakeModelVariabel;
 use Illuminate\Console\Command;
 use Illuminate\Support\Facades\File;
-use Illuminate\Support\Facades\Schema;
-use Illuminate\Support\Str;
-use phpDocumentor\Reflection\Types\This;
 
 class CrudGenerator extends Command
 {
@@ -56,8 +53,9 @@ class CrudGenerator extends Command
             default:
                 if ($this->generateController($modelVariables)) {
                     $this->info("Controller untuk model {$modelName} berhasil dibuat!");
-                    $this->generateViews($modelVariables);
+                    (new GenerateView($this->stubPath))->generateViews($modelVariables);
                     $this->info("View untuk model {$modelName} berhasil dibuat!");
+                    break;
                 }
                 break;
         }
@@ -65,7 +63,7 @@ class CrudGenerator extends Command
 
     protected function generateController($modelVariables)
     {
-        $controllerContent = File::get($this->stubPath . "/controller.stub");
+        $controllerContent = File::get($this->stubPath . "/Controller.stub");
 
         // fungsi untuk konversi arry ke string rules
         $generateValidationCode = function ($rules) {

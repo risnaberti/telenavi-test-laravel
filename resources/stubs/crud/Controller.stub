@@ -1,120 +1,103 @@
 <?php
 
-namespace {{controllerNamespace}};
+namespace App\Http\Controllers;
 
 use {{modelNamespace}}\{{modelName}};
-use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use {{requestNamespace}}\{{modelName}}Request;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
+use \Illuminate\Routing\Controllers\HasMiddleware;
 use Illuminate\Routing\Controllers\Middleware;
 use Woo\GridView\DataProviders\EloquentDataProvider;
 
-class {{modelName}}Controller extends Controller implements \Illuminate\Routing\Controllers\HasMiddleware
+class {{modelName}}Controller extends Controller implements HasMiddleware
 {
     public static function middleware(): array
     {
         return [
-            new Middleware('permission:{{modelView}} view', only: ['index', 'show']),
-            new Middleware('permission:{{modelView}} create', only: ['create', 'store']),
-            new Middleware('permission:{{modelView}} edit', only: ['edit', 'update']),
-            new Middleware('permission:{{modelView}} delete', only: ['destroy']),
+            new Middleware('permission:{{modelRoute}} view', only: ['index', 'show']),
+            new Middleware('permission:{{modelRoute}} create', only: ['create', 'store']),
+            new Middleware('permission:{{modelRoute}} edit', only: ['edit', 'update']),
+            new Middleware('permission:{{modelRoute}} delete', only: ['destroy']),
         ];
     }
 
-    /**
-     * Display a listing of the resource.
-     */
-    public function index(Request $request): View
+    public function index(): View
     {
-        $dataProvider = new EloquentDataProvider({{modelName}}::query());
-        $perPage = 15;
-
-        return view('{{modelView}}.index', compact('dataProvider', 'perPage'))
-            ->with('i', ($request->query('page', 1) - 1) * $perPage);
+        ${{modelVariable}} = {{modelName}}::paginate(10);
+        
+        return view('{{modelRoute}}.index', compact('{{modelVariable}}'));
     }
 
-    /**
-     * Show the form for creating a new resource.
-     */
     public function create(): View
     {
-        ${{modelNameLowerCase}} = new {{modelName}}();
+        ${{modelVariable}} = new {{modelName}}();
 
-        return view('{{modelView}}.create', compact('{{modelNameLowerCase}}'));
+        return view('{{modelRoute}}.create', compact('{{modelVariable}}'));
     }
 
-    /**
-     * Store a newly created resource in storage.
-     */
-    public function store({{modelName}}Request $request): RedirectResponse
+    public function store(Request $request): RedirectResponse
     {
+        $validatedData = $request->validate([
+            {{validationRules}}
+        ]);
+
         try {
-            {{modelName}}::create($request->validated());
+            {{modelName}}::create($validatedData);
         } catch (\Illuminate\Database\QueryException $e) {
-            return Redirect::route('tahun-ajaran.index')
+            return redirect()->route('{{modelRoute}}.index')
                 ->with('error', 'Terjadi kesalahan saat membuat data.');
         }
 
         return redirect()->route('{{modelRoute}}.index')
-            ->with('success', '{{modelName}} berhasil dibuat.');
+            ->with('success', '{{modelTitle}} berhasil dibuat');
     }
 
-    /**
-     * Display the specified resource.
-     */
-    public function show($id): View
+    public function show({{modelName}} ${{modelVariable}}): View
     {
-        ${{modelNameLowerCase}} = {{modelName}}::find($id);
-
-        return view('{{modelView}}.show', compact('{{modelNameLowerCase}}'));
+        return view('{{modelRoute}}.show', compact('{{modelVariable}}'));
     }
 
-    /**
-     * Show the form for editing the specified resource.
-     */
-    public function edit($id): View
+    public function edit({{modelName}} ${{modelVariable}}): View
     {
-        ${{modelNameLowerCase}} = {{modelName}}::find($id);
-
-        return view('{{modelView}}.edit', compact('{{modelNameLowerCase}}'));
+        return view('{{modelRoute}}.edit', compact('{{modelVariable}}'));
     }
 
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update({{modelName}}Request $request, {{modelName}} ${{modelNameLowerCase}}): RedirectResponse
+    public function update(Request $request, {{modelName}} ${{modelVariable}}): RedirectResponse
     {
+        $validatedData = $request->validate([
+            {{validationRules}}
+        ]);
+
         try {
-            ${{modelNameLowerCase}}->update($request->validated());
+            ${{modelVariable}}->update($validatedData);
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == '23000') {
-                return redirect()->route('{{modelView}}.index')
-                    ->with('error', '{{modelName}} ini sudah digunakan dan tidak dapat diperbarui.');
+                return redirect()->route('{{modelRoute}}.index')
+                    ->with('error', 'Data {{modelTitleLower}} ini sudah digunakan dan tidak dapat diperbarui.');
             }
-            return redirect()->route('{{modelView}}.index')
+            return redirect()->route('{{modelRoute}}.index')
                 ->with('error', 'Terjadi kesalahan saat memperbarui data.');
         }
 
         return redirect()->route('{{modelRoute}}.index')
-            ->with('success', '{{modelName}} berhasil diperbarui.');
+            ->with('success', '{{modelTitle}} berhasil diperbarui');
     }
 
-    public function destroy($id): RedirectResponse
+    public function destroy({{modelName}} ${{modelVariable}}): RedirectResponse
     {
         try {
-            {{modelName}}::find($id)->delete();
+            ${{modelVariable}}->delete();
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == '23000') {
-                return redirect()->route('{{modelView}}.index')
-                    ->with('error', '{{modelName}} ini sudah digunakan dan tidak dapat dihapus.');
+                return redirect()->route('{{modelRoute}}.index')
+                    ->with('error', 'Data {{modelTitleLower}} ini sudah digunakan dan tidak dapat dihapus.');
             }
-            return redirect()->route('{{modelView}}.index')
+            return redirect()->route('{{modelRoute}}.index')
                 ->with('error', 'Terjadi kesalahan saat menghapus data.');
         }
 
         return redirect()->route('{{modelRoute}}.index')
-            ->with('success', '{{modelName}} berhasil dihapus.');
+            ->with('success', '{{modelTitle}} berhasil dihapus');
     }
 }
