@@ -36,6 +36,20 @@ return new class extends Migration
             $table->longText('payload');
             $table->integer('last_activity')->index();
         });
+
+        Schema::create('users_login_logs', function (Blueprint $table) {
+            $table->id(); // ID dengan auto increment
+            $table->foreignId('user_id')->nullable()->constrained('users')->onDelete('set null')->onUpdate('restrict');
+            $table->string('username');
+            $table->string('ip_address');
+            $table->string('user_agent');
+            $table->string('browser')->nullable();
+            $table->string('platform')->nullable();
+            $table->string('device')->nullable();
+            $table->enum('status', ['success', 'failed']);
+            $table->string('failed_reason')->nullable();
+            $table->timestamp('created_at', 0);
+        });
     }
 
     /**
@@ -43,6 +57,7 @@ return new class extends Migration
      */
     public function down(): void
     {
+        Schema::dropIfExists('users_login_logs');
         Schema::dropIfExists('users');
         Schema::dropIfExists('password_reset_tokens');
         Schema::dropIfExists('sessions');

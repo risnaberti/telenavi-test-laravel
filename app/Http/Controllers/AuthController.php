@@ -3,10 +3,13 @@
 namespace App\Http\Controllers;
 
 use App\Models\User;
+use App\Models\UsersLoginLog;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
+use Jenssegers\Agent\Agent;
 
 class AuthController extends Controller
 {
@@ -18,15 +21,64 @@ class AuthController extends Controller
     public function doLogin(Request $request)
     {
         $credentials = $request->validate([
-            // 'email' => 'required|email',
             'username' => 'required',
             'password' => 'required'
         ]);
 
+        $agent = new Agent();
+
+        // Cek apakah user ada berdasarkan username
+        $user = User::where('username', $request->username)->first();
+
+        // Mencoba login
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
+
+            Log::info('Authentication successful : ', ['user_id' => $user->id]); // Log ID user yang berhasil login
+
+            // Menyimpan log login sukses
+            try {
+                UsersLoginLog::create([
+                    'user_id' => $user->id, // Ambil user_id dari user yang login
+                    'username' => $user->username, // Ambil username dari user yang login
+                    'ip_address' => $request->ip(),
+                    'user_agent' => $request->userAgent(),
+                    'browser' => $agent->browser(),
+                    'platform' => $agent->platform(),
+                    'device' => $agent->device(),
+                    'status' => 'success',
+                    'failed_reason' => null,
+                    'created_at' => now(),
+                ]);
+            } catch (\Exception $e) {
+                Log::error('Error creating login log', ['error' => $e->getMessage()]); // Debug log
+            }
+
             return redirect()->intended('dashboard')->with('success', 'Login berhasil')->with('noback', true);
         }
+
+        // Jika login gagal
+        if ($user) {
+            // Jika ada, berarti password salah
+            $failedReason = 'Password salah';
+        } else {
+            // Jika user tidak ditemukan
+            $failedReason = 'Username tidak ditemukan';
+        }
+
+        // Menyimpan log login gagal
+        UsersLoginLog::create([
+            'user_id' => $user ? $user->id : null, // Jika user ada, ambil user_id, jika tidak null
+            'username' => $request->username, // Username tetap dicatat
+            'ip_address' => $request->ip(),
+            'user_agent' => $request->userAgent(),
+            'browser' => $agent->browser(),
+            'platform' => $agent->platform(),
+            'device' => $agent->device(),
+            'status' => 'failed',
+            'failed_reason' => $failedReason,
+            'created_at' => now(),
+        ]);
 
         return back()->withErrors([
             'username' => 'Username atau password salah',
