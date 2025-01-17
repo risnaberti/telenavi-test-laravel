@@ -101,6 +101,11 @@
 
     <div class="layout-wrapper layout-content-navbar layout-without-menu">
         <div class="layout-container">
+            <!-- Toast default -->
+            @if ($withError)
+                <x-bs-toast />
+            @endif
+
             <!-- Navbar -->
             {{-- <x-navbar-guest /> --}}
 
@@ -129,7 +134,7 @@
     <!-- END: Theme JS-->
     @stack('script')
 
-    @session('noBack')
+    @session('noback')
         <script type="text/javascript">
             window.history.pushState(null, null, window.location.href);
             window.onpopstate = function() {

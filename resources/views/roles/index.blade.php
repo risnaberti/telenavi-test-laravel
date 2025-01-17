@@ -17,8 +17,6 @@
             </div>
 
             <section class="section">
-                <x-sweet-alert toast="true" />
-
                 @can('role & permission create')
                     <div class="d-flex justify-content-end">
                         <a href="{{ route('roles.create') }}" class="mb-3 btn btn-primary">

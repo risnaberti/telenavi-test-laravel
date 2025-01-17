@@ -6,8 +6,6 @@
             ['label' => 'Perbarui Pendaftaran Tryout'],
         ]" />
 
-        <x-sweet-alert />
-
         <div class="card">
             <div class="card-body">
                 <form action="{{ route('pendaftaran-tryout.update', $pendaftaranTryout) }}" method="POST" role="form"

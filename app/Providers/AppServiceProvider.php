@@ -22,5 +22,12 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Paginator::useBootstrapFive();
+
+        // Menggunakan View Composer secara langsung tanpa membuat class khusus
+        View::composer('*', function ($view) {
+            // Bagikan data ke semua
+            // $view->with('noback', false);
+            // $view->with('withError', true);
+        });
     }
 }

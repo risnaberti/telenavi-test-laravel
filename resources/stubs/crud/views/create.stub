@@ -1,4 +1,4 @@
-<x-layouts.app title="Tambah {{modelTitle}}" activeMenu="{{modelRoute}}.create">
+<x-layouts.app title="Tambah {{modelTitle}}" activeMenu="{{modelRoute}}.create" :withError="false">
     <div class="container my-5">
         <x-breadcrumb title="Tambah {{modelTitle}}" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],
@@ -6,10 +6,10 @@
             ['label' => 'Tambah {{modelTitle}}'],
         ]" />
 
-        <x-sweet-alert />
-
         <div class="card">
             <div class="card-body">
+                <x-error-list />
+
                 <form action="{{ route('{{modelRoute}}.store') }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     @method('POST')

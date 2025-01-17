@@ -17,8 +17,6 @@
             </div>
 
             <section class="section">
-                <x-sweet-alert toast="true" />
-
                 <div class="d-flex justify-content-end">
                     @can('user create')
                         <a href="{{ route('users.create') }}" class="mb-3 btn btn-primary me-1">

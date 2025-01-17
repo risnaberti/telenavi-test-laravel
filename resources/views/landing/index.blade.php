@@ -1,4 +1,4 @@
-<x-layout.guest.app title="" activeMenu="landing">
+<x-layout.guest.app title="" activeMenu="landing" :withError="false">
     <div class="main-container">
         <img src="{{ asset('assets/img/front-pages/hero-bg.png') }}" class="main-bg">
 

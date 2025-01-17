@@ -1,4 +1,4 @@
-<x-layout.app title="Dashboard" activeMenu="dashboard">
+<x-layout.app title="Dashboard" activeMenu="dashboard" :withError="true">
     <div class="container my-5">
         <div class="card">
             <div class="card-header">{{ __('Dashboard') }}</div>

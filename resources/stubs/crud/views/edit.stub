@@ -1,4 +1,4 @@
-<x-layouts.app title="Perbarui {{modelTitle}}" activeMenu="{{modelRoute}}.edit">
+<x-layouts.app title="Perbarui {{modelTitle}}" activeMenu="{{modelRoute}}.edit" :withError="false">
     <div class="container my-5">
         <x-breadcrumb title="Perbarui {{modelTitle}}" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],
@@ -6,10 +6,10 @@
             ['label' => 'Perbarui {{modelTitle}}'],
         ]" />
 
-        <x-sweet-alert />
-
         <div class="card">
             <div class="card-body">
+                <x-error-list />
+
                 <form action="{{ route('{{modelRoute}}.update', ${{modelVariable}}) }}" method="POST" role="form" enctype="multipart/form-data">
                     @csrf
                     @method('PUT')

@@ -1,11 +1,9 @@
-<x-layouts.app title="{{modelTitle}}" activeMenu="{{modelRoute}}">
+<x-layouts.app title="{{modelTitle}}" activeMenu="{{modelRoute}}" :withError="true">
     <div class="my-5 container-fluid">
         <x-breadcrumb title="{{modelTitle}}" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],
             ['label' => '{{modelTitle}}'],
         ]" />
-
-        <x-bs-toast />
         
         <div class="card">
             <div class="card-header d-flex justify-content-between align-items-center">

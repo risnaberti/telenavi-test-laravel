@@ -6,8 +6,6 @@
             ['label' => 'Tambah Pendaftaran Tryout'],
         ]" />
 
-        <x-sweet-alert />
-
         <div class="card">
             <div class="card-body">
                 <form action="{{ route('pendaftaran-tryout.store') }}" method="POST" role="form"
