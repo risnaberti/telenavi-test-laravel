@@ -26,6 +26,9 @@ class CrudGenerator extends Command
         $modelName = $this->argument('model');
         $type = $this->option('type');
         $modelPath = app_path("Models/{$modelName}.php");
+        $crudTemplate = 'default';
+
+        $this->stubPath .= "/$crudTemplate";
 
         // Cek apakah model sudah ada
         if (!File::exists($modelPath)) {

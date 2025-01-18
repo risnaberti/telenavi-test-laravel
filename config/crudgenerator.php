@@ -62,7 +62,10 @@ return [
             'email_verified_at',
             'created_at',
             'updated_at',
-            'deleted_at'
+            'created_by',
+            'updated_by',
+            'deleted_at',
+            'deleted_by'
         ]
     ],
 
@@ -84,7 +87,10 @@ return [
             '{pk}',
             'created_at',
             'updated_at',
-            'deleted_at'
+            'created_by',
+            'updated_by',
+            'deleted_at',
+            'deleted_by'
         ]
     ],
 ];
