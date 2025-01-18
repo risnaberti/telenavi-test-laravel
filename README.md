@@ -25,10 +25,12 @@ Berikut adalah rencana fitur dan perbaikan yang akan dilakukan:
 
 -   Mencari dan mengganti penggunaan SweetAlert2 dengan alternatif yang lebih modern dan up-to-date, karena SweetAlert2 mulai terasa kuno.
 
-## 6. Modifikasi CRUD Generator (25%)
+## 6. Modifikasi CRUD Generator (14%)
 
 -   Penambahan fitur search :white_check_mark:
 -   Penambahan fitur sorting by klik header kolom
 -   Perbaikan interaksi ketika generate controller (Ketika model belum dimasukkan maka ada input untuk memasukkan nama model)
 -   Model generator harus dibuat sendiri (saat ini masih tergantung ke reliese/laravel)
 -   Ketika generate view data yang memiliki relasi maka dibuatkan juga view nya (form tabular pada create dan update, detail informasi relasi pada show). Tapi jadikan ini sebagai parameter ketika generate (Generate juga view dengan relasi? Y/N)
+-   Tambah CRUD untuk laporan dan rekap jadi dengan template yang sama dengan yang biasa dibuat (intinya ada filder dan ada tabel)
+-   kalo bisa ketika generate halaman index.php itu dari dalam variabel tau informasi tipe data kolom nya jadi bisa dibuat otomatis misal boolean/enum otomatis pakai pills dan pakai keterangan Aktif/Tidak, misal decimal otomatis pakai format number
