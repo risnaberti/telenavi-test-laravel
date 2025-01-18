@@ -1,4 +1,4 @@
-<x-layouts.app title="Tambah {{modelTitle}}" activeMenu="{{modelRoute}}.create" :withError="false">
+<x-layout.app title="Tambah {{modelTitle}}" activeMenu="{{modelRoute}}.create" :withError="false">
     <div class="container my-5">
         <x-breadcrumb title="Tambah {{modelTitle}}" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],

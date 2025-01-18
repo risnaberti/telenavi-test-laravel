@@ -1,4 +1,4 @@
-<x-layouts.app title="{{modelTitle}}" activeMenu="{{modelRoute}}" :withError="true">
+<x-layout.app title="{{modelTitle}}" activeMenu="{{modelRoute}}" :withError="true">
     <div class="my-5 container-fluid">
         <x-breadcrumb title="{{modelTitle}}" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],
@@ -81,4 +81,4 @@
             </div>
         </div>
     </div>
-</x-layouts.app>
+</x-layout.app>

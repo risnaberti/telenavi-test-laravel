@@ -1,4 +1,4 @@
-<x-layouts.app title="Perbarui {{modelTitle}}" activeMenu="{{modelRoute}}.edit" :withError="false">
+<x-layout.app title="Perbarui {{modelTitle}}" activeMenu="{{modelRoute}}.edit" :withError="false">
     <div class="container my-5">
         <x-breadcrumb title="Perbarui {{modelTitle}}" :breadcrumbs="[
             ['label' => 'Dashboard', 'url' => url('/')],
