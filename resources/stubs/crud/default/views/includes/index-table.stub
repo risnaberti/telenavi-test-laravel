@@ -37,7 +37,7 @@
                             @endcan
                             @can('{{modelRoute}} delete')
                                 <form action="{{ route('{{modelRoute}}.destroy', $row) }}"
-                                    method="POST" class="d-inline"
+                                    method="POST" class="d-inline">
                                     @csrf
                                     @method('DELETE')
                                     <x-input.confirm-button text="Data {{modelTitleLower}} ini akan dihapus!"

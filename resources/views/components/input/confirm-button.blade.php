@@ -28,30 +28,34 @@ contoh penggunaan:
 
 @pushOnce('script')
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
-            document.querySelectorAll('.confirm-button').forEach(button => {
-                button.addEventListener('click', function(event) {
-                    event.preventDefault();
-                    Swal.fire({
-                        title: this.getAttribute('data-title'),
-                        text: this.getAttribute('data-text'),
-                        icon: this.getAttribute('data-icon'),
-                        showCancelButton: true,
-                        confirmButtonColor: '#d33',
-                        cancelButtonColor: '#3085d6',
-                        confirmButtonText: this.getAttribute('data-positive'),
-                        cancelButtonText: this.getAttribute('data-negative')
-                    }).then((result) => {
-                        if (result.isConfirmed) {
-                            if (this.getAttribute('data-url')) {
-                                window.location.href = this.getAttribute('data-url');
-                            } else {
-                                this.closest('form').submit();
-                            }
-                        }
-                    });
-                });
+        function handleConfirmAction(button) {
+            Swal.fire({
+                title: button.getAttribute('data-title'),
+                text: button.getAttribute('data-text'),
+                icon: button.getAttribute('data-icon'),
+                showCancelButton: true,
+                confirmButtonColor: '#d33',
+                cancelButtonColor: '#3085d6',
+                confirmButtonText: button.getAttribute('data-positive'),
+                cancelButtonText: button.getAttribute('data-negative')
+            }).then((result) => {
+                if (result.isConfirmed) {
+                    if (button.getAttribute('data-url')) {
+                        window.location.href = button.getAttribute('data-url');
+                    } else {
+                        button.closest('form').submit();
+                    }
+                }
             });
+        }
+
+        // Event delegation pada document level
+        document.addEventListener('click', function(event) {
+            const button = event.target.closest('.confirm-button');
+            if (button) {
+                event.preventDefault();
+                handleConfirmAction(button);
+            }
         });
     </script>
 @endPushOnce
