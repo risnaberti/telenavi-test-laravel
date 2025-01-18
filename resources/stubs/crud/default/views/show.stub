@@ -32,7 +32,7 @@
                                 @csrf @method('DELETE')
                                 <x-input.confirm-button text="Data {{modelTitleLower}} ini akan dihapus!"
                                     positive="Ya, hapus!" icon="info"
-                                    class="btn btn-icon btn-outline-danger btn-sm"
+                                    class="btn btn-danger btn-sm"
                                     data-bs-toggle="tooltip"
                                     data-bs-title="Hapus"
                                     data-bs-placement="top">

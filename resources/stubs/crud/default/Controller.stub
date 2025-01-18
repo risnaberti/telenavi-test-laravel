@@ -68,7 +68,8 @@ class {{modelName}}Controller extends Controller implements HasMiddleware
         try {
             {{modelName}}::create($validatedData);
         } catch (\Illuminate\Database\QueryException $e) {
-            return redirect()->route('{{modelRoute}}.index')
+            return redirect()->back()
+                ->withInput($request->all())
                 ->with('error', 'Terjadi kesalahan saat membuat data.');
         }
 
@@ -96,10 +97,12 @@ class {{modelName}}Controller extends Controller implements HasMiddleware
             ${{modelVariable}}->update($validatedData);
         } catch (\Illuminate\Database\QueryException $e) {
             if ($e->getCode() == '23000') {
-                return redirect()->route('{{modelRoute}}.index')
+                return redirect()->back()
+                    ->withInput($request->all())
                     ->with('error', 'Data {{modelTitleLower}} ini sudah digunakan dan tidak dapat diperbarui.');
             }
-            return redirect()->route('{{modelRoute}}.index')
+            return redirect()->back()
+                ->withInput($request->all())
                 ->with('error', 'Terjadi kesalahan saat memperbarui data.');
         }
 
