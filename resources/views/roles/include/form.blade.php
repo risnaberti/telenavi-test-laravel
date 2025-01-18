@@ -63,14 +63,22 @@
 
                         <div class="mt-2">
                             @foreach ($permission['access'] as $access)
-                                <div class="form-check">
-                                    <input class="form-check-input" type="checkbox" id="{{ str()->slug($access) }}"
-                                        name="permissions[]" value="{{ $access }}"
-                                        {{ isset($role) && $role->hasPermissionTo($access) ? 'checked' : '' }} />
-                                    <label class="form-check-label" for="{{ str()->slug($access) }}">
-                                        {{ $access }}
-                                    </label>
-                                </div>
+                                @if (in_array($access, $existingPermissions))
+                                    <div class="form-check">
+                                        <input class="form-check-input" type="checkbox" id="{{ str()->slug($access) }}"
+                                            name="permissions[]" value="{{ $access }}"
+                                            {{ isset($role) && $role->hasPermissionTo($access) ? 'checked' : '' }} />
+                                        <label class="form-check-label" for="{{ str()->slug($access) }}">
+                                            {{ $access }}
+                                        </label>
+                                    </div>
+                                @else
+                                    <div class="form-check">
+                                        <label class="form-check-label text-danger">
+                                            Permission "{{ $access }}" tidak ditemukan di database.
+                                        </label>
+                                    </div>
+                                @endif
                             @endforeach
                         </div>
                     </div>
