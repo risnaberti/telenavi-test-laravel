@@ -1,5 +1,5 @@
 <div class="table-responsive" >
-    <table class="table table-striped" id="data-table">
+    <table class="table table-striped" id="data-table" style="height: 100px;">
         <thead>
             <tr>
                 <th>No</th>
