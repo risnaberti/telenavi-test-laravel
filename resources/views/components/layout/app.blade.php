@@ -50,7 +50,7 @@
     <div class="layout-wrapper layout-content-navbar layout-without-menux">
         <div class="layout-container">
             <!-- Toast default -->
-            @if ($withError)
+            @if (isset($withError) ? $withError : false)
                 <x-bs-toast />
             @endif
 
