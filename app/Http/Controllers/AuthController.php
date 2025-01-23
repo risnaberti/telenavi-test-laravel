@@ -10,6 +10,8 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Log;
 use Illuminate\Validation\ValidationException;
 use Jenssegers\Agent\Agent;
+use Illuminate\Support\Facades\RateLimiter;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -20,6 +22,23 @@ class AuthController extends Controller
 
     public function doLogin(Request $request)
     {
+        $key = Str::lower($request->email) . $request->ip();
+
+        $reachLimit = RateLimiter::attempt($key, 3, function () {
+            // jika limit terpenuhi maka return nya adalah ini
+            return true;
+        }, 60);
+
+        if (!$reachLimit) {
+            $seconds = RateLimiter::availableIn($key);
+
+            return back()->withErrors([
+                'email' => trans('auth.throttle', [
+                    'seconds' => $seconds,
+                ])
+            ]);
+        }
+
         $credentials = $request->validate([
             'username' => 'required',
             'password' => 'required'
@@ -30,7 +49,7 @@ class AuthController extends Controller
         // Cek apakah user ada berdasarkan username
         $user = User::where('username', $request->username)->first();
 
-        // Mencoba login
+        // Coba login
         if (Auth::attempt($credentials, $request->boolean('remember'))) {
             $request->session()->regenerate();
 
@@ -81,7 +100,7 @@ class AuthController extends Controller
         ]);
 
         return back()->withErrors([
-            'username' => 'Username atau password salah',
+            'username' => trans('auth.login.failed'),
         ])->withInput($request->only('username', 'password'));
     }
 
