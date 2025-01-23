@@ -22,7 +22,7 @@ class AuthController extends Controller
 
     public function doLogin(Request $request)
     {
-        $key = Str::lower($request->email) . $request->ip();
+        $key = Str::lower($request->username) . $request->ip();
 
         $reachLimit = RateLimiter::attempt($key, 5, function () {
             // jika limit terpenuhi maka return nya adalah ini
