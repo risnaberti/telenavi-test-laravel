@@ -24,7 +24,7 @@ class AuthController extends Controller
     {
         $key = Str::lower($request->email) . $request->ip();
 
-        $reachLimit = RateLimiter::attempt($key, 3, function () {
+        $reachLimit = RateLimiter::attempt($key, 5, function () {
             // jika limit terpenuhi maka return nya adalah ini
             return true;
         }, 60);
@@ -33,7 +33,7 @@ class AuthController extends Controller
             $seconds = RateLimiter::availableIn($key);
 
             return back()->withErrors([
-                'email' => trans('auth.throttle', [
+                'username' => trans('auth.throttle', [
                     'seconds' => $seconds,
                 ])
             ]);
@@ -46,7 +46,7 @@ class AuthController extends Controller
 
         $agent = new Agent();
 
-        // Cek apakah user ada berdasarkan username
+        // Ambil informasi user
         $user = User::where('username', $request->username)->first();
 
         // Coba login
