@@ -17,10 +17,10 @@ Route::middleware('auth')->group(function () {
     Route::post('/logout', [AuthController::class, 'logout'])->name('logout');
 
     Route::get('/profile', [AuthController::class, 'profile'])->name('profile');
-    Route::post('/profile', [AuthController::class, 'updateProfile']);
+    Route::put('/profile', [AuthController::class, 'updateProfile']);
 
     Route::get('/change-password', [AuthController::class, 'changePassword'])->name('change-password');
-    Route::post('/change-password', [AuthController::class, 'doChangePassword']);
+    Route::put('/change-password', [AuthController::class, 'doChangePassword']);
 
     // user manajemen
     Route::get('/permissions/refresh', [RoleAndPermissionController::class, 'refreshPermission'])->name('permissions.refresh');

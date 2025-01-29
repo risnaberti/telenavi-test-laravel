@@ -6,7 +6,7 @@
 
         <div class="card">
             <div class="card-body">
-                <form action="{{ route('change-password') }}" method="POST" role="form">
+                <form action="{{ route('profile') }}" method="POST" role="form">
                     @csrf
                     @method('PUT')
 

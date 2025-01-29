@@ -8,6 +8,8 @@
             <div class="card-body">
                 <form action="{{ route('change-password') }}" method="POST" role="form">
                     @csrf
+                    @method('PUT')
+
                     <div class="mb-3">
                         <label for="current_password" class="form-label">Old Password</label>
                         <input type="password" class="form-control @error('current_password') is-invalid @enderror"
