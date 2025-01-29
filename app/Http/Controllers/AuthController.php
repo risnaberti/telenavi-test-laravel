@@ -112,11 +112,6 @@ class AuthController extends Controller
     // Proses Registrasi
     public function doRegister(Request $request)
     {
-
-        // echo '<pre>';
-        // print_r($request->all());
-        // echo '</pre>';
-        // die;
         // 'email' => 'required|string|email|max:255|unique:users',
         $validatedData = $request->validate([
             'name' => 'required|string|max:255',
@@ -154,8 +149,6 @@ class AuthController extends Controller
     // Halaman Ubah Password
     public function changePassword()
     {
-        return redirect()->back()->with('error', 'Menu tidak bisa diakses');
-
         return view('auth.change-password');
     }
 
@@ -164,14 +157,14 @@ class AuthController extends Controller
     {
         $request->validate([
             'current_password' => 'required',
-            'password' => 'required|min:8|confirmed'
+            'password' => 'required|min:6|confirmed'
         ]);
 
         $user = Auth::user();
 
         if (!Hash::check($request->current_password, $user->password)) {
             throw ValidationException::withMessages([
-                'current_password' => ['Password saat ini salah']
+                'current_password' => ['Password lama tidak sesuai.']
             ]);
         }
 
@@ -179,14 +172,12 @@ class AuthController extends Controller
             'password' => Hash::make($request->password)
         ]);
 
-        return back()->with('status', 'Password berhasil diubah');
+        return back()->with('success', 'Password berhasil diubah');
     }
 
     public function profile(Request $request)
     {
-        return redirect()->back()->with('error', 'Menu tidak bisa diakses');
-
-        return view('profile', [
+        return view('auth.profile', [
             'user' => $request->user()
         ]);
     }
@@ -197,14 +188,15 @@ class AuthController extends Controller
 
         $request->validate([
             'name' => 'required|string|max:255',
-            'email' => 'required|email|unique:users,email,' . $user->id
+            // 'email' => 'required|email|unique:users,email,' . $user->id
+            'username' => 'required|username|unique:users,username,' . $user->id
         ]);
 
         $user->update([
             'name' => $request->name,
-            'email' => $request->email
+            'username' => $request->username
         ]);
 
-        return back()->with('status', 'Profil berhasil diperbarui');
+        return back()->with('success', 'Profil berhasil diperbarui');
     }
 }
