@@ -53,7 +53,7 @@ class GenerateView
     public function generateViews($modelVariables)
     {
         $stubViewsPath = $this->stubPath . '/views';
-        $viewDir = resource_path("views/" . $modelVariables['modelRoute']);
+        $viewDir = resource_path("views/Backend/" . $modelVariables['modelRoute']);
 
         // Ambil semua stub files untuk proses selanjutnya
         $allStubFiles = File::allFiles($stubViewsPath);

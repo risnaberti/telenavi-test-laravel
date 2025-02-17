@@ -89,7 +89,7 @@ class CrudGenerator extends Command
             }
         }
 
-        $controllerPath = app_path("Http/Controllers/{$modelVariables['modelName']}Controller.php");
+        $controllerPath = app_path("Http/Controllers/Backend/{$modelVariables['modelName']}Controller.php");
 
         if (File::exists($controllerPath)) {
             if (!$this->confirm("File sudah ada di {$controllerPath}. Apakah Anda ingin menggantinya?")) {

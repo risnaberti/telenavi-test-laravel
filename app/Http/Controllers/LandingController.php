@@ -9,9 +9,6 @@ class LandingController extends Controller
 {
     public function index()
     {
-        $pendaftaranTryout = new PendaftaranTryout();
-        $pendaftaranTryout->tanggal_lahir = now()->subYears(11); // kira2 tahun lahir anak
-
-        return view('landing.index', compact('pendaftaranTryout'));
+        return view('landing.index');
     }
 }
