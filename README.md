@@ -1,37 +1,50 @@
-# Project Plan
+# Telenavi Test - Laravel Todo API
 
-Berikut adalah rencana fitur dan perbaikan yang akan dilakukan:
+This is a recruitment technical test project for Telenavi, built with Laravel.  
+It provides APIs for creating, exporting, and summarizing a Todo List with chart-ready data.
 
-## 1. Menu Profile (0%)
+## 🔧 Features
 
--   Menambahkan menu profil pengguna untuk memungkinkan pengguna melihat dan mengedit informasi profil mereka.
+- ✅ Create Todo List (POST /api/todo)
+- 📤 Export Todo List to Excel (GET /api/todo/export)
+- 📊 Chart Summary Data:
+  - Status Summary (GET /api/chart?type=status)
+  - Priority Summary (GET /api/chart?type=priority)
+  - Assignee Summary (GET /api/chart?type=assignee)
 
-## 2. Change Password (0%)
+## 🚀 Getting Started
 
--   Menambahkan fitur untuk memungkinkan pengguna mengubah kata sandi mereka melalui pengaturan profil.
+### 1. Clone this Repository
+git clone https://github.com/risnaberti/telenavi-test-laravel.git
+cd telenavi-test-laravel
 
-## 3. Fitur User Visit Log (66%)
+### 2. Install Dependencies
+composer install
+cp .env.example .env
+php artisan key:generate
 
--   Menambahkan pencatatan untuk setiap pengguna yang login. :white_check_mark:
--   Melakukan migrasi tabel `users_login_logs` untuk mencatat waktu dan detail login pengguna. :white_check_mark:
--   Menambahkan menu untuk menampilkan log user login.
+### 3. Configure Database
+Edit file .env:
+DB_DATABASE=your_database
+DB_USERNAME=your_username
+DB_PASSWORD=your_password
 
-## 4. Sidebar Desktop (0%)
+### 4. Run Migration
+php artisan migrate
 
--   Memperbaiki fungsi untuk menutup sidebar pada mode desktop yang belum berjalan dengan baik.
--   Setelah sidebar ditutup, hanya ikon yang akan tampil (mengikuti desain seperti AdminLTE 3).
+### 5. Start Local Server
+php artisan serve
 
-## 5. Alternatif SweetAlert2 (0%)
+Visit: http://localhost:8000
 
--   Mencari dan mengganti penggunaan SweetAlert2 dengan alternatif yang lebih modern dan up-to-date, karena SweetAlert2 mulai terasa kuno.
+## 📦 Postman Collection
 
-## 6. Modifikasi CRUD Generator (10%)
+Use the included Postman collection (or create one manually) to test:
 
--   Penambahan fitur search :white_check_mark:
--   Penambahan fitur sorting by klik header kolom
--   Perbaikan interaksi ketika generate controller (Ketika model belum dimasukkan maka ada input untuk memasukkan nama model)
--   Model generator harus dibuat sendiri (saat ini masih tergantung ke reliese/laravel)
--   Ketika generate view data yang memiliki relasi maka dibuatkan juga view nya (form tabular pada create dan update, detail informasi relasi pada show). Tapi jadikan ini sebagai parameter ketika generate (Generate juga view dengan relasi? Y/N)
--   Tambah CRUD untuk laporan dan rekap jadi dengan template yang sama dengan yang biasa dibuat (intinya ada filder dan ada tabel)
--   kalo bisa ketika generate halaman index.php itu dari dalam variabel tau informasi tipe data kolom nya jadi bisa dibuat otomatis misal boolean/enum otomatis pakai pills dan pakai keterangan Aktif/Tidak, misal decimal otomatis pakai format number
--   Ketika generate crud bisa nambahin parameter nama controller, supaya nama controller bisa beda dengan nama tabel
+- POST /api/todo – create todo
+- GET /api/todo/export – export Excel
+- GET /api/chart?type=status|priority|assignee – summary data
+
+---
+
+Developed for recruitment test by [@risnaberti](https://github.com/risnaberti).
