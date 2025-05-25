@@ -1,7 +1,7 @@
 <?php
 
 use App\Http\Controllers\LandingController;
-use App\Http\Controllers\PendaftaranTryoutController;
+use App\Http\Controllers\TodoController;
 use Illuminate\Support\Facades\Route;
 
 require('auth.php');
@@ -21,3 +21,5 @@ Route::middleware('auth')->group(function () {
         return view('dashboard');
     })->name('dashboard');
 });
+
+Route::resource('todo', TodoController::class);
